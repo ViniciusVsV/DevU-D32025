@@ -1000,7 +1000,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1369,7 +1369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 974914355}
   m_Layer: 0
-  m_Name: \----- Audio Section -----/
+  m_Name: '||===== Audio Section =====||'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2021,7 +2021,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1326299316}
   m_Layer: 0
-  m_Name: \----- UI -----/
+  m_Name: '||===== UI =====||'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2358,7 +2358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1649950312}
   m_Layer: 0
-  m_Name: \----- Cameras -----/
+  m_Name: '||===== Cameras =====||'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
