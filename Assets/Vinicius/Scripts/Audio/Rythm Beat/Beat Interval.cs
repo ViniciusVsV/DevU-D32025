@@ -1,17 +1,17 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 [System.Serializable]
 public class BeatInterval
 {
-    [SerializeField] private UnityEvent beatHappened;
+    [SerializeField] private GameObject[] syncedObjects;
+    private IRythmSyncable rythmSyncable;
 
-    [SerializeField] private float numberBeats;
+    [SerializeField] private float noteLength;
     private float lastInterval;
 
     public float GetBeatLength(float bpm)
     {
-        return 60f / (bpm * numberBeats);
+        return 60f / (bpm * noteLength);
     }
 
     public void CheckInterval(float interval)
@@ -20,7 +20,11 @@ public class BeatInterval
         {
             lastInterval = Mathf.FloorToInt(interval);
 
-            beatHappened.Invoke();
+            foreach (var syncedObject in syncedObjects)
+            {
+                rythmSyncable = syncedObject.GetComponent<IRythmSyncable>();
+                rythmSyncable?.RespondToBeat();
+            }
         }
     }
 }

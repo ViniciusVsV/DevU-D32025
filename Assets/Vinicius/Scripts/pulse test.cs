@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class pulsetest : MonoBehaviour
+public class pulsetest : MonoBehaviour, IRythmSyncable
 {
     [SerializeField] private float pulseSize = 1.15f;
     [SerializeField] private float returnSpeed = 5f;
@@ -16,7 +16,7 @@ public class pulsetest : MonoBehaviour
         transform.localScale = Vector3.Lerp(transform.localScale, startSize, Time.deltaTime * returnSpeed);
     }
 
-    public void Pulse()
+    public void RespondToBeat()
     {
         transform.localScale = startSize * pulseSize;
     }
