@@ -4,7 +4,7 @@ public class Run : BaseState
 {
     [SerializeField] private AnimationClip animationClip;
 
-    [Header("----- Parameters -----")]
+    [Header("||===== Parameters =====||")]
     [SerializeField] private float moveSpeed;
     private int direction;
 

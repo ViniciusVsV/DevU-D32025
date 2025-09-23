@@ -5,11 +5,11 @@ public class Jump : BaseState
 {
     [SerializeField] private AnimationClip animationClip;
 
-    [Header("----- Parameters -----")]
+    [Header("||===== Parameters =====||")]
     [SerializeField] private float jumpForce;
     [SerializeField] private float jumpCutMultiplier;
 
-    [Header("----- Horizontal Movement -----")]
+    [Header("||===== Horizontal Movement -----||")]
     [SerializeField] private float moveSpeed;
     private int direction;
 

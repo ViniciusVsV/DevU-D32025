@@ -5,11 +5,11 @@ public class Fall : BaseState
 {
     [SerializeField] private AnimationClip animationClip;
 
-    [Header("----- Parameters -----")]
+    [Header("||===== Parameters =====||")]
     [SerializeField] private float newGravityScale;
     private float baseGravityScale;
 
-    [Header("----- Horizontal Movement -----")]
+    [Header("||===== Horizontal Movement -----||")]
     [SerializeField] private float moveSpeed;
     private int direction;
 

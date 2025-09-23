@@ -4,7 +4,7 @@ public class Crouch : BaseState
 {
     [SerializeField] private AnimationClip animationClip;
 
-    [Header("----- Horizontal Movement -----")]
+    [Header("||===== Horizontal Movement -----||")]
     [SerializeField] private float moveSpeed;
     private int direction;
 
