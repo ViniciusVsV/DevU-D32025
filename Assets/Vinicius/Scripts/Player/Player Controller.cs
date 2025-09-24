@@ -15,14 +15,16 @@ public class PlayerController : BaseController
     [SerializeField] private Dash dashState;
     [SerializeField] private Crouch crouchState;
     [SerializeField] private Knockback knockbackState;
+    [SerializeField] private WallSlide wallSlideState;
+    [SerializeField] private WallJump wallJumpState;
 
     [Header("||===== Jump Parameters =====||")]
+    [SerializeField] private int extraJumps;
+    private int remainingExtraJumps;
+
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private Vector2 groundCheckSize;
     [SerializeField] private LayerMask groundLayer;
-
-    [SerializeField] private float jumpBufferDuration;
-    private float jumpBufferTimer;
 
     [SerializeField] private float coyoteDuration;
     private float coyoteTimer;
@@ -35,6 +37,11 @@ public class PlayerController : BaseController
     [SerializeField] private float doubleCrouchThreshold;
     private float doubleCrouchTimer;
 
+    [Header("||===== Wall Slide Parameter =====||")]
+    [SerializeField] private Transform wallCheckPoint;
+    [SerializeField] private Vector2 wallCheckSize;
+    [SerializeField] private LayerMask wallLayer;
+
     [Header("||===== Booleans =====||")]
     public bool jumpPressed;
     public bool dashPressed;
@@ -42,6 +49,7 @@ public class PlayerController : BaseController
 
     public bool isFacingRight;
     public bool isGrounded;
+    public bool isWalled;
     public bool isCrouching;
 
     protected override void Awake()
@@ -55,8 +63,12 @@ public class PlayerController : BaseController
         dashState.Setup(rb, transform, animator, spriteRenderer, this);
         crouchState.Setup(rb, transform, animator, spriteRenderer, this);
         knockbackState.Setup(rb, transform, animator, spriteRenderer, this);
+        wallSlideState.Setup(rb, transform, animator, spriteRenderer, this);
+        wallJumpState.Setup(rb, transform, animator, spriteRenderer, this);
 
         SetIdle();
+
+        remainingExtraJumps = extraJumps;
 
         isFacingRight = true;
     }
@@ -66,10 +78,16 @@ public class PlayerController : BaseController
         base.Update();
 
         isGrounded = Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
-        coyoteTimer = isGrounded ? coyoteDuration : coyoteTimer -= Time.deltaTime;
+        isWalled = Physics2D.OverlapBox(wallCheckPoint.position, wallCheckSize, 0, wallLayer) && !isGrounded;
 
-        if (jumpBufferTimer > Mathf.Epsilon)
-            jumpBufferTimer -= Time.deltaTime;
+        if (isGrounded)
+        {
+            coyoteTimer = coyoteDuration;
+            remainingExtraJumps = extraJumps;
+        }
+        else
+            coyoteTimer -= Time.deltaTime;
+
         if (dashCooldownTimer > Mathf.Epsilon)
             dashCooldownTimer -= Time.deltaTime;
         if (doubleCrouchTimer > Mathf.Epsilon)
@@ -97,16 +115,22 @@ public class PlayerController : BaseController
     public void JumpInput(InputAction.CallbackContext context)
     {
         if (context.performed)
-            jumpBufferTimer = jumpBufferDuration;
+        {
+            if (coyoteTimer > Mathf.Epsilon || isWalled)
+                jumpPressed = true;
+
+            else if (remainingExtraJumps > 0)
+            {
+                remainingExtraJumps--;
+                jumpPressed = true;
+            }
+        }
 
         else if (context.canceled && stateMachine.currentState == jumpState)
         {
             jumpState.JumpCut();
             return;
         }
-
-        if (coyoteTimer > Mathf.Epsilon && jumpBufferTimer > Mathf.Epsilon)
-            jumpPressed = true;
     }
 
     public void DashInput(InputAction.CallbackContext context)
@@ -141,8 +165,8 @@ public class PlayerController : BaseController
     public void SetDash() => SetNewState(dashState);
     public void SetCrouch() => SetNewState(crouchState);
     public void SetKnockback() => SetNewState(knockbackState);
-
-    private void SetNewState(BaseState newState) { stateMachine.SetState(newState); }
+    public void SetWallSlide() => SetNewState(wallSlideState);
+    public void SetWallJump() => SetNewState(wallJumpState);
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -179,5 +203,14 @@ public class PlayerController : BaseController
     protected override void Die()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(groundCheckPoint.position, groundCheckSize);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(wallCheckPoint.position, wallCheckSize);
     }
 }

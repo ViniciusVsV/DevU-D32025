@@ -45,6 +45,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
+--- !u!1 &1094989217078055233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3321348426225314233}
+  m_Layer: 3
+  m_Name: Wall Check Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3321348426225314233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094989217078055233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8112333529367627062}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1269349651889531781
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,8 +112,57 @@ Transform:
   - {fileID: 8572443844883910311}
   - {fileID: 6674507311150284691}
   - {fileID: 8721909803678594200}
+  - {fileID: 8112333529367627062}
+  - {fileID: 5345929737021164955}
   m_Father: {fileID: 8320138032106008733}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1772830211385154632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8112333529367627062}
+  - component: {fileID: 7493888712268511167}
+  m_Layer: 3
+  m_Name: Wall Slide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8112333529367627062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772830211385154632}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3321348426225314233}
+  m_Father: {fileID: 7891327677703865395}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7493888712268511167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772830211385154632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f06da3efc15e53f4cb051c5ba724a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationClip: {fileID: 0}
+  wallSlideSpeed: 1
 --- !u!1 &2933064421408746709
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
-  newGravityScale: 5
+  newGravityScale: 6
   moveSpeed: 5
 --- !u!1 &3261808044651178351
 GameObject:
@@ -221,8 +301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
-  dashSpeed: 10
-  dashDuration: 0.3
+  dashSpeed: 15
+  dashDuration: 0.2
 --- !u!1 &3630620789058827432
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
-  jumpForce: 15
+  jumpForce: 12
   jumpCutMultiplier: 0.5
   moveSpeed: 5
 --- !u!1 &3848530924778492027
@@ -333,20 +413,28 @@ MonoBehaviour:
   dashState: {fileID: 8750890815609731796}
   crouchState: {fileID: 5879459148277901037}
   knockbackState: {fileID: 7610739371026184854}
+  wallSlideState: {fileID: 7493888712268511167}
+  wallJumpState: {fileID: 1013335462071673177}
+  extraJumps: 1
   groundCheckPoint: {fileID: 8393047217081871136}
   groundCheckSize: {x: 0.8, y: 0.1}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  jumpBufferDuration: 0.1
   coyoteDuration: 0.2
-  dashCooldown: 1
+  dashCooldown: 2
   doubleCrouchThreshold: 0.2
+  wallCheckPoint: {fileID: 3321348426225314233}
+  wallCheckSize: {x: 0.1, y: 0.8}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
   jumpPressed: 0
   dashPressed: 0
   tookKnockback: 0
   isFacingRight: 0
   isGrounded: 0
+  isWalled: 0
   isCrouching: 0
 --- !u!50 &3986714638203922167
 Rigidbody2D:
@@ -807,3 +895,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
+--- !u!1 &9091991793407451328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5345929737021164955}
+  - component: {fileID: 1013335462071673177}
+  m_Layer: 3
+  m_Name: Wall Jump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5345929737021164955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091991793407451328}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7891327677703865395}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1013335462071673177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091991793407451328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3005bb6095902054b81ab4ca536660d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationClip: {fileID: 0}
+  baseWallJumpForce: {x: 3, y: 10}

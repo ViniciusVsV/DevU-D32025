@@ -39,6 +39,8 @@ public class BaseController : MonoBehaviour, IDamageable
         stateMachine.currentState.StateFixedUpdate();
     }
 
+    protected void SetNewState(BaseState newState) { stateMachine.SetState(newState); }
+
     public virtual void TakeDamage(int damage, Vector2 direction) { }
 
     protected virtual void Die() { }

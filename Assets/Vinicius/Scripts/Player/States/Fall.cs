@@ -27,8 +27,12 @@ public class Fall : BaseState
 
     public override void StateUpdate()
     {
+        // Transição para Jump
+        if (playerController.jumpPressed)
+            playerController.SetJump();
+
         // Transição para Dash
-        if (playerController.dashPressed)
+        else if (playerController.dashPressed)
             playerController.SetDash();
 
         // Transição para Knockback
@@ -38,6 +42,10 @@ public class Fall : BaseState
         // Transição para Idle
         else if (playerController.isGrounded)
             playerController.SetIdle();
+
+        //Transição para Wall Slide
+        else if (playerController.isWalled)
+            playerController.SetWallSlide();
     }
 
     public override void StateFixedUpdate()
