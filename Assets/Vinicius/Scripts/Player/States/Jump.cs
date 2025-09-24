@@ -25,8 +25,12 @@ public class Jump : BaseState
 
     public override void StateUpdate()
     {
+        // Transição para Jump
+        if (playerController.jumpPressed)
+            playerController.SetJump(true);
+
         // Transição para Dash
-        if (playerController.dashPressed)
+        else if (playerController.dashPressed)
             playerController.SetDash();
 
         // Transição para Knockback

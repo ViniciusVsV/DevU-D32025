@@ -39,7 +39,7 @@ public class BaseController : MonoBehaviour, IDamageable
         stateMachine.currentState.StateFixedUpdate();
     }
 
-    protected void SetNewState(BaseState newState) { stateMachine.SetState(newState); }
+    protected void SetNewState(BaseState newState, bool forced) { stateMachine.SetState(newState, forced); }
 
     public virtual void TakeDamage(int damage, Vector2 direction) { }
 
