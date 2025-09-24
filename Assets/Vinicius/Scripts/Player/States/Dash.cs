@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Dash : BaseState
 {
+    private PlayerController playerController => (PlayerController)controller;
+
     [SerializeField] private AnimationClip animationClip;
 
     [Header("----- Parameters -----")]
@@ -11,8 +13,6 @@ public class Dash : BaseState
     private float dashTimer;
     private int direction;
     private float baseGravityScale;
-
-    private PlayerController playerController => (PlayerController)controller;
 
     public override void StateEnter()
     {
@@ -38,11 +38,15 @@ public class Dash : BaseState
         {
             rb.gravityScale = baseGravityScale;
             rb.linearVelocity = Vector2.zero;
-
+            
+            // Transição para Idle
             if (playerController.isGrounded)
-                isComplete = true;
+                playerController.SetIdle();
+
+            // Transição para Fall
             else
-                playerController.Fall();
+                playerController.SetFall();
         }
+        
     }
 }

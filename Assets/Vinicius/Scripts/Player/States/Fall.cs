@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Fall : BaseState
 {
+    private PlayerController playerController => (PlayerController)controller;
+
     [SerializeField] private AnimationClip animationClip;
 
     [Header("||===== Parameters =====||")]
@@ -12,8 +14,6 @@ public class Fall : BaseState
     [Header("||===== Horizontal Movement -----||")]
     [SerializeField] private float moveSpeed;
     private int direction;
-
-    private PlayerController playerController => (PlayerController)controller;
 
     public override void StateEnter()
     {
@@ -27,8 +27,17 @@ public class Fall : BaseState
 
     public override void StateUpdate()
     {
-        if (playerController.isGrounded)
-            isComplete = true;
+        // Transição para Dash
+        if (playerController.dashPressed)
+            playerController.SetDash();
+
+        // Transição para Knockback
+        else if (playerController.tookKnockback)
+            playerController.SetKnockback();
+
+        // Transição para Idle
+        else if (playerController.isGrounded)
+            playerController.SetIdle();
     }
 
     public override void StateFixedUpdate()

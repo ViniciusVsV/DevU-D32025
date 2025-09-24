@@ -2,29 +2,34 @@ using UnityEngine;
 
 public class Crouch : BaseState
 {
-    [SerializeField] private AnimationClip animationClip;
-
-    [Header("||===== Horizontal Movement -----||")]
-    [SerializeField] private float moveSpeed;
-    private int direction;
-
     private PlayerController playerController => (PlayerController)controller;
+
+    [SerializeField] private AnimationClip animationClip;
 
     public override void StateEnter()
     {
+        rb.linearVelocityX = 0;
+
         //animator.Play(animationClip.name);
         spriteRenderer.color = Color.magenta;
-
-        isComplete = true;
     }
 
-    public override void StateFixedUpdate()
+    public override void StateUpdate()
     {
-        if (playerController.moveDirection.x > 0)
-            direction = 1;
-        else
-            direction = playerController.moveDirection.x < 0 ? -1 : 0;
+        // Transição para Dash
+        if (playerController.dashPressed)
+            playerController.SetDash();
 
-        rb.linearVelocityX = direction * moveSpeed;
+        // Transição para Knockback
+        else if (playerController.tookKnockback)
+            playerController.SetKnockback();
+
+        // Transição para Idle
+        else if (!playerController.isCrouching)
+            playerController.SetIdle();
+
+        // Transição para Fall
+        else if (rb.linearVelocityY < 0f)
+            playerController.SetFall();
     }
 }

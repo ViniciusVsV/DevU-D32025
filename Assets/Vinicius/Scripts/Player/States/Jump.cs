@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Jump : BaseState
 {
+    private PlayerController playerController => (PlayerController)controller;
+
     [SerializeField] private AnimationClip animationClip;
 
     [Header("||===== Parameters =====||")]
@@ -12,8 +14,6 @@ public class Jump : BaseState
     [Header("||===== Horizontal Movement -----||")]
     [SerializeField] private float moveSpeed;
     private int direction;
-
-    private PlayerController playerController => (PlayerController)controller;
 
     public override void StateEnter()
     {
@@ -25,12 +25,17 @@ public class Jump : BaseState
 
     public override void StateUpdate()
     {
-        if (rb.linearVelocityY < 0)
-        {
-            isComplete = true;
+        // Transição para Dash
+        if (playerController.dashPressed)
+            playerController.SetDash();
 
-            playerController.Fall();
-        }
+        // Transição para Knockback
+        else if (playerController.tookKnockback)
+            playerController.SetKnockback();
+
+        // Transição para Fall
+        if (rb.linearVelocityY < 0)
+            playerController.SetFall();
     }
 
     public override void StateFixedUpdate()

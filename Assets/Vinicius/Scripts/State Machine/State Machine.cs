@@ -2,7 +2,7 @@ public class StateMachine
 {
     public BaseState currentState;
 
-    public void Set(BaseState newState, bool forceReset = false)
+    public void SetState(BaseState newState, bool forceReset = false)
     {
         if (currentState != newState || forceReset)
         {
@@ -10,7 +10,6 @@ public class StateMachine
 
             currentState = newState;
 
-            currentState.Initialise();
             currentState.StateEnter();
         }
     }

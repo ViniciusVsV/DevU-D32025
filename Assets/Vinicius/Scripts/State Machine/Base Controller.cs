@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class BaseController : MonoBehaviour
+public class BaseController : MonoBehaviour, IDamageable
 {
     protected StateMachine stateMachine;
 
@@ -13,7 +13,9 @@ public class BaseController : MonoBehaviour
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
 
-    public bool isBusy;
+    [Header("||===== Health Parameters =====||")]
+    [SerializeField] protected int maxHealth;
+    protected int currentHealth;
 
     protected virtual void Awake()
     {
@@ -23,6 +25,8 @@ public class BaseController : MonoBehaviour
         col = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        currentHealth = maxHealth;
     }
 
     protected virtual void Update()
@@ -34,4 +38,8 @@ public class BaseController : MonoBehaviour
     {
         stateMachine.currentState.StateFixedUpdate();
     }
+
+    public virtual void TakeDamage(int damage, Vector2 direction) { }
+
+    protected virtual void Die() { }
 }

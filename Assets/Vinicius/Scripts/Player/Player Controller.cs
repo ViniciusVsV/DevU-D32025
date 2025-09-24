@@ -3,6 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : BaseController
 {
+    [HideInInspector] public Vector2 moveDirection;
+    [HideInInspector] public Vector2 knockbackDirection;
+    [HideInInspector] public OneWayPlatformBehaviour currentPlatformBehaviour;
+
     [Header("||===== States =====||")]
     [SerializeField] private Idle idleState;
     [SerializeField] private Run runState;
@@ -10,38 +14,35 @@ public class PlayerController : BaseController
     [SerializeField] private Fall fallState;
     [SerializeField] private Dash dashState;
     [SerializeField] private Crouch crouchState;
+    [SerializeField] private Knockback knockbackState;
 
     [Header("||===== Jump Parameters =====||")]
-    [Header("|=== Grounded Check ===|")]
     [SerializeField] private Transform groundCheckPoint;
     [SerializeField] private Vector2 groundCheckSize;
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("|=== Buffer ===|")]
     [SerializeField] private float jumpBufferDuration;
     private float jumpBufferTimer;
 
-    [Header("|=== Coyote Timer ===|")]
     [SerializeField] private float coyoteDuration;
     private float coyoteTimer;
 
     [Header("||===== Dash Parameters =====||")]
-    [Header("|=== Cooldown ===|")]
     [SerializeField] private float dashCooldown;
     private float dashCooldownTimer;
 
     [Header("||===== Crouch Parameters =====||")]
-    [Header("|=== One Way Platform ===|")]
     [SerializeField] private float doubleCrouchThreshold;
     private float doubleCrouchTimer;
-    private OneWayPlatformBehaviour currentPlatformBehaviour;
 
     [Header("||===== Booleans =====||")]
+    public bool jumpPressed;
+    public bool dashPressed;
+    public bool tookKnockback;
+
     public bool isFacingRight;
     public bool isGrounded;
     public bool isCrouching;
-
-    [HideInInspector] public Vector2 moveDirection;
 
     protected override void Awake()
     {
@@ -53,8 +54,9 @@ public class PlayerController : BaseController
         fallState.Setup(rb, transform, animator, spriteRenderer, this);
         dashState.Setup(rb, transform, animator, spriteRenderer, this);
         crouchState.Setup(rb, transform, animator, spriteRenderer, this);
+        knockbackState.Setup(rb, transform, animator, spriteRenderer, this);
 
-        stateMachine.Set(idleState);
+        SetIdle();
 
         isFacingRight = true;
     }
@@ -62,24 +64,6 @@ public class PlayerController : BaseController
     protected override void Update()
     {
         base.Update();
-
-        if (stateMachine.currentState.isComplete == true)
-        {
-            if (rb.linearVelocityY < 0)
-                stateMachine.Set(fallState);
-
-            else
-            {
-                if (isCrouching)
-                    stateMachine.Set(crouchState);
-
-                else if (moveDirection.x != 0)
-                    stateMachine.Set(runState);
-
-                else
-                    stateMachine.Set(idleState);
-            }
-        }
 
         isGrounded = Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
         coyoteTimer = isGrounded ? coyoteDuration : coyoteTimer -= Time.deltaTime;
@@ -90,9 +74,13 @@ public class PlayerController : BaseController
             dashCooldownTimer -= Time.deltaTime;
         if (doubleCrouchTimer > Mathf.Epsilon)
             doubleCrouchTimer -= Time.deltaTime;
+
+        jumpPressed = false;
+        dashPressed = false;
+        tookKnockback = false;
     }
 
-    public void Run(InputAction.CallbackContext context)
+    public void RunInput(InputAction.CallbackContext context)
     {
         moveDirection = context.ReadValue<Vector2>();
 
@@ -106,7 +94,7 @@ public class PlayerController : BaseController
         }
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    public void JumpInput(InputAction.CallbackContext context)
     {
         if (context.performed)
             jumpBufferTimer = jumpBufferDuration;
@@ -117,21 +105,21 @@ public class PlayerController : BaseController
             return;
         }
 
-        if (stateMachine.currentState.isComplete && coyoteTimer > Mathf.Epsilon && jumpBufferTimer > Mathf.Epsilon)
-            stateMachine.Set(jumpState);
+        if (coyoteTimer > Mathf.Epsilon && jumpBufferTimer > Mathf.Epsilon)
+            jumpPressed = true;
     }
 
-    public void Dash(InputAction.CallbackContext context)
+    public void DashInput(InputAction.CallbackContext context)
     {
         if (context.performed && dashCooldownTimer <= Mathf.Epsilon)
         {
-            dashCooldownTimer = dashCooldown;
+            dashPressed = true;
 
-            stateMachine.Set(dashState);
+            dashCooldownTimer = dashCooldown;
         }
     }
 
-    public void Crouch(InputAction.CallbackContext context)
+    public void CrouchInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -146,10 +134,15 @@ public class PlayerController : BaseController
             isCrouching = false;
     }
 
-    public void Fall()
-    {
-        stateMachine.Set(fallState);
-    }
+    public void SetIdle() => SetNewState(idleState);
+    public void SetRun() => SetNewState(runState);
+    public void SetJump() => SetNewState(jumpState);
+    public void SetFall() => SetNewState(fallState);
+    public void SetDash() => SetNewState(dashState);
+    public void SetCrouch() => SetNewState(crouchState);
+    public void SetKnockback() => SetNewState(knockbackState);
+
+    private void SetNewState(BaseState newState) { stateMachine.SetState(newState); }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -163,9 +156,28 @@ public class PlayerController : BaseController
             currentPlatformBehaviour = null;
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawCube(groundCheckPoint.position, groundCheckSize);
+        if (other.CompareTag("Killbox") || other.CompareTag("Obstacle"))
+            TakeDamage(1, new Vector2(-1f, 1f));
+    }
+
+    public override void TakeDamage(int damage, Vector2 direction)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+            Die();
+        else
+        {
+            knockbackDirection = direction;
+
+            tookKnockback = true;
+        }
+    }
+
+    protected override void Die()
+    {
+        Destroy(gameObject);
     }
 }
