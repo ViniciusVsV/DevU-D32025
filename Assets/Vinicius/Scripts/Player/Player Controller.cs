@@ -5,7 +5,7 @@ public class PlayerController : BaseController
 {
     [HideInInspector] public Vector2 moveDirection;
     [HideInInspector] public Vector2 knockbackDirection;
-    [HideInInspector] public OneWayPlatformBehaviour currentPlatformBehaviour;
+    public OneWayPlatformBehaviour currentPlatformBehaviour;
 
     [Header("||===== States =====||")]
     [SerializeField] private Idle idleState;
@@ -37,10 +37,13 @@ public class PlayerController : BaseController
     [SerializeField] private float doubleCrouchThreshold;
     private float doubleCrouchTimer;
 
-    [Header("||===== Wall Slide Parameter =====||")]
+    [Header("||===== Wall Slide/Jump Parameter =====||")]
     [SerializeField] private Transform wallCheckPoint;
     [SerializeField] private Vector2 wallCheckSize;
     [SerializeField] private LayerMask wallLayer;
+
+    [SerializeField] private float wallCoyoteDuraion;
+    private float wallCoyoteTimer;
 
     [Header("||===== Booleans =====||")]
     public bool jumpPressed;
@@ -66,7 +69,7 @@ public class PlayerController : BaseController
         wallSlideState.Setup(rb, transform, animator, spriteRenderer, this);
         wallJumpState.Setup(rb, transform, animator, spriteRenderer, this);
 
-        SetIdle();
+        SetIdle(false);
 
         remainingExtraJumps = extraJumps;
 
@@ -78,7 +81,9 @@ public class PlayerController : BaseController
         base.Update();
 
         isGrounded = Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
+
         isWalled = Physics2D.OverlapBox(wallCheckPoint.position, wallCheckSize, 0, wallLayer) && !isGrounded;
+        wallCoyoteTimer = isWalled ? wallCoyoteDuraion : wallCoyoteTimer - Time.deltaTime;
 
         if (isGrounded)
         {
@@ -116,7 +121,7 @@ public class PlayerController : BaseController
     {
         if (context.performed)
         {
-            if (coyoteTimer > Mathf.Epsilon || isWalled)
+            if (coyoteTimer > Mathf.Epsilon || wallCoyoteTimer > Mathf.Epsilon)
                 jumpPressed = true;
 
             else if (remainingExtraJumps > 0)
@@ -158,15 +163,15 @@ public class PlayerController : BaseController
             isCrouching = false;
     }
 
-    public void SetIdle() => SetNewState(idleState);
-    public void SetRun() => SetNewState(runState);
-    public void SetJump() => SetNewState(jumpState);
-    public void SetFall() => SetNewState(fallState);
-    public void SetDash() => SetNewState(dashState);
-    public void SetCrouch() => SetNewState(crouchState);
-    public void SetKnockback() => SetNewState(knockbackState);
-    public void SetWallSlide() => SetNewState(wallSlideState);
-    public void SetWallJump() => SetNewState(wallJumpState);
+    public void SetIdle(bool forced = false) => SetNewState(idleState, forced);
+    public void SetRun(bool forced = false) => SetNewState(runState, forced);
+    public void SetJump(bool forced = false) => SetNewState(jumpState, forced);
+    public void SetFall(bool forced = false) => SetNewState(fallState, forced);
+    public void SetDash(bool forced = false) => SetNewState(dashState, forced);
+    public void SetCrouch(bool forced = false) => SetNewState(crouchState, forced);
+    public void SetKnockback(bool forced = false) => SetNewState(knockbackState, forced);
+    public void SetWallSlide(bool forced = false) => SetNewState(wallSlideState, forced);
+    public void SetWallJump(bool forced = false) => SetNewState(wallJumpState, forced);
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
