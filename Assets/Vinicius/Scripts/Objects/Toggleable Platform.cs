@@ -18,7 +18,19 @@ public class ToggleablePlatform : MonoBehaviour, IRythmSyncable
 
     private void Start()
     {
-        if (!isEnabled)
+        TogglePlatform();
+    }
+
+    private void TogglePlatform()
+    {
+        if (isEnabled)
+        {
+            col.enabled = true;
+
+            spriteRenderer.color = Color.white;
+        }
+
+        else
         {
             col.enabled = false;
             spriteRenderer.color = newColor;
@@ -27,21 +39,17 @@ public class ToggleablePlatform : MonoBehaviour, IRythmSyncable
 
     public void RespondToBeat()
     {
-        if (isEnabled)
-        {
-            col.enabled = false;
-
-            spriteRenderer.color = newColor;
-
-            isEnabled = false;
-        }
-
-        else
-        {
-            col.enabled = true;
-            spriteRenderer.color = Color.white;
-
-            isEnabled = true;
-        }
+        isEnabled = !isEnabled;
+        TogglePlatform();
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (col == null) col = GetComponent<Collider2D>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+
+        TogglePlatform();
+    }
+#endif
 }

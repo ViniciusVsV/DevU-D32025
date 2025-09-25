@@ -5,7 +5,7 @@ public class PlayerController : BaseController
 {
     [HideInInspector] public Vector2 moveDirection;
     [HideInInspector] public Vector2 knockbackDirection;
-    public OneWayPlatformBehaviour currentPlatformBehaviour;
+    public OneWayPlatform currentPlatform;
 
     [Header("||===== States =====||")]
     [SerializeField] private Idle idleState;
@@ -154,8 +154,8 @@ public class PlayerController : BaseController
         {
             isCrouching = true;
 
-            if (doubleCrouchTimer > Mathf.Epsilon && currentPlatformBehaviour != null)
-                currentPlatformBehaviour.DisableCollision();
+            if (doubleCrouchTimer > Mathf.Epsilon && currentPlatform != null)
+                currentPlatform.DisableCollision();
             else
                 doubleCrouchTimer = doubleCrouchThreshold;
         }
@@ -176,13 +176,19 @@ public class PlayerController : BaseController
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("OneWayPlatform"))
-            currentPlatformBehaviour = collision.gameObject.GetComponent<OneWayPlatformBehaviour>();
+            currentPlatform = collision.gameObject.GetComponent<OneWayPlatform>();
+
+        else if (collision.gameObject.CompareTag("MovingPlatform"))
+            transform.parent = collision.transform;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("OneWayPlatform"))
-            currentPlatformBehaviour = null;
+            currentPlatform = null;
+
+        else if (collision.gameObject.CompareTag("MovingPlatform"))
+            transform.parent = null;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

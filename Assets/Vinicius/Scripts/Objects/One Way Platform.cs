@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlatformEffector2D))]
-public class OneWayPlatformBehaviour : MonoBehaviour
+public class OneWayPlatform : MonoBehaviour
 {
     [SerializeField] private string ignoredLayerName;
     private int ignoredLayer;
