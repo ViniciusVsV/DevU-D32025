@@ -1,16 +1,19 @@
-public class StateMachine
+namespace StateMachine
 {
-    public BaseState currentState;
-
-    public void SetState(BaseState newState, bool forceReset = false)
+    public class StateMachine
     {
-        if (currentState != newState || forceReset)
+        public BaseState currentState;
+
+        public void SetState(BaseState newState, bool forceReset = false)
         {
-            currentState?.StateExit();
+            if (currentState != newState || forceReset)
+            {
+                currentState?.StateExit();
 
-            currentState = newState;
+                currentState = newState;
 
-            currentState.StateEnter();
+                currentState.StateEnter();
+            }
         }
     }
 }

@@ -1,52 +1,55 @@
-using System.Collections;
 using UnityEngine;
+using StateMachine;
 
-public class Dash : BaseState
+namespace Player.States
 {
-    private PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    [Header("----- Parameters -----")]
-    [SerializeField] private float dashSpeed;
-    [SerializeField] private float dashDuration;
-    private float dashTimer;
-    private int direction;
-    private float baseGravityScale;
-
-    public override void StateEnter()
+    public class Dash : BaseState
     {
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.yellow;
+        private Controller playerController => (Controller)controller;
 
-        direction = playerController.isFacingRight ? 1 : -1;
+        [SerializeField] private AnimationClip animationClip;
 
-        baseGravityScale = rb.gravityScale;
-        rb.gravityScale = 0f;
+        [Header("----- Parameters -----")]
+        [SerializeField] private float dashSpeed;
+        [SerializeField] private float dashDuration;
+        private float dashTimer;
+        private int direction;
+        private float baseGravityScale;
 
-        rb.linearVelocity = new Vector2(dashSpeed * direction, 0);
-
-        dashTimer = dashDuration;
-    }
-
-    public override void StateUpdate()
-    {
-        if (dashTimer > Mathf.Epsilon)
-            dashTimer -= Time.deltaTime;
-
-        else
+        public override void StateEnter()
         {
-            rb.gravityScale = baseGravityScale;
-            rb.linearVelocity = Vector2.zero;
-            
-            // Transição para Idle
-            if (playerController.isGrounded)
-                playerController.SetIdle();
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.yellow;
 
-            // Transição para Fall
-            else
-                playerController.SetFall();
+            direction = playerController.isFacingRight ? 1 : -1;
+
+            baseGravityScale = rb.gravityScale;
+            rb.gravityScale = 0f;
+
+            rb.linearVelocity = new Vector2(dashSpeed * direction, 0);
+
+            dashTimer = dashDuration;
         }
-        
+
+        public override void StateUpdate()
+        {
+            if (dashTimer > Mathf.Epsilon)
+                dashTimer -= Time.deltaTime;
+
+            else
+            {
+                rb.gravityScale = baseGravityScale;
+                rb.linearVelocity = Vector2.zero;
+
+                // Transição para Idle
+                if (playerController.isGrounded)
+                    playerController.SetIdle();
+
+                // Transição para Fall
+                else
+                    playerController.SetFall();
+            }
+
+        }
     }
 }

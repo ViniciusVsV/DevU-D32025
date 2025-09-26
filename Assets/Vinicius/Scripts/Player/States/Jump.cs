@@ -1,60 +1,61 @@
-using System.Collections;
+using StateMachine;
 using UnityEngine;
 
-public class Jump : BaseState
+namespace Player.States
 {
-    private PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    [Header("||===== Parameters =====||")]
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float jumpCutMultiplier;
-
-    [Header("||===== Horizontal Movement -----||")]
-    [SerializeField] private float moveSpeed;
-    private int direction;
-
-    public override void StateEnter()
+    public class Jump : BaseState
     {
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.green;
+        private Controller playerController => (Controller)controller;
 
-        rb.linearVelocityY = jumpForce;
-    }
+        [SerializeField] private AnimationClip animationClip;
 
-    public override void StateUpdate()
-    {
-        // Transição para Jump
-        if (playerController.jumpPressed)
-            playerController.SetJump(true);
+        [Header("||===== Parameters =====||")]
+        [SerializeField] private float regularJumpForce;
+        [SerializeField] private float onBeatJumpForce;
+        [SerializeField] private float jumpCutMultiplier;
 
-        // Transição para Dash
-        else if (playerController.dashPressed)
-            playerController.SetDash();
+        [Header("||===== Horizontal Movement -----||")]
+        [SerializeField] private float moveSpeed;
+        private int direction;
 
-        // Transição para Knockback
-        else if (playerController.tookKnockback)
-            playerController.SetKnockback();
+        public override void StateEnter()
+        {
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.green;
 
-        // Transição para Fall
-        if (rb.linearVelocityY < 0)
-            playerController.SetFall();
-    }
+            rb.linearVelocityY = playerController.jumpPresseOnBeat ? onBeatJumpForce : regularJumpForce;
+        }
 
-    public override void StateFixedUpdate()
-    {
-        if (playerController.moveDirection.x > 0)
-            direction = 1;
-        else
-            direction = playerController.moveDirection.x < 0 ? -1 : 0;
+        public override void StateUpdate()
+        {
+            if (playerController.jumpCutted)
+                rb.linearVelocityY *= jumpCutMultiplier;
 
-        rb.linearVelocityX = direction * moveSpeed;
-    }
+            // Transição para Jump
+            if (playerController.jumpPressed)
+                playerController.SetJump(true);
 
-    public void JumpCut()
-    {
-        if (rb.linearVelocityY > 0)
-            rb.linearVelocityY *= jumpCutMultiplier;
+            // Transição para Dash
+            else if (playerController.dashPressed)
+                playerController.SetDash();
+
+            // Transição para Knockback
+            else if (playerController.tookKnockback)
+                playerController.SetKnockback();
+
+            // Transição para Fall
+            else if (rb.linearVelocityY < 0)
+                playerController.SetFall();
+        }
+
+        public override void StateFixedUpdate()
+        {
+            if (playerController.moveDirection.x > 0)
+                direction = 1;
+            else
+                direction = playerController.moveDirection.x < 0 ? -1 : 0;
+
+            rb.linearVelocityX = direction * moveSpeed;
+        }
     }
 }

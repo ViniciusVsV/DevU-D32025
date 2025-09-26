@@ -1,37 +1,48 @@
+using StateMachine;
 using UnityEngine;
 
-public class WallJump : BaseState
+namespace Player.States
 {
-    PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    [SerializeField] private Vector2 baseWallJumpForce;
-    private Vector2 currentWallJumpForce;
-
-    public override void StateEnter()
+    public class WallJump : BaseState
     {
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.magenta;
+        private Controller playerController => (Controller)controller;
 
-        currentWallJumpForce = baseWallJumpForce;
-        currentWallJumpForce.x *= playerController.isFacingRight ? -1 : 1;
+        [SerializeField] private AnimationClip animationClip;
 
-        rb.linearVelocity = currentWallJumpForce;
-    }
+        [SerializeField] private Vector2 baseWallJumpForce;
+        private Vector2 currentWallJumpForce;
 
-    public override void StateUpdate()
-    {
-        // Transição para Dash
-        if (playerController.dashPressed)
-            playerController.SetDash();
+        public override void StateEnter()
+        {
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.magenta;
 
-        // Transição pra Knockback
-        else if (playerController.tookKnockback)
-            playerController.SetKnockback();
+            currentWallJumpForce = baseWallJumpForce;
+            currentWallJumpForce.x *= playerController.isFacingRight ? -1 : 1;
 
-        // Transição para Fall
-        else if (rb.linearVelocityY < 0f)
-            playerController.SetFall();
+            rb.linearVelocity = currentWallJumpForce;
+
+            tr.localScale = new Vector3(tr.localScale.x * -1, tr.localScale.y, tr.localScale.z);
+            playerController.isFacingRight = !playerController.isFacingRight;
+        }
+
+        public override void StateUpdate()
+        {
+            // Transição para Jump
+            if (playerController.jumpPressed)
+                playerController.SetJump();
+
+            // Transição para Dash
+            else if (playerController.dashPressed)
+                playerController.SetDash();
+
+            // Transição pra Knockback
+            else if (playerController.tookKnockback)
+                playerController.SetKnockback();
+
+            // Transição para Fall
+            else if (rb.linearVelocityY < 0)
+                playerController.SetFall();
+        }
     }
 }

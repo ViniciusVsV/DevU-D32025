@@ -1,43 +1,47 @@
+using StateMachine;
 using UnityEngine;
 
-public class Idle : BaseState
+namespace Player.States
 {
-    private PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    public override void StateEnter()
+    public class Idle : BaseState
     {
-        rb.linearVelocityX = 0;
+        private Controller playerController => (Controller)controller;
 
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.blue;
-    }
+        [SerializeField] private AnimationClip animationClip;
 
-    public override void StateUpdate()
-    {
-        // Transição para Jump
-        if (playerController.jumpPressed)
-            playerController.SetJump();
+        public override void StateEnter()
+        {
+            rb.linearVelocityX = 0;
 
-        // Transição para Dash
-        else if (playerController.dashPressed)
-            playerController.SetDash();
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.blue;
+        }
 
-        // Transição para Knockback
-        else if (playerController.tookKnockback)
-            playerController.SetKnockback();
+        public override void StateUpdate()
+        {
+            // Transição para Jump
+            if (playerController.jumpPressed)
+                playerController.SetJump();
 
-        // Transição para Run
-        else if (Mathf.Abs(playerController.moveDirection.x) > 0.01f)
-            playerController.SetRun();
+            // Transição para Dash
+            else if (playerController.dashPressed)
+                playerController.SetDash();
 
-        // Transição para Crouch
-        else if (playerController.isCrouching)
-            playerController.SetCrouch();
+            // Transição para Knockback
+            else if (playerController.tookKnockback)
+                playerController.SetKnockback();
 
-        // Transição para Fall
-        else if (rb.linearVelocityY < 0f)
-            playerController.SetFall();
+            // Transição para Run
+            else if (Mathf.Abs(playerController.moveDirection.x) > 0.01f)
+                playerController.SetRun();
+
+            // Transição para Crouch
+            else if (playerController.isCrouching)
+                playerController.SetCrouch();
+
+            // Transição para Fall
+            else if (rb.linearVelocityY < 0)
+                playerController.SetFall();
+        }
     }
 }
