@@ -1,39 +1,43 @@
+using StateMachine;
 using UnityEngine;
 
-public class Knockback : BaseState
+namespace Player.States
 {
-    private PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    [SerializeField] private float knockbackStrength;
-    [SerializeField] private float knockbackDuration;
-    private float knockbackTimer;
-
-    public override void StateEnter()
+    public class Knockback : BaseState
     {
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.gray;
+        private Controller playerController => (Controller)controller;
 
-        rb.linearVelocity = playerController.knockbackDirection * knockbackStrength;
+        [SerializeField] private AnimationClip animationClip;
 
-        knockbackTimer = knockbackDuration;
-    }
+        [SerializeField] private float knockbackStrength;
+        [SerializeField] private float knockbackDuration;
+        private float knockbackTimer;
 
-    public override void StateUpdate()
-    {
-        if (knockbackTimer > Mathf.Epsilon)
-            knockbackTimer -= Time.deltaTime;
-
-        else
+        public override void StateEnter()
         {
-            // Transição para Idle
-            if (playerController.isGrounded)
-                playerController.SetIdle();
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.gray;
 
-            // Transição para Fall
+            rb.linearVelocity = playerController.knockbackDirection * knockbackStrength;
+
+            knockbackTimer = knockbackDuration;
+        }
+
+        public override void StateUpdate()
+        {
+            if (knockbackTimer > Mathf.Epsilon)
+                knockbackTimer -= Time.deltaTime;
+
             else
-                playerController.SetFall();
+            {
+                // Transição para Idle
+                if (playerController.isGrounded)
+                    playerController.SetIdle();
+
+                // Transição para Fall
+                else
+                    playerController.SetFall();
+            }
         }
     }
 }

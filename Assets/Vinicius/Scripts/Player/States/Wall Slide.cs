@@ -1,50 +1,54 @@
+using StateMachine;
 using UnityEngine;
 
-public class WallSlide : BaseState
+namespace Player.States
 {
-    PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    [SerializeField] private float wallSlideSpeed;
-    private float baseGravityScale;
-
-    public override void StateEnter()
+    public class WallSlide : BaseState
     {
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.black;
+        private Controller playerController => (Controller)controller;
 
-        baseGravityScale = rb.gravityScale;
-        rb.gravityScale = 0f;
+        [SerializeField] private AnimationClip animationClip;
 
-        rb.linearVelocityY = -1 * wallSlideSpeed;
-    }
+        [SerializeField] private float wallSlideSpeed;
+        private float baseGravityScale;
 
-    public override void StateUpdate()
-    {
-        // Transição para Wall Jump
-        if (playerController.jumpPressed)
-            playerController.SetWallJump();
+        public override void StateEnter()
+        {
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.black;
 
-        // Transição para Dash
-        else if (playerController.dashPressed)
-            playerController.SetDash();
+            baseGravityScale = rb.gravityScale;
+            rb.gravityScale = 0f;
 
-        // Transição para Knockback
-        else if (playerController.tookKnockback)
-            playerController.SetKnockback();
+            rb.linearVelocityY = -1 * wallSlideSpeed;
+        }
 
-        // Transição para Fall
-        else if (!playerController.isWalled && !playerController.isGrounded)
-            playerController.SetFall();
+        public override void StateUpdate()
+        {
+            // Transição para Wall Jump
+            if (playerController.jumpPressed)
+                playerController.SetWallJump();
 
-        // Transição para Idle
-        else if (playerController.isGrounded)
-            playerController.SetIdle();
-    }
+            // Transição para Dash
+            else if (playerController.dashPressed)
+                playerController.SetDash();
 
-    public override void StateExit()
-    {
-        rb.gravityScale = baseGravityScale;
+            // Transição para Knockback
+            else if (playerController.tookKnockback)
+                playerController.SetKnockback();
+
+            // Transição para Fall
+            else if (!playerController.isWalled && !playerController.isGrounded)
+                playerController.SetFall();
+
+            // Transição para Idle
+            else if (playerController.isGrounded)
+                playerController.SetIdle();
+        }
+
+        public override void StateExit()
+        {
+            rb.gravityScale = baseGravityScale;
+        }
     }
 }

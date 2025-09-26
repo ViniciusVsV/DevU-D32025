@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point1: {fileID: 8411581707103824530}
   point2: {fileID: 6073728783603602503}
-  platformRb: {fileID: 4738995026521424232}
+  platformTransform: {fileID: 9162774040811927088}
   numberOfPoints: 4
 --- !u!1 &4697228635678579573
 GameObject:

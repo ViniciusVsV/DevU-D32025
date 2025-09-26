@@ -1,53 +1,56 @@
-using Unity.VisualScripting;
+using StateMachine;
 using UnityEngine;
 
-public class Run : BaseState
+namespace Player.States
 {
-    private PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    [Header("||===== Parameters =====||")]
-    [SerializeField] private float moveSpeed;
-    private int direction;
-
-    public override void StateEnter()
+    public class Run : BaseState
     {
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.cyan;
-    }
+        private Controller playerController => (Controller)controller;
 
-    public override void StateUpdate()
-    {
-        // Transição para Jump
-        if (playerController.jumpPressed)
-            playerController.SetJump();
+        [SerializeField] private AnimationClip animationClip;
 
-        // Transição para Dash
-        else if (playerController.dashPressed)
-            playerController.SetDash();
+        [Header("||===== Parameters =====||")]
+        [SerializeField] private float moveSpeed;
+        private int direction;
 
-        // Transição para Knockback
-        else if (playerController.tookKnockback)
-            playerController.SetKnockback();
+        public override void StateEnter()
+        {
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.cyan;
+        }
 
-        // Transição para Idle
-        else if (Mathf.Abs(playerController.moveDirection.x) <= 0.01f)
-            playerController.SetIdle();
+        public override void StateUpdate()
+        {
+            // Transição para Jump
+            if (playerController.jumpPressed)
+                playerController.SetJump();
 
-        // Transição para Crouch
-        else if (playerController.isCrouching)
-            playerController.SetCrouch();
+            // Transição para Dash
+            else if (playerController.dashPressed)
+                playerController.SetDash();
 
-        // Transição para Fall
-        else if (rb.linearVelocityY < 0f)
-            playerController.SetFall();
-    }
+            // Transição para Knockback
+            else if (playerController.tookKnockback)
+                playerController.SetKnockback();
 
-    public override void StateFixedUpdate()
-    {
-        direction = playerController.moveDirection.x > 0 ? 1 : -1;
+            // Transição para Idle
+            else if (Mathf.Abs(playerController.moveDirection.x) <= 0.01f)
+                playerController.SetIdle();
 
-        rb.linearVelocityX = direction * moveSpeed;
+            // Transição para Crouch
+            else if (playerController.isCrouching)
+                playerController.SetCrouch();
+
+            // Transição para Fall
+            else if (rb.linearVelocityY < 0)
+                playerController.SetFall();
+        }
+
+        public override void StateFixedUpdate()
+        {
+            direction = playerController.moveDirection.x > 0 ? 1 : -1;
+
+            rb.linearVelocityX = direction * moveSpeed;
+        }
     }
 }

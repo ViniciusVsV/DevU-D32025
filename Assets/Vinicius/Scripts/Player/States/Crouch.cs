@@ -1,35 +1,39 @@
 using UnityEngine;
+using StateMachine;
 
-public class Crouch : BaseState
+namespace Player.States
 {
-    private PlayerController playerController => (PlayerController)controller;
-
-    [SerializeField] private AnimationClip animationClip;
-
-    public override void StateEnter()
+    public class Crouch : BaseState
     {
-        rb.linearVelocityX = 0;
+        private Controller playerController => (Controller)controller;
 
-        //animator.Play(animationClip.name);
-        spriteRenderer.color = Color.magenta;
-    }
+        [SerializeField] private AnimationClip animationClip;
 
-    public override void StateUpdate()
-    {
-        // Transição para Dash
-        if (playerController.dashPressed)
-            playerController.SetDash();
+        public override void StateEnter()
+        {
+            rb.linearVelocityX = 0;
 
-        // Transição para Knockback
-        else if (playerController.tookKnockback)
-            playerController.SetKnockback();
+            //animator.Play(animationClip.name);
+            spriteRenderer.color = Color.magenta;
+        }
 
-        // Transição para Idle
-        else if (!playerController.isCrouching)
-            playerController.SetIdle();
+        public override void StateUpdate()
+        {
+            // Transição para Dash
+            if (playerController.dashPressed)
+                playerController.SetDash();
 
-        // Transição para Fall
-        else if (rb.linearVelocityY < 0f)
-            playerController.SetFall();
+            // Transição para Knockback
+            else if (playerController.tookKnockback)
+                playerController.SetKnockback();
+
+            // Transição para Idle
+            else if (!playerController.isCrouching)
+                playerController.SetIdle();
+
+            // Transição para Fall
+            else if (rb.linearVelocityY < 0)
+                playerController.SetFall();
+        }
     }
 }
