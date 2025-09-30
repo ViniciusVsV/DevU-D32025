@@ -544,6 +544,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8861048449214654603, guid: cb6b80d144b5e864cb708fc6314a11f8, type: 3}
   m_PrefabInstance: {fileID: 841861737}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &305770145 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6073728783603602503, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+  m_PrefabInstance: {fileID: 1126633643}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &312003617 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2829849534140880881, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
@@ -1433,11 +1438,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4540585263336497089, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: regularJumpForce
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: maxBeatDeviation
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: onBeatDashCooldown
@@ -2732,6 +2737,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1495718127}
     m_Modifications:
     - target: {fileID: 2011102352995793020, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+      propertyPath: point1
+      value: 
+      objectReference: {fileID: 1685630205}
+    - target: {fileID: 2011102352995793020, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+      propertyPath: point2
+      value: 
+      objectReference: {fileID: 1855859760}
+    - target: {fileID: 2011102352995793020, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
       propertyPath: numberOfPoints
       value: 1
       objectReference: {fileID: 0}
@@ -3084,8 +3097,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1495718127}
     m_Modifications:
     - target: {fileID: 2011102352995793020, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+      propertyPath: point1
+      value: 
+      objectReference: {fileID: 1257478919}
+    - target: {fileID: 2011102352995793020, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+      propertyPath: point2
+      value: 
+      objectReference: {fileID: 305770145}
+    - target: {fileID: 2011102352995793020, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
       propertyPath: numberOfPoints
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2829849534140880881, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
       propertyPath: m_Name
@@ -3327,6 +3348,11 @@ MonoBehaviour:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2829849534140880881, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
   m_PrefabInstance: {fileID: 1054589773}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1257478919 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8411581707103824530, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+  m_PrefabInstance: {fileID: 1126633643}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1317536849
 GameObject:
@@ -3794,7 +3820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c99e2e5c376e0b43837d65caf760975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 120
+  bpm: 105
   musicSource: {fileID: 622316899}
   beatIntervals:
   - syncedObjects:
@@ -3816,6 +3842,11 @@ MonoBehaviour:
     - {fileID: 1015077551}
     - {fileID: 605577186}
     noteLength: 0.5
+--- !u!4 &1685630205 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6073728783603602503, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+  m_PrefabInstance: {fileID: 1054589773}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1724737527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3982,7 +4013,7 @@ MonoBehaviour:
   musicSource: {fileID: 622316899}
   sfxSource: {fileID: 2095359698}
   mainMenuMusic: {fileID: 0}
-  gameMusic: {fileID: 8300000, guid: c36e99f6e8a9c1d4d8d1414378f56deb, type: 3}
+  gameMusic: {fileID: 8300000, guid: 6c4b9995bdf3d9b4ea6eda8cf5500b75, type: 3}
   clickSFX: {fileID: 8300000, guid: eb84c212d5a703e41b2daf0a86194424, type: 3}
 --- !u!4 &1727019473
 Transform:
@@ -4182,6 +4213,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793618008}
   m_CullTransparentMesh: 1
+--- !u!4 &1855859760 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8411581707103824530, guid: 4bdecc3bb4e19a44199db2987561525c, type: 3}
+  m_PrefabInstance: {fileID: 1054589773}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1876668986
 GameObject:
   m_ObjectHideFlags: 0
