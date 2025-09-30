@@ -54,7 +54,7 @@ namespace Player
                 coyoteTimer = coyoteDuration;
                 remainingExtraJumps = extraJumps;
             }
-            else
+            else if (playerController.GetCurrentState() is not States.Dash)
                 coyoteTimer -= Time.deltaTime;
 
             if (jumpBufferTimer < Mathf.Epsilon)
@@ -94,11 +94,11 @@ namespace Player
                 }
             }
 
-                else if (context.canceled && playerController.GetCurrentState() is Jump)
-                {
-                    playerController.jumpCutted = true;
-                    return;
-                }
+            else if (context.canceled && playerController.GetCurrentState() is Jump)
+            {
+                playerController.jumpCutted = true;
+                return;
+            }
         }
 
         public void Dash(InputAction.CallbackContext context)
