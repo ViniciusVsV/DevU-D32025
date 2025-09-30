@@ -8,7 +8,7 @@ namespace StateMachine
         protected Transform tr;
         protected Animator animator;
         protected SpriteRenderer spriteRenderer;
-        protected BaseController controller;
+        protected BaseStateController controller;
 
         public void Setup
         (
@@ -16,7 +16,7 @@ namespace StateMachine
             Transform tr,
             Animator animator,
             SpriteRenderer spriteRenderer,
-            BaseController controller
+            BaseStateController controller
         )
         {
             this.rb = rb;

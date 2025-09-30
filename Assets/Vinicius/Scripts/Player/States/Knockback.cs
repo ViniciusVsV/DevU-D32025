@@ -5,10 +5,11 @@ namespace Player.States
 {
     public class Knockback : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
+        [Header("||===== Parameters =====||")]
         [SerializeField] private float knockbackStrength;
         [SerializeField] private float knockbackDuration;
         private float knockbackTimer;
@@ -18,7 +19,10 @@ namespace Player.States
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.gray;
 
-            rb.linearVelocity = playerController.knockbackDirection * knockbackStrength;
+            if (rb.linearVelocity != Vector2.zero)
+                rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
+                
+            rb.AddForce(playerController.knockbackDirection * knockbackStrength, ForceMode2D.Impulse);
 
             knockbackTimer = knockbackDuration;
         }

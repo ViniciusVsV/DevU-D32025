@@ -5,34 +5,47 @@ namespace Player.States
 {
     public class Jump : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
+        [SerializeField] private Run runState;
         [SerializeField] private AnimationClip animationClip;
 
         [Header("||===== Parameters =====||")]
-        [SerializeField] private float regularJumpForce;
-        [SerializeField] private float onBeatJumpForce;
+        [SerializeField] private float jumpForce;
         [SerializeField] private float jumpCutMultiplier;
+        [SerializeField] private float minJumpDuration;
 
-        [Header("||===== Horizontal Movement -----||")]
-        [SerializeField] private float moveSpeed;
-        private int direction;
+        private float jumpTimer;
+
+        private float appliedForce;
 
         public override void StateEnter()
         {
+            Debug.Log("JUMP!");
+            playerController.jumpPressed = false;
+
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.green;
 
-            rb.linearVelocityY = playerController.jumpPresseOnBeat ? onBeatJumpForce : regularJumpForce;
+            appliedForce = jumpForce;
+
+            if (rb.linearVelocityY < 0)
+                appliedForce -= rb.linearVelocityY;
+
+            rb.AddForce(Vector2.up * appliedForce, ForceMode2D.Impulse);
+
+            jumpTimer = minJumpDuration;
         }
 
         public override void StateUpdate()
         {
+            jumpTimer -= Time.deltaTime;
+
             if (playerController.jumpCutted)
                 rb.linearVelocityY *= jumpCutMultiplier;
 
             // Transição para Jump
-            if (playerController.jumpPressed)
+            if (playerController.jumpPressed && jumpTimer <= Mathf.Epsilon)
                 playerController.SetJump(true);
 
             // Transição para Dash
@@ -43,19 +56,18 @@ namespace Player.States
             else if (playerController.tookKnockback)
                 playerController.SetKnockback();
 
+            // Transição para Wall Slide
+            else if (playerController.isWallSliding && jumpTimer <= Mathf.Epsilon)
+                playerController.SetWallSlide();
+
             // Transição para Fall
-            else if (rb.linearVelocityY < 0)
+            else if (rb.linearVelocityY < -0.1f)
                 playerController.SetFall();
         }
 
         public override void StateFixedUpdate()
         {
-            if (playerController.moveDirection.x > 0)
-                direction = 1;
-            else
-                direction = playerController.moveDirection.x < 0 ? -1 : 0;
-
-            rb.linearVelocityX = direction * moveSpeed;
+            runState.StateFixedUpdate();
         }
     }
 }
