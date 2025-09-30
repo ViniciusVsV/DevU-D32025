@@ -5,7 +5,7 @@ namespace Player.States
 {
     public class Crouch : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 

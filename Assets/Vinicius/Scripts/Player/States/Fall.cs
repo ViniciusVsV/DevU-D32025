@@ -5,17 +5,14 @@ namespace Player.States
 {
     public class Fall : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
+        [SerializeField] private Run runState;
         [SerializeField] private AnimationClip animationClip;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float newGravityScale;
         private float baseGravityScale;
-
-        [Header("||===== Horizontal Movement -----||")]
-        [SerializeField] private float moveSpeed;
-        private int direction;
 
         public override void StateEnter()
         {
@@ -46,18 +43,13 @@ namespace Player.States
                 playerController.SetIdle();
 
             //Transição para Wall Slide
-            else if (playerController.isWalled)
+            else if (playerController.isWallSliding)
                 playerController.SetWallSlide();
         }
 
         public override void StateFixedUpdate()
         {
-            if (playerController.moveDirection.x > 0)
-                direction = 1;
-            else
-                direction = playerController.moveDirection.x < 0 ? -1 : 0;
-
-            rb.linearVelocityX = direction * moveSpeed;
+            runState.StateFixedUpdate();
         }
 
         public override void StateExit()

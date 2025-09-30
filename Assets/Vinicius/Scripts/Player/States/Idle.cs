@@ -5,16 +5,27 @@ namespace Player.States
 {
     public class Idle : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
-        [SerializeField] private AnimationClip animationClip;
+        [SerializeField] private AnimationClip idleClip;
+        [SerializeField] private AnimationClip stopRunClip;
+
+        [Header("||===== Parameters =====||")]
+        [SerializeField] private float deceleration;
+        private float speedDiff;
 
         public override void StateEnter()
         {
-            rb.linearVelocityX = 0;
-
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.blue;
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fast Run"))
+            {
+                //animator.Play(stopRunClip.name);
+                spriteRenderer.color = Color.black;
+            }
+            else
+            {
+                //animator.Play(idleClip.name);
+                spriteRenderer.color = Color.blue;
+            }
         }
 
         public override void StateUpdate()
@@ -42,6 +53,13 @@ namespace Player.States
             // Transição para Fall
             else if (rb.linearVelocityY < 0)
                 playerController.SetFall();
+        }
+
+        public override void StateFixedUpdate()
+        {
+            speedDiff = 0 - rb.linearVelocityX;
+
+            rb.AddForce(speedDiff * deceleration * Vector2.right, ForceMode2D.Force);
         }
     }
 }

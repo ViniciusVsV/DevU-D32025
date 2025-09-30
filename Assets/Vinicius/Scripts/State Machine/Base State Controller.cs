@@ -4,9 +4,7 @@ namespace StateMachine
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]
-    [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(SpriteRenderer))]
-    public class BaseController : MonoBehaviour, IDamageable
+    public class BaseStateController : MonoBehaviour, IDamageable
     {
         protected StateMachine stateMachine;
 
@@ -25,8 +23,8 @@ namespace StateMachine
 
             rb = GetComponent<Rigidbody2D>();
             col = GetComponent<Collider2D>();
-            animator = GetComponent<Animator>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            animator = GetComponentInChildren<Animator>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
             currentHealth = maxHealth;
         }

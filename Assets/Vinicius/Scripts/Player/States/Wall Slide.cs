@@ -5,12 +5,17 @@ namespace Player.States
 {
     public class WallSlide : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
-        [SerializeField] private float wallSlideSpeed;
+        [Header("||===== Parameters =====||")]
+        [SerializeField] private float slideSpeed;
+        [SerializeField] private float acceleration;
+
         private float baseGravityScale;
+        private float speedDiff;
+        private float forceToApply;
 
         public override void StateEnter()
         {
@@ -18,9 +23,10 @@ namespace Player.States
             spriteRenderer.color = Color.black;
 
             baseGravityScale = rb.gravityScale;
-            rb.gravityScale = 0f;
+            rb.gravityScale = 0;
 
-            rb.linearVelocityY = -1 * wallSlideSpeed;
+            if (rb.linearVelocityY != 0)
+                rb.AddForce(-rb.linearVelocityY * Vector2.up, ForceMode2D.Impulse);
         }
 
         public override void StateUpdate()
@@ -44,6 +50,16 @@ namespace Player.States
             // Transição para Idle
             else if (playerController.isGrounded)
                 playerController.SetIdle();
+        }
+
+        public override void StateFixedUpdate()
+        {
+            speedDiff = slideSpeed - rb.linearVelocityY;
+
+            forceToApply = speedDiff * -acceleration;
+            forceToApply = Mathf.Clamp(forceToApply, -Mathf.Abs(speedDiff) * (1 / Time.fixedDeltaTime), Mathf.Abs(speedDiff) * (1 / Time.fixedDeltaTime));
+
+            rb.AddForce(forceToApply * Vector2.up);
         }
 
         public override void StateExit()

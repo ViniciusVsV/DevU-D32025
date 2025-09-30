@@ -5,51 +5,92 @@ namespace Player.States
 {
     public class Dash : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
+        [SerializeField] private Run runState;
         [SerializeField] private AnimationClip animationClip;
 
         [Header("----- Parameters -----")]
-        [SerializeField] private float dashSpeed;
-        [SerializeField] private float dashDuration;
-        private float dashTimer;
+        [SerializeField] private float mainDashSpeed;
+        [SerializeField] private float secondaryDashSpeed;
+        [SerializeField] private float mainDashDuration;
+        [SerializeField] private float secondayDashDuration;
+
+        [Range(0, 1f)][SerializeField] private float runLerp;
+
         private int direction;
         private float baseGravityScale;
+
+        private float dashTimer;
+        private bool dashing;
+
+        public bool isOnSecondStage;
 
         public override void StateEnter()
         {
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.yellow;
 
+            if (rb.linearVelocity != Vector2.zero)
+                rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
+
             direction = playerController.isFacingRight ? 1 : -1;
 
             baseGravityScale = rb.gravityScale;
             rb.gravityScale = 0f;
 
-            rb.linearVelocity = new Vector2(dashSpeed * direction, 0);
+            dashing = true;
+            dashTimer = 0f;
+            isOnSecondStage = false;
 
-            dashTimer = dashDuration;
+            rb.linearVelocity = new Vector2(direction * mainDashSpeed, 0);
+
+            runState.SetLerp(runLerp);
         }
 
-        public override void StateUpdate()
+        public override void StateFixedUpdate()
         {
-            if (dashTimer > Mathf.Epsilon)
-                dashTimer -= Time.deltaTime;
+            if (!dashing) return;
+
+            dashTimer += Time.fixedDeltaTime;
+
+
+            if (!isOnSecondStage)
+            {
+                rb.linearVelocity = new Vector2(direction * mainDashSpeed, 0);
+
+                if (dashTimer >= mainDashDuration)
+                {
+                    isOnSecondStage = true;
+                    dashTimer = 0f;
+
+                    rb.gravityScale = baseGravityScale;
+                    rb.linearVelocity = Vector2.zero;
+                    rb.AddForce(new Vector2(direction * secondaryDashSpeed, 0), ForceMode2D.Impulse);
+                }
+            }
 
             else
             {
-                rb.gravityScale = baseGravityScale;
-                rb.linearVelocity = Vector2.zero;
+                runState.StateFixedUpdate();
 
-                // Transição para Idle
-                if (playerController.isGrounded)
-                    playerController.SetIdle();
+                if (dashTimer >= secondayDashDuration)
+                {
+                    dashing = false;
 
-                // Transição para Fall
-                else
-                    playerController.SetFall();
+
+                    if (playerController.isGrounded)
+                        playerController.SetIdle();
+                    else
+                        playerController.SetFall();
+                }
             }
+        }
 
+        public override void StateExit()
+        {
+            dashing = false;
+            rb.gravityScale = baseGravityScale;
         }
     }
 }

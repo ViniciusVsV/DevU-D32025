@@ -4,7 +4,7 @@ using StateMachine;
 
 namespace Player
 {
-    public class Controller : BaseController
+    public class StateController : BaseStateController
     {
         [HideInInspector] public Vector2 moveDirection;
         [HideInInspector] public Vector2 knockbackDirection;
@@ -22,7 +22,6 @@ namespace Player
 
         [Header("||===== Booleans =====||")]
         public bool jumpPressed;
-        public bool jumpPresseOnBeat;
         public bool jumpCutted;
         public bool dashPressed;
         public bool tookKnockback;
@@ -30,6 +29,7 @@ namespace Player
         public bool isFacingRight;
         public bool isGrounded;
         public bool isWalled;
+        public bool isWallSliding;
         public bool isCrouching;
 
         protected override void Awake()
@@ -55,7 +55,6 @@ namespace Player
         {
             base.Update();
 
-            jumpPressed = false;
             jumpCutted = false;
             dashPressed = false;
             tookKnockback = false;

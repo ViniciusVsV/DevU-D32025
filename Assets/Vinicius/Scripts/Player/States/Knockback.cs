@@ -5,10 +5,11 @@ namespace Player.States
 {
     public class Knockback : BaseState
     {
-        private Controller playerController => (Controller)controller;
+        private StateController playerController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
+        [Header("||===== Parameters =====||")]
         [SerializeField] private float knockbackStrength;
         [SerializeField] private float knockbackDuration;
         private float knockbackTimer;

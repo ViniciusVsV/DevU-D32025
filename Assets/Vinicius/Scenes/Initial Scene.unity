@@ -1427,26 +1427,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4540585263336497089, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: onBeatJumpForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4540585263336497089, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: regularJumpForce
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: maxBeatDeviation
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: onBeatDashCooldown
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: regularDashCooldown
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8320138032106008733, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.839972

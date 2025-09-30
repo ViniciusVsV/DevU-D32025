@@ -1,19 +1,14 @@
 using Player.States;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public class InputReader : MonoBehaviour, IRythmSyncable
+    public class InputHandler : MonoBehaviour
     {
-        [SerializeField] private Controller playerController;
+        [SerializeField] private StateController playerController;
         private Transform playerTransform;
-
-        [Header("||===== Rythm Parameters =====||")]
-        [SerializeField] private float maxBeatDeviation;
-        private float beatLength;
-        private float timeSinceLastBeat;
-        private float timeUntilNextBeat;
 
         [Header("||===== Jump Parameters =====||")]
         [SerializeField] private int extraJumps;
@@ -26,9 +21,11 @@ namespace Player
         [SerializeField] private float coyoteDuration;
         private float coyoteTimer;
 
+        [SerializeField] private float jumpBuffer;
+        private float jumpBufferTimer;
+
         [Header("||===== Dash Parameters =====||")]
-        [SerializeField] private float regularDashCooldown;
-        [SerializeField] private float onBeatDashCooldown;
+        [SerializeField] private float dashCooldown;
         private float dashCooldownTimer;
 
         [Header("||===== Wall Slide/Jump Parameter =====||")]
@@ -36,23 +33,21 @@ namespace Player
         [SerializeField] private Vector2 wallCheckSize;
         [SerializeField] private LayerMask wallLayer;
 
+        private int lookingDirection;
+
         private void Awake()
         {
             playerTransform = transform.parent;
         }
 
-        private void Start()
-        {
-            beatLength = BeatController.Instance.GetBeatLength();
-        }
-
         private void Update()
         {
-            timeSinceLastBeat += Time.deltaTime;
-            timeUntilNextBeat -= Time.deltaTime;
-
             playerController.isGrounded = Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
             playerController.isWalled = Physics2D.OverlapBox(wallCheckPoint.position, wallCheckSize, 0, wallLayer) && !playerController.isGrounded;
+
+            lookingDirection = playerController.isFacingRight ? 1 : -1;
+
+            playerController.isWallSliding = playerController.isWalled && playerController.moveDirection.x != 0 && Mathf.Sign(playerController.moveDirection.x) == Mathf.Sign(lookingDirection);
 
             if (playerController.isGrounded)
             {
@@ -62,8 +57,11 @@ namespace Player
             else
                 coyoteTimer -= Time.deltaTime;
 
-            if (dashCooldownTimer > Mathf.Epsilon)
-                dashCooldownTimer -= Time.deltaTime;
+            if (jumpBufferTimer < Mathf.Epsilon)
+                playerController.jumpPressed = false;
+
+            dashCooldownTimer -= Time.deltaTime;
+            jumpBufferTimer -= Time.deltaTime;
 
             Flip();
         }
@@ -92,22 +90,22 @@ namespace Player
                 if (canJump)
                 {
                     playerController.jumpPressed = true;
-                    playerController.jumpPresseOnBeat = CheckOnBeat();
+                    jumpBufferTimer = jumpBuffer;
                 }
             }
 
-            else if (context.canceled && playerController.GetCurrentState() is Jump)
-            {
-                playerController.jumpCutted = true;
-                return;
-            }
+                else if (context.canceled && playerController.GetCurrentState() is Jump)
+                {
+                    playerController.jumpCutted = true;
+                    return;
+                }
         }
 
         public void Dash(InputAction.CallbackContext context)
         {
             if (context.performed && dashCooldownTimer <= Mathf.Epsilon)
             {
-                dashCooldownTimer = CheckOnBeat() ? onBeatDashCooldown : regularDashCooldown;
+                dashCooldownTimer = dashCooldown;
 
                 playerController.dashPressed = true;
             }
@@ -131,17 +129,6 @@ namespace Player
                 localScale.x *= -1;
                 playerTransform.localScale = localScale;
             }
-        }
-
-        private bool CheckOnBeat()
-        {
-            return timeSinceLastBeat < maxBeatDeviation || timeUntilNextBeat < maxBeatDeviation;
-        }
-
-        public void RespondToBeat()
-        {
-            timeSinceLastBeat = 0;
-            timeUntilNextBeat = beatLength;
         }
 
         private void OnDrawGizmosSelected()
