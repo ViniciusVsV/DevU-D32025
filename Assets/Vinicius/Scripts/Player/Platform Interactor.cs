@@ -13,6 +13,9 @@ namespace Player
         [SerializeField] private float doubleCrouchThreshold;
         private float doubleCrouchTimer;
 
+        [SerializeField] private float ledgePanTime;
+        private float ledgePanTimer;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -57,6 +60,11 @@ namespace Player
                 transform.parent = null;
                 rb.interpolation = RigidbodyInterpolation2D.Interpolate;
             }
+        }
+
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            
         }
     }
 }

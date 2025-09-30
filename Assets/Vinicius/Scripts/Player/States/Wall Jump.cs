@@ -60,7 +60,7 @@ namespace Player.States
                 playerController.SetWallSlide();
 
             // Transição para Fall
-            else if (rb.linearVelocityY < 0)
+            else if (rb.linearVelocityY < -0.1f)
                 playerController.SetFall();
         }
 

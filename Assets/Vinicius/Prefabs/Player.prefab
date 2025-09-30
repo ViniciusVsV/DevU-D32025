@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5397f5d581f914f95642a619a70522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationClip: {fileID: 0}
-  stoppingAnimationClip: {fileID: 0}
+  idleClip: {fileID: 0}
+  stopRunClip: {fileID: 0}
   deceleration: 12
 --- !u!1 &1094989217078055233
 GameObject:
@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576e6d31ff894b74b99937ba180e1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   moveDirection: {x: 0, y: 0}
   knockbackDirection: {x: 0, y: 0}
   idleState: {fileID: 7574385567550206713}

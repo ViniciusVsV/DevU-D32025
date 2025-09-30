@@ -19,7 +19,10 @@ namespace Player.States
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.gray;
 
-            rb.linearVelocity = playerController.knockbackDirection * knockbackStrength;
+            if (rb.linearVelocity != Vector2.zero)
+                rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
+                
+            rb.AddForce(playerController.knockbackDirection * knockbackStrength, ForceMode2D.Impulse);
 
             knockbackTimer = knockbackDuration;
         }
