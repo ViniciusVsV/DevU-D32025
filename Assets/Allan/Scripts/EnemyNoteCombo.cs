@@ -36,6 +36,7 @@ public class EnemyNoteCombo : MonoBehaviour
     {
         GuitarManager.OnNotePlayed -= OnPlayedNote;
     }
+    
     private void OnPlayedNote(MusicalNote playedNote)
     {
         if (currentStep >= sequenceSize)

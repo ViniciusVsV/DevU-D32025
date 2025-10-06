@@ -12,7 +12,7 @@ public class GuitarManager : MonoBehaviour
         public KeyCode key;
     }
 
-    [Header("Aqui voce coloca as teclas das notas @vinicius")]
+    [Header("Aqui voce coloca as teclas das notas")]
     public NoteKeyMapping[] noteMappings;
 
     void Update()
