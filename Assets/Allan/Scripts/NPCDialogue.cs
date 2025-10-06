@@ -14,6 +14,9 @@ public class NPCDialogue : MonoBehaviour
     public float wordSpeed;
     public bool playerInRange;
 
+    public Text NPCNameText;
+    public string NPCName;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && playerInRange)
@@ -25,6 +28,7 @@ public class NPCDialogue : MonoBehaviour
             else
             {
                 dialoguePanel.SetActive(true);
+                NPCNameText.text = NPCName;
                 StartCoroutine(Typing());
             }
         }
