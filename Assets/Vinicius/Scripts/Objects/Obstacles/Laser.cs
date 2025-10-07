@@ -4,10 +4,12 @@ namespace Objects.Obstacles
 {
     public class Laser : MonoBehaviour, IRythmSyncable
     {
+        [Header("||===== Objects =====||")]
+        [SerializeField] private GameObject rayObject;
+
+        [Header("||===== Parameters =====||")]
         [SerializeField] private int nActiveBeats;
         [SerializeField] private int nInactiveBeats;
-
-        [SerializeField] private GameObject rayObject;
 
         private int cycleLength => nActiveBeats + nInactiveBeats;
         private int beatCounter;

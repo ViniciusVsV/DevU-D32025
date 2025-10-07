@@ -6,10 +6,12 @@ namespace Objects.Platforms
 {
     public class MovingPlatform : MonoBehaviour, IRythmSyncable
     {
+        [Header("||===== Objects =====||")]
         [SerializeField] private Transform point1;
         [SerializeField] private Transform point2;
         [SerializeField] private Transform platformTransform;
 
+        [Header("||===== Parameters =====||")]
         [SerializeField] private int numberOfPoints;
 
         private List<Vector2> positions = new();

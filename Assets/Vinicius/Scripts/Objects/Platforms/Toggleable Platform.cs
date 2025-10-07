@@ -9,6 +9,7 @@ namespace Objects.Platforms
         private Collider2D col;
         private SpriteRenderer spriteRenderer;
 
+        [Header("||===== Parameters =====||")]
         [SerializeField] private Color newColor;
         public bool isEnabled;
 
