@@ -7,6 +7,7 @@ namespace Characters.Player
     public class InputHandler : MonoBehaviour
     {
         [SerializeField] private StateController playerController;
+        [SerializeField] private GuitarManager guitarManager;
         private Transform playerTransform;
 
         [Header("||===== Jump Parameters =====||")]
@@ -116,6 +117,30 @@ namespace Characters.Player
                 playerController.isCrouching = true;
             else
                 playerController.isCrouching = false;
+        }
+
+        public void Green(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarManager.PlayNote(MusicalNote.Verde);
+        }
+
+        public void Blue(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarManager.PlayNote(MusicalNote.Azul);
+        }
+
+        public void Red(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarManager.PlayNote(MusicalNote.Vermelho);
+        }
+
+        public void Yellow(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarManager.PlayNote(MusicalNote.Amarelo);
         }
 
         private void Flip()

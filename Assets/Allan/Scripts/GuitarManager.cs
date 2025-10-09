@@ -5,25 +5,9 @@ public class GuitarManager : MonoBehaviour
 {
     public static event Action<MusicalNote> OnNotePlayed;
 
-    [System.Serializable]
-    public class NoteKeyMapping
+    public void PlayNote(MusicalNote note)
     {
-        public MusicalNote note;
-        public KeyCode key;
-    }
-
-    [Header("Aqui voce coloca as teclas das notas")]
-    public NoteKeyMapping[] noteMappings;
-
-    void Update()
-    {
-        foreach (var mapping in noteMappings)
-        {
-            if (Input.GetKeyDown(mapping.key))
-            {
-                Debug.Log("Nota tocada: " + mapping.note);
-                OnNotePlayed?.Invoke(mapping.note);
-            }
-        }
+        OnNotePlayed?.Invoke(note);
+        Debug.Log("Tocou " + note);
     }
 }
