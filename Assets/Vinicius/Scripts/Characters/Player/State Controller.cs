@@ -22,8 +22,10 @@ namespace Characters.Player
 
         [Header("||===== Booleans =====||")]
         public bool jumpPressed;
+        public bool wallJumpPressed;
         public bool jumpCutted;
         public bool dashPressed;
+        public bool dashHappened;
         public bool tookKnockback;
 
         public bool isFacingRight;
@@ -56,6 +58,7 @@ namespace Characters.Player
             base.Update();
 
             jumpCutted = false;
+            wallJumpPressed = false;
             dashPressed = false;
             tookKnockback = false;
         }

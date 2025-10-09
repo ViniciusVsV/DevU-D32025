@@ -1,3 +1,4 @@
+using System;
 using Characters.Player.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,10 +28,16 @@ namespace Characters.Player
         [SerializeField] private int dashUses;
         private int remainingDashes;
 
+        [SerializeField] private float dashBuffer;
+        private float dashBufferTimer;
+
         [Header("||===== Wall Slide/Jump Parameter =====||")]
         [SerializeField] private Transform wallCheckPoint;
         [SerializeField] private Vector2 wallCheckSize;
         [SerializeField] private LayerMask wallLayer;
+
+        [SerializeField] private float wallSlideBuffer;
+        private float wallSlideBufferTimer;
 
         private int lookingDirection;
 
@@ -41,12 +48,16 @@ namespace Characters.Player
 
         private void Update()
         {
-            playerController.isGrounded = Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
-            playerController.isWalled = Physics2D.OverlapBox(wallCheckPoint.position, wallCheckSize, 0, wallLayer) && !playerController.isGrounded;
-
             lookingDirection = playerController.isFacingRight ? 1 : -1;
 
-            playerController.isWallSliding = playerController.isWalled && playerController.moveDirection.x != 0 && Mathf.Sign(playerController.moveDirection.x) == Mathf.Sign(lookingDirection);
+            playerController.isGrounded = Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer);
+
+            playerController.isWalled = Physics2D.OverlapBox(wallCheckPoint.position, wallCheckSize, 0, wallLayer) &&
+                                        !playerController.isGrounded;
+
+            playerController.isWallSliding = playerController.isWalled &&
+                                            playerController.moveDirection.x != 0 &&
+                                            Mathf.Sign(playerController.moveDirection.x) == Mathf.Sign(lookingDirection);
 
             if (playerController.isGrounded)
             {
@@ -54,13 +65,27 @@ namespace Characters.Player
                 remainingExtraJumps = extraJumps;
                 remainingDashes = dashUses;
             }
-            else if (playerController.GetCurrentState() is not States.Dash)
+            else if (playerController.GetCurrentState() is not States.Dash || remainingDashes != dashUses)
                 coyoteTimer -= Time.deltaTime;
+
+            if (playerController.isWalled)
+                wallSlideBufferTimer = wallSlideBuffer;
 
             if (jumpBufferTimer < Mathf.Epsilon)
                 playerController.jumpPressed = false;
 
+            if (dashBufferTimer < Mathf.Epsilon)
+                playerController.dashPressed = false;
+
+            if (playerController.dashHappened)
+            {
+                playerController.dashHappened = false;
+                remainingDashes--;
+            }
+
+            wallSlideBufferTimer -= Time.deltaTime;
             jumpBufferTimer -= Time.deltaTime;
+            dashBufferTimer -= Time.deltaTime;
 
             Flip();
         }
@@ -78,8 +103,10 @@ namespace Characters.Player
 
                 if (coyoteTimer > Mathf.Epsilon)
                     canJump = true;
-                else if (playerController.isWalled && playerController.GetCurrentState() is WallSlide)
-                    canJump = true;
+
+                else if (wallSlideBufferTimer > Mathf.Epsilon)
+                    playerController.wallJumpPressed = true;
+
                 else if (remainingExtraJumps > 0)
                 {
                     remainingExtraJumps--;
@@ -104,7 +131,7 @@ namespace Characters.Player
         {
             if (context.performed && remainingDashes > 0)
             {
-                remainingDashes--;
+                dashBufferTimer = dashBuffer;
 
                 playerController.dashPressed = true;
             }

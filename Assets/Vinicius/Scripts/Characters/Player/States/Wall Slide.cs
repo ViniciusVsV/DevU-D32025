@@ -32,7 +32,7 @@ namespace Characters.Player.States
         public override void StateUpdate()
         {
             // Transição para Wall Jump
-            if (playerController.jumpPressed)
+            if (playerController.wallJumpPressed)
                 playerController.SetWallJump();
 
             // Transição para Dash

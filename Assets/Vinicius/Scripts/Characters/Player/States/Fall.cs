@@ -30,6 +30,10 @@ namespace Characters.Player.States
             if (playerController.jumpPressed)
                 playerController.SetJump();
 
+            // Transição para Wall Jump
+            if (playerController.wallJumpPressed)
+                playerController.SetWallJump();
+
             // Transição para Dash
             else if (playerController.dashPressed)
                 playerController.SetDash();
