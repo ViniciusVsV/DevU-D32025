@@ -12,6 +12,5 @@ EditorBuildSettings:
     path: Assets/Vinicius/Scenes/Initial Scene.unity
     guid: fb727bc9d87ee804a89b93367890cc30
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 30d27ff0775bd3d4b9d4c23b38518e33, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

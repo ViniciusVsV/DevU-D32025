@@ -7,16 +7,22 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
 
-    [Header("||===== Music =====||")]
+    [Header("----- Music -----")]
     [SerializeField] private AudioClip mainMenuMusic;
     [SerializeField] private AudioClip gameMusic;
 
-    [Header("||===== SFX =====||")]
+    [Header("----- SFX -----")]
     [SerializeField] private AudioClip clickSFX;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
     }
 
     public void PlayMainMenuMusic()

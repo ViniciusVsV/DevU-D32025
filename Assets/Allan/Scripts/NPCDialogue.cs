@@ -7,16 +7,15 @@ using System;
 public class NPCDialogue : MonoBehaviour
 {
     public GameObject dialoguePanel;
-    public GameObject continueButton;
-    public float wordSpeed;
     public Text dialogueText;
     public string[] dialogue;
-    public Text NPCNameText;
-    
     private int index;
+    public GameObject continueButton;
+    public float wordSpeed;
     public bool playerInRange;
+
+    public Text NPCNameText;
     public string NPCName;
-    private Coroutine isTyping;
 
     void Update()
     {
@@ -30,7 +29,7 @@ public class NPCDialogue : MonoBehaviour
             {
                 dialoguePanel.SetActive(true);
                 NPCNameText.text = NPCName;
-                isTyping = StartCoroutine(Typing());
+                StartCoroutine(Typing());
             }
         }
         
@@ -42,10 +41,6 @@ public class NPCDialogue : MonoBehaviour
 
     public void zeroText()
     {
-        if (isTyping != null)
-        {
-            StopCoroutine(isTyping);
-        }
         dialogueText.text = "";
         index = 0;
         dialoguePanel.SetActive(false);
@@ -62,17 +57,12 @@ public class NPCDialogue : MonoBehaviour
 
     public void NextLine()
     {
-        if (isTyping != null)
-        {
-            StopCoroutine(isTyping);
-        }
-        
         continueButton.SetActive(false);
         if (index < dialogue.Length - 1)
         {
             index++;
             dialogueText.text = "";
-            isTyping = StartCoroutine(Typing());
+            StartCoroutine(Typing());
         }
         else
         {
