@@ -1,9 +1,9 @@
-using Characters.Enemies.Hound.States;
+using Characters.Enemies.VynilDisc.States;
 using DG.Tweening;
 using StateMachine;
 using UnityEngine;
 
-namespace Characters.Enemies.Hound
+namespace Characters.Enemies.VynilDisc
 {
     public class StateController : BaseStateController, IRythmSyncable
     {

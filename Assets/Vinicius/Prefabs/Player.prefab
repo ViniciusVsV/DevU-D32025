@@ -342,8 +342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runState: {fileID: 1608626281881388064}
   animationClip: {fileID: 0}
-  mainSpeed: 0
-  secondarySpeed: 0
+  mainSpeed: 15
+  secondarySpeed: 12
   mainDuration: 0.125
   secondaryDuration: 0.125
   runLerp: 0.5
@@ -430,6 +430,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8035425724129438598}
+  - {fileID: 6738585609237455201}
   - {fileID: 7143732228758481914}
   - {fileID: 7891327677703865395}
   - {fileID: 8548943391390198516}
@@ -757,6 +758,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4896648339828268649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6738585609237455201}
+  - component: {fileID: 6314395908349737492}
+  m_Layer: 3
+  m_Name: Guitar Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6738585609237455201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896648339828268649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8320138032106008733}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6314395908349737492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896648339828268649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a4c4bf36f18b2479b4e6c2bffa4680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5238920969236500883
 GameObject:
   m_ObjectHideFlags: 0
@@ -803,6 +848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 4408628242471473937}
+  guitarController: {fileID: 6314395908349737492}
   extraJumps: 1
   groundCheckPoint: {fileID: 8393047217081871136}
   groundCheckSize: {x: 0.8, y: 0.1}
@@ -980,6 +1026,70 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: Green
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 579cfebd-796a-4cee-a8a5-39ecefdf9eea
+    m_ActionName: 'Player/Green[/Keyboard/u]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: Blue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 448f4af7-60c1-4be8-90bd-ef58f3e5ce09
+    m_ActionName: 'Player/Blue[/Keyboard/i]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: Red
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e0aae964-afd3-4366-816f-4f235f548e80
+    m_ActionName: 'Player/Red[/Keyboard/o]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: Yellow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: be74e147-7a77-4921-bf5e-bfb5af59c9b1
+    m_ActionName: 'Player/Yellow[/Keyboard/p]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

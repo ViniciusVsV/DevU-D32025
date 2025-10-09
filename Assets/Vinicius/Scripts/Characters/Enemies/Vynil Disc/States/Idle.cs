@@ -1,7 +1,7 @@
 using StateMachine;
 using UnityEngine;
 
-namespace Characters.Enemies.Hound.States
+namespace Characters.Enemies.VynilDisc.States
 {
     public class Idle : BaseState
     {
@@ -14,7 +14,7 @@ namespace Characters.Enemies.Hound.States
         [SerializeField] private CircleCollider2D houndCollider;
         private float colliderRadius;
 
-        
+
         [Header("||===== Parameters =====||")]
         [SerializeField] private int maxAttempts;
         [SerializeField] private float maxDistance;

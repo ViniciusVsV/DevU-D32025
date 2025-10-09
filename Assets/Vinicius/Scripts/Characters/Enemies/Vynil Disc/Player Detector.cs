@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Characters.Enemies.Hound
+namespace Characters.Enemies.VynilDisc
 {
     public class PlayerDetector : MonoBehaviour
     {

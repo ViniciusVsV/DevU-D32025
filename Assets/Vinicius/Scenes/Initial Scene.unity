@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &28826005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28826006}
+  - component: {fileID: 28826007}
+  m_Layer: 3
+  m_Name: Guitar Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &28826006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28826005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 372040957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &28826007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28826005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a4c4bf36f18b2479b4e6c2bffa4680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &51417888
 GameObject:
   m_ObjectHideFlags: 0
@@ -22101,26 +22145,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1013335462071673177, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: runLerp
-      value: 0.34
-      objectReference: {fileID: 0}
     - target: {fileID: 3848530924778492027, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: dashUses
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: dashBuffer
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5586608455800694535, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: wallSlideBuffer
-      value: 0.1
-      objectReference: {fileID: 0}
+      propertyPath: guitarController
+      value: 
+      objectReference: {fileID: 28826007}
     - target: {fileID: 8320138032106008733, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.05642
@@ -22161,17 +22193,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8750890815609731796, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: mainDuration
-      value: 0.125
-      objectReference: {fileID: 0}
-    - target: {fileID: 8750890815609731796, guid: b8a654f7329586b439740d22464d121d, type: 3}
-      propertyPath: secondaryDuration
-      value: 0.125
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8320138032106008733, guid: b8a654f7329586b439740d22464d121d, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 28826006}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8a654f7329586b439740d22464d121d, type: 3}
 --- !u!4 &372040957 stripped

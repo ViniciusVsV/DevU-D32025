@@ -1,4 +1,3 @@
-using System;
 using Characters.Player.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +7,7 @@ namespace Characters.Player
     public class InputHandler : MonoBehaviour
     {
         [SerializeField] private StateController playerController;
-        [SerializeField] private GuitarManager guitarManager;
+        [SerializeField] private GuitarController guitarController;
         private Transform playerTransform;
 
         [Header("||===== Jump Parameters =====||")]
@@ -149,25 +148,25 @@ namespace Characters.Player
         public void Green(InputAction.CallbackContext context)
         {
             if (context.performed)
-                guitarManager.PlayNote(MusicalNote.Verde);
+                guitarController.PlayNote(MusicalNote.Verde);
         }
 
         public void Blue(InputAction.CallbackContext context)
         {
             if (context.performed)
-                guitarManager.PlayNote(MusicalNote.Azul);
+                guitarController.PlayNote(MusicalNote.Azul);
         }
 
         public void Red(InputAction.CallbackContext context)
         {
             if (context.performed)
-                guitarManager.PlayNote(MusicalNote.Vermelho);
+                guitarController.PlayNote(MusicalNote.Vermelho);
         }
 
         public void Yellow(InputAction.CallbackContext context)
         {
             if (context.performed)
-                guitarManager.PlayNote(MusicalNote.Amarelo);
+                guitarController.PlayNote(MusicalNote.Amarelo);
         }
 
         private void Flip()

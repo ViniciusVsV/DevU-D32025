@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
-using Unity.VisualScripting;
+using Characters.Player;
 
 public class EnemyNoteCombo : MonoBehaviour
 {
@@ -16,11 +15,11 @@ public class EnemyNoteCombo : MonoBehaviour
         public Sprite noteSprite;
     }
 
-    [Header("Local dos pontos de vida")] [SerializeField] private List<GameObject> notePoints;
+    [Header("Local dos pontos de vida")][SerializeField] private List<GameObject> notePoints;
     [Header("Nota e seu sprite")] public List<NoteAssetMapping> noteAssets;
     private List<NoteDisplay> activeNoteDisplays = new List<NoteDisplay>();
     private List<MusicalNote> requiredSequence = new List<MusicalNote>();
-    
+
     void Awake()
     {
         GenerateSequence();
@@ -29,14 +28,14 @@ public class EnemyNoteCombo : MonoBehaviour
 
     void OnEnable()
     {
-        GuitarManager.OnNotePlayed += OnPlayedNote;
+        GuitarController.OnNotePlayed += OnPlayedNote;
     }
 
     void OnDisable()
     {
-        GuitarManager.OnNotePlayed -= OnPlayedNote;
+        GuitarController.OnNotePlayed -= OnPlayedNote;
     }
-    
+
     private void OnPlayedNote(MusicalNote playedNote)
     {
         if (currentStep >= sequenceSize)

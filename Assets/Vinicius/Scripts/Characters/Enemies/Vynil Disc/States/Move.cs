@@ -3,7 +3,7 @@ using DG.Tweening;
 using StateMachine;
 using UnityEngine;
 
-namespace Characters.Enemies.Hound.States
+namespace Characters.Enemies.VynilDisc.States
 {
     public class Move : BaseState
     {
