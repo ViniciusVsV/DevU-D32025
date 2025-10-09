@@ -47,13 +47,14 @@ namespace Objects.Interactables
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            cinemachineFollow = cam.GetComponent<CinemachineFollow>();
+            if (cam != null)
+                cinemachineFollow = cam.GetComponent<CinemachineFollow>();
         }
 #endif
 
         private void OnDrawGizmos()
         {
-            if (!showGizmos)
+            if (!showGizmos || cam == null)
                 return;
 
             Gizmos.color = Color.green;

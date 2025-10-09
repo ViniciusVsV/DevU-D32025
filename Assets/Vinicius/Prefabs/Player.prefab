@@ -342,12 +342,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runState: {fileID: 1608626281881388064}
   animationClip: {fileID: 0}
-  mainDashSpeed: 15
-  secondaryDashSpeed: 10
-  mainDashDuration: 0.15
-  secondayDashDuration: 0.05
+  mainSpeed: 0
+  secondarySpeed: 0
+  mainDuration: 0.125
+  secondaryDuration: 0.125
   runLerp: 0.5
-  isOnSecondStage: 0
 --- !u!1 &3630620789058827432
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +395,7 @@ MonoBehaviour:
   animationClip: {fileID: 0}
   jumpForce: 10
   jumpCutMultiplier: 0.5
-  minJumpDuration: 0.2
+  minJumpDuration: 0.1
 --- !u!1 &3848530924778492027
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,8 +460,10 @@ MonoBehaviour:
   wallSlideState: {fileID: 7493888712268511167}
   wallJumpState: {fileID: 1013335462071673177}
   jumpPressed: 0
+  wallJumpPressed: 0
   jumpCutted: 0
   dashPressed: 0
+  dashHappened: 0
   tookKnockback: 0
   isFacingRight: 0
   isGrounded: 0
@@ -483,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentOneWayPlatform: {fileID: 0}
   doubleCrouchThreshold: 0.2
+  ledgePanTime: 0
 --- !u!50 &3986714638203922167
 Rigidbody2D:
   serializedVersion: 5
@@ -655,7 +657,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 381549551
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -742,7 +744,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 381549551
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -809,12 +811,14 @@ MonoBehaviour:
     m_Bits: 64
   coyoteDuration: 0.1
   jumpBuffer: 0.15
-  dashCooldown: 1.5
+  dashUses: 1
+  dashBuffer: 0.2
   wallCheckPoint: {fileID: 3321348426225314233}
   wallCheckSize: {x: 0.1, y: 0.8}
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  wallSlideBuffer: 0.1
 --- !u!114 &6266998490962529608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1102,7 +1106,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 381549551
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -1237,6 +1241,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runState: {fileID: 1608626281881388064}
   animationClip: {fileID: 0}
+  terrainLayers:
+    serializedVersion: 2
+    m_Bits: 64
   wallJumpForce: {x: 10, y: 10}
   minJumpDuration: 0.1
-  runLerp: 0.35
+  runLerp: 0.34
