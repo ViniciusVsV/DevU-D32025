@@ -12,18 +12,8 @@ public class GuitarManager : MonoBehaviour
         public KeyCode key;
     }
 
-    [Header("Aqui voce coloca as teclas das notas")]
-    public NoteKeyMapping[] noteMappings;
-
-    void Update()
+    public static void InvokeNotePlayed(MusicalNote note)
     {
-        foreach (var mapping in noteMappings)
-        {
-            if (Input.GetKeyDown(mapping.key))
-            {
-                Debug.Log("Nota tocada: " + mapping.note);
-                OnNotePlayed?.Invoke(mapping.note);
-            }
-        }
+        OnNotePlayed?.Invoke(note);
     }
 }
