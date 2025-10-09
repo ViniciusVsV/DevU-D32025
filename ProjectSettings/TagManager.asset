@@ -2,18 +2,22 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - OneWayPlatform
+  - Obstacle
+  - Killbox
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Ground
+  - Ignored By Player
+  - Enemy
   - 
   - 
   - 
@@ -38,6 +42,23 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1185077833
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 2270914451
+    locked: 0
+  - name: Enemy
+    uniqueID: 2873158505
+    locked: 0
+  - name: Player
+    uniqueID: 381549551
+    locked: 0
+  - name: UI
+    uniqueID: 3523494695
+    locked: 0
+  m_RenderingLayers:
+  - Default
