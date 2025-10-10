@@ -40,13 +40,13 @@ namespace Characters.Enemies.VynilDisc
             windUpState.Setup(rb, transform, animator, spriteRenderer, this);
             chargeState.Setup(rb, transform, animator, spriteRenderer, this);
             dazeState.Setup(rb, transform, animator, spriteRenderer, this);
-
-            SetIdle(false);
         }
 
         private void Start()
         {
             beatLength = BeatController.Instance.GetBeatLength();
+
+            SetIdle(false);
         }
 
         protected override void Update()
