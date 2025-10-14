@@ -13,8 +13,7 @@ namespace Characters.Player.States
         {
             rb.linearVelocityX = 0;
 
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.magenta;
+            animator.Play(animationClip.name);
         }
 
         public override void StateUpdate()

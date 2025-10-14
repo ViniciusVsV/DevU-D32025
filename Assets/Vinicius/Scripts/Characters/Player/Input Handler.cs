@@ -1,4 +1,3 @@
-using System;
 using Characters.Player.States;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +7,7 @@ namespace Characters.Player
     public class InputHandler : MonoBehaviour
     {
         [SerializeField] private StateController playerController;
+        [SerializeField] private GuitarController guitarController;
         private Transform playerTransform;
 
         [Header("||===== Jump Parameters =====||")]
@@ -143,6 +143,30 @@ namespace Characters.Player
                 playerController.isCrouching = true;
             else
                 playerController.isCrouching = false;
+        }
+
+        public void Green(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarController.PlayNote(MusicalNote.Verde);
+        }
+
+        public void Blue(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarController.PlayNote(MusicalNote.Azul);
+        }
+
+        public void Red(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarController.PlayNote(MusicalNote.Vermelho);
+        }
+
+        public void Yellow(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                guitarController.PlayNote(MusicalNote.Amarelo);
         }
 
         private void Flip()

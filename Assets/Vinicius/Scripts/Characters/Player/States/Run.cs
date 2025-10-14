@@ -25,18 +25,15 @@ namespace Characters.Player.States
 
         private float lerpAmount;
 
+        public bool conserveMomentum;
+
         public override void StateEnter()
         {
-            if (Mathf.Abs(rb.linearVelocityX) > maxSpeed)
-            {
-                //animator.Play(fastRunClip.name);
-                spriteRenderer.color = Color.green;
-            }
+            if (Mathf.Abs(rb.linearVelocityX) > maxSpeed * 1.2f)
+                animator.Play(fastRunClip.name);
+
             else
-            {
-                //animator.Play(regularRunClip.name);
-                spriteRenderer.color = Color.cyan;
-            }
+                animator.Play(regularRunClip.name);
 
             lerpAmount = 1;
         }
@@ -84,10 +81,11 @@ namespace Characters.Player.States
             else
                 accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f) ? airAcceleration : airDeceleration;
 
-            if (Mathf.Abs(rb.linearVelocityX) > Mathf.Abs(targetSpeed)
-                && Mathf.Sign(rb.linearVelocityX) == Mathf.Sign(targetSpeed)
-                && Mathf.Abs(playerController.moveDirection.x) > 0.01f
-                && Mathf.Sign(playerController.moveDirection.x) == Mathf.Sign(rb.linearVelocityX))
+            if (conserveMomentum &&
+                Mathf.Abs(rb.linearVelocityX) > Mathf.Abs(targetSpeed) &&
+                Mathf.Sign(rb.linearVelocityX) == Mathf.Sign(targetSpeed) &&
+                Mathf.Abs(playerController.moveDirection.x) > 0.01f &&
+                Mathf.Sign(playerController.moveDirection.x) == Mathf.Sign(rb.linearVelocityX))
             {
                 accelerationRate = 0;
             }

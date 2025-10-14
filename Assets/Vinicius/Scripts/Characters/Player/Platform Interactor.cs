@@ -7,24 +7,28 @@ namespace Characters.Player
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlatformInteractor : MonoBehaviour
     {
-        private Rigidbody2D rb;
+        private StateController playerController;
 
-        public OneWayPlatform currentOneWayPlatform;
+        private OneWayPlatform currentOneWayPlatform;
+        private Rigidbody2D movingPlatformRb;
+
         [SerializeField] private float doubleCrouchThreshold;
         private float doubleCrouchTimer;
 
-        [SerializeField] private float ledgePanTime;
-        private float ledgePanTimer;
-
         private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
+            playerController = GetComponent<StateController>();
         }
 
         private void Update()
         {
             if (doubleCrouchTimer > Mathf.Epsilon)
                 doubleCrouchTimer -= Time.deltaTime;
+
+            if (movingPlatformRb != null)
+                playerController.platformVelocity = movingPlatformRb.linearVelocity;
+            else
+                playerController.platformVelocity = Vector2.zero;
         }
 
         public void CrouchInput(InputAction.CallbackContext context)
@@ -44,10 +48,7 @@ namespace Characters.Player
                 currentOneWayPlatform = collision.gameObject.GetComponent<OneWayPlatform>();
 
             else if (collision.gameObject.CompareTag("MovingPlatform"))
-            {
-                transform.parent = collision.transform;
-                rb.interpolation = RigidbodyInterpolation2D.None;
-            }
+                movingPlatformRb = collision.gameObject.GetComponent<Rigidbody2D>();
         }
 
         private void OnCollisionExit2D(Collision2D collision)
@@ -56,15 +57,7 @@ namespace Characters.Player
                 currentOneWayPlatform = null;
 
             else if (collision.gameObject.CompareTag("MovingPlatform"))
-            {
-                transform.parent = null;
-                rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-            }
-        }
-
-        void OnTriggerEnter2D(Collider2D collision)
-        {
-
+                movingPlatformRb = null;
         }
     }
 }

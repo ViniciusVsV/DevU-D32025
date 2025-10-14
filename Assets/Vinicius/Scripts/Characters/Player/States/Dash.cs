@@ -32,11 +32,9 @@ namespace Characters.Player.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.yellow;
+            animator.Play(animationClip.name);
 
             playerController.dashPressed = false;
-            playerController.dashHappened = true;
 
             baseGravityScale = rb.gravityScale;
             rb.gravityScale = 0f;
@@ -72,6 +70,8 @@ namespace Characters.Player.States
             {
                 if (isOnMainSection)
                 {
+                    playerController.dashHappened = true;
+
                     rb.gravityScale = baseGravityScale;
                     rb.linearVelocity = Vector2.zero;
 

@@ -11,6 +11,10 @@ public class NoteDisplay : MonoBehaviour
 
     public void Initialize(Sprite sprite)
     {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
         spriteRenderer.sprite = sprite;
         SetUnhit();
     }

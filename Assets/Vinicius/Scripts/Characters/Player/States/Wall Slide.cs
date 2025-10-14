@@ -19,8 +19,7 @@ namespace Characters.Player.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.black;
+            animator.Play(animationClip.name);
 
             baseGravityScale = rb.gravityScale;
             rb.gravityScale = 0;

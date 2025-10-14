@@ -26,8 +26,7 @@ namespace Characters.Player.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.magenta;
+            animator.Play(animationClip.name);
 
             rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
 

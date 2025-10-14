@@ -8,7 +8,7 @@ namespace Characters.Player.States
         private StateController playerController => (StateController)controller;
 
         [SerializeField] private AnimationClip idleClip;
-        [SerializeField] private AnimationClip stopRunClip;
+        [SerializeField] private AnimationClip landClip;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float deceleration;
@@ -16,15 +16,13 @@ namespace Characters.Player.States
 
         public override void StateEnter()
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fast Run"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fall"))
             {
-                //animator.Play(stopRunClip.name);
-                spriteRenderer.color = Color.black;
+                animator.Play(landClip.name);
             }
             else
             {
-                //animator.Play(idleClip.name);
-                spriteRenderer.color = Color.blue;
+                animator.Play(idleClip.name);
             }
         }
 
@@ -57,9 +55,15 @@ namespace Characters.Player.States
 
         public override void StateFixedUpdate()
         {
-            speedDiff = 0 - rb.linearVelocityX;
+            if (playerController.platformVelocity != Vector2.zero)
+                rb.linearVelocity = playerController.platformVelocity;
 
-            rb.AddForce(speedDiff * deceleration * Vector2.right, ForceMode2D.Force);
+            else
+            {
+                speedDiff = 0 - rb.linearVelocityX;
+
+                rb.AddForce(speedDiff * deceleration * Vector2.right, ForceMode2D.Force);
+            }
         }
     }
 }

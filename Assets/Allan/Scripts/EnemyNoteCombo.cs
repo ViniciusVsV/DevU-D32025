@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
-using Unity.VisualScripting;
+using Characters.Player;
 
 public class EnemyNoteCombo : MonoBehaviour
 {
@@ -16,12 +15,12 @@ public class EnemyNoteCombo : MonoBehaviour
         public Sprite noteSprite;
     }
 
-    [Header("Local dos pontos de vida")] [SerializeField] private List<GameObject> notePoints;
+    [Header("Local dos pontos de vida")][SerializeField] private List<GameObject> notePoints;
     [Header("Nota e seu sprite")] public List<NoteAssetMapping> noteAssets;
     private List<NoteDisplay> activeNoteDisplays = new List<NoteDisplay>();
     private List<MusicalNote> requiredSequence = new List<MusicalNote>();
-    
-    void Start()
+
+    void Awake()
     {
         GenerateSequence();
         SetupVisuals();
@@ -29,13 +28,14 @@ public class EnemyNoteCombo : MonoBehaviour
 
     void OnEnable()
     {
-        GuitarManager.OnNotePlayed += OnPlayedNote;
+        GuitarController.OnNotePlayed += OnPlayedNote;
     }
 
     void OnDisable()
     {
-        GuitarManager.OnNotePlayed -= OnPlayedNote;
+        GuitarController.OnNotePlayed -= OnPlayedNote;
     }
+
     private void OnPlayedNote(MusicalNote playedNote)
     {
         if (currentStep >= sequenceSize)
@@ -93,7 +93,7 @@ public class EnemyNoteCombo : MonoBehaviour
                 return asset.noteSprite;
             }
         }
-        Debug.LogError("Não foi encontrado um sprite mapeado para a nota: " + note);
+        Debug.LogError("Não foi encontrado um sprite para a nota: " + note);
         return null;
     }
 
@@ -110,6 +110,6 @@ public class EnemyNoteCombo : MonoBehaviour
     private void EnemyDefeat()
     {
         Debug.Log("inimigo: tomei gap");
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
