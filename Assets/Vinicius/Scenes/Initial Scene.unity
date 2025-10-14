@@ -22162,8 +22162,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8750890815609731796, guid: b8a654f7329586b439740d22464d121d, type: 3}
+      propertyPath: mainSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750890815609731796, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: mainDuration
       value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750890815609731796, guid: b8a654f7329586b439740d22464d121d, type: 3}
+      propertyPath: secondarySpeed
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8750890815609731796, guid: b8a654f7329586b439740d22464d121d, type: 3}
       propertyPath: secondaryDuration
