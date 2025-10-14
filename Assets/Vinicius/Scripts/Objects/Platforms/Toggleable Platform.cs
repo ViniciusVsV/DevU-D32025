@@ -9,6 +9,9 @@ namespace Objects.Platforms
         private Collider2D col;
         private SpriteRenderer spriteRenderer;
 
+        [Header("||===== Objects =====||")]
+        [SerializeField] private BoxCollider2D killTrigger;
+
         [Header("||===== Parameters =====||")]
         [SerializeField] private Color newColor;
         public bool isEnabled;
@@ -28,6 +31,7 @@ namespace Objects.Platforms
         {
             if (isEnabled)
             {
+                killTrigger.enabled = true;
                 col.enabled = true;
 
                 spriteRenderer.color = Color.white;
@@ -35,7 +39,9 @@ namespace Objects.Platforms
 
             else
             {
+                killTrigger.enabled = false;
                 col.enabled = false;
+                
                 spriteRenderer.color = newColor;
             }
         }

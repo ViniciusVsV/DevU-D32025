@@ -48,10 +48,6 @@ namespace Characters.Player.States
             else if (playerController.dashPressed)
                 playerController.SetDash();
 
-            // Transição para Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
-
             // Transição para Idle
             else if (Mathf.Abs(playerController.moveDirection.x) <= 0.01f)
                 playerController.SetIdle();

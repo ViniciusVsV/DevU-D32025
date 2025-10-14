@@ -4,7 +4,7 @@ namespace StateMachine
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]
-    public class BaseStateController : MonoBehaviour, IDamageable
+    public class BaseStateController : MonoBehaviour
     {
         protected StateMachine stateMachine;
 

@@ -9,7 +9,6 @@ TagManager:
   - Killbox
   - MovingPlatform
   - SmashingBlock
-  - SmashZone
   layers:
   - Default
   - TransparentFX

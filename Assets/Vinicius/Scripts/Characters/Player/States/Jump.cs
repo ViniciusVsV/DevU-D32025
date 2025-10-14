@@ -50,10 +50,6 @@ namespace Characters.Player.States
             else if (playerController.dashPressed)
                 playerController.SetDash();
 
-            // Transição para Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
-
             // Transição para Wall Slide
             else if (playerController.isWallSliding && jumpTimer <= Mathf.Epsilon)
                 playerController.SetWallSlide();

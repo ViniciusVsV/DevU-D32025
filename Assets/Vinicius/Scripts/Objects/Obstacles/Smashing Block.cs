@@ -8,7 +8,8 @@ namespace Objects.Obstacles
         [Header("||===== Objects =====||")]
         [SerializeField] private Rigidbody2D blockRb;
         [SerializeField] private Transform smashPoint;
-        [SerializeField] private BoxCollider2D smashZone;
+        [SerializeField] private BoxCollider2D smashTrigger;
+        [SerializeField] private BoxCollider2D retreatTrigger;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private int beatsCooldown;
@@ -73,13 +74,14 @@ namespace Objects.Obstacles
             stillCounter = beatsStill + 1;
             isStill = true;
 
-            smashZone.enabled = true;
-
             float elapsedTime = 0f;
 
             while (elapsedTime < smashLength)
             {
                 progress = elapsedTime / smashLength;
+
+                if (progress >= 0.8)
+                    smashTrigger.enabled = true;
 
                 curveFactor = smashCurve.Evaluate(progress);
 
@@ -96,7 +98,7 @@ namespace Objects.Obstacles
             blockRb.position = targetPos;
             blockRb.linearVelocity = Vector2.zero;
 
-            smashZone.enabled = false;
+            smashTrigger.enabled = false;
 
             StartCoroutine(RetreatRoutine());
         }
@@ -115,6 +117,9 @@ namespace Objects.Obstacles
             {
                 progress = elapsedTime / retreatLength;
 
+                if (progress >= 0.7)
+                    retreatTrigger.enabled = true;
+
                 curveFactor = retreatCurve.Evaluate(progress);
 
                 desiredPos = Vector2.LerpUnclamped(startPos, targetPos, curveFactor);
@@ -129,6 +134,8 @@ namespace Objects.Obstacles
 
             blockRb.position = targetPos;
             blockRb.linearVelocity = Vector2.zero;
+
+            retreatTrigger.enabled = false;
         }
 
         private void OnDrawGizmos()

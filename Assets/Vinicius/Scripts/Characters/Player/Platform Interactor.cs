@@ -10,7 +10,7 @@ namespace Characters.Player
         private StateController playerController;
 
         private OneWayPlatform currentOneWayPlatform;
-        private Rigidbody2D movingPlatformRb;
+        private Rigidbody2D currentRb;
 
         [SerializeField] private float doubleCrouchThreshold;
         private float doubleCrouchTimer;
@@ -25,8 +25,8 @@ namespace Characters.Player
             if (doubleCrouchTimer > Mathf.Epsilon)
                 doubleCrouchTimer -= Time.deltaTime;
 
-            if (movingPlatformRb != null)
-                playerController.platformVelocity = movingPlatformRb.linearVelocity;
+            if (currentRb != null)
+                playerController.platformVelocity = currentRb.linearVelocity;
             else
                 playerController.platformVelocity = Vector2.zero;
         }
@@ -47,8 +47,8 @@ namespace Characters.Player
             if (collision.gameObject.CompareTag("OneWayPlatform"))
                 currentOneWayPlatform = collision.gameObject.GetComponent<OneWayPlatform>();
 
-            else if (collision.gameObject.CompareTag("MovingPlatform"))
-                movingPlatformRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            else if (collision.gameObject.CompareTag("MovingPlatform") || collision.gameObject.CompareTag("SmashingBlock"))
+                currentRb = collision.gameObject.GetComponent<Rigidbody2D>();
         }
 
         private void OnCollisionExit2D(Collision2D collision)
@@ -56,8 +56,8 @@ namespace Characters.Player
             if (collision.gameObject.CompareTag("OneWayPlatform"))
                 currentOneWayPlatform = null;
 
-            else if (collision.gameObject.CompareTag("MovingPlatform"))
-                movingPlatformRb = null;
+            else if (collision.gameObject.CompareTag("MovingPlatform") || collision.gameObject.CompareTag("SmashingBlock"))
+                currentRb = null;
         }
     }
 }

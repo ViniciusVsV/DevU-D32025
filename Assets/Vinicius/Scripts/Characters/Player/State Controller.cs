@@ -17,9 +17,10 @@ namespace Characters.Player
         [SerializeField] private Fall fallState;
         [SerializeField] private Dash dashState;
         [SerializeField] private Crouch crouchState;
-        [SerializeField] private Knockback knockbackState;
         [SerializeField] private WallSlide wallSlideState;
         [SerializeField] private WallJump wallJumpState;
+        [SerializeField] private Knockback knockbackState;
+        [SerializeField] private Die dieState;
 
         [Header("||===== Booleans =====||")]
         public bool jumpPressed;
@@ -28,9 +29,11 @@ namespace Characters.Player
         public bool dashPressed;
         public bool dashHappened;
         public bool tookKnockback;
+        public bool died;
 
         public bool isFacingRight;
         public bool isGrounded;
+        public bool isDashing;
         public bool isWalled;
         public bool isWallSliding;
         public bool isCrouching;
@@ -45,9 +48,10 @@ namespace Characters.Player
             fallState.Setup(rb, transform, animator, spriteRenderer, this);
             dashState.Setup(rb, transform, animator, spriteRenderer, this);
             crouchState.Setup(rb, transform, animator, spriteRenderer, this);
-            knockbackState.Setup(rb, transform, animator, spriteRenderer, this);
             wallSlideState.Setup(rb, transform, animator, spriteRenderer, this);
             wallJumpState.Setup(rb, transform, animator, spriteRenderer, this);
+            knockbackState.Setup(rb, transform, animator, spriteRenderer, this);
+            dieState.Setup(rb, transform, animator, spriteRenderer, this);
 
             SetIdle(false);
 
@@ -70,33 +74,9 @@ namespace Characters.Player
         public void SetFall(bool forced = false) => SetNewState(fallState, forced);
         public void SetDash(bool forced = false) => SetNewState(dashState, forced);
         public void SetCrouch(bool forced = false) => SetNewState(crouchState, forced);
-        public void SetKnockback(bool forced = false) => SetNewState(knockbackState, forced);
         public void SetWallSlide(bool forced = false) => SetNewState(wallSlideState, forced);
         public void SetWallJump(bool forced = false) => SetNewState(wallJumpState, forced);
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("Killbox") || other.CompareTag("Obstacle"))
-                TakeDamage(1, new Vector2(-1f, 1f));
-        }
-
-        public override void TakeDamage(int damage, Vector2 direction)
-        {
-            currentHealth -= damage;
-
-            if (currentHealth <= 0)
-                Die();
-            else
-            {
-                knockbackDirection = direction;
-
-                tookKnockback = true;
-            }
-        }
-
-        protected override void Die()
-        {
-            Destroy(gameObject);
-        }
+        public void SetKnockback(bool forced = false) => SetNewState(knockbackState, forced);
+        public void SetDie(bool forced = false) => SetNewState(dieState, forced);
     }
 }
