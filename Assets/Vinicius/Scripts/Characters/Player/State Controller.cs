@@ -8,6 +8,7 @@ namespace Characters.Player
     {
         [HideInInspector] public Vector2 moveDirection;
         [HideInInspector] public Vector2 knockbackDirection;
+        [HideInInspector] public Vector2 platformVelocity;
 
         [Header("||===== States =====||")]
         [SerializeField] private Idle idleState;

@@ -32,8 +32,7 @@ namespace Characters.Player.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.yellow;
+            animator.Play(animationClip.name);
 
             playerController.dashPressed = false;
 

@@ -23,8 +23,7 @@ namespace Characters.Player.States
         {
             playerController.jumpPressed = false;
 
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.green;
+            animator.Play(animationClip.name);
 
             appliedForce = jumpForce;
 
