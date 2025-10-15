@@ -5,7 +5,7 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Idle : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
@@ -59,19 +59,19 @@ namespace Characters.Enemies.VynilDisc.States
                 attemptCounter++;
             } while (attemptCounter < 30);
 
-            houndController.followPoint = nextPoint;
+            vynilDiscController.followPoint = nextPoint;
         }
 
         public override void StateUpdate()
         {
-            if (houndController.beatHappened)
+            if (vynilDiscController.beatHappened)
                 beatCounter++;
 
-            if (houndController.isAggroed)
-                houndController.SetChase();
+            if (vynilDiscController.isAggroed)
+                vynilDiscController.SetChase();
 
             else if (beatCounter > beatsDuration)
-                houndController.SetMove();
+                vynilDiscController.SetMove();
         }
     }
 }

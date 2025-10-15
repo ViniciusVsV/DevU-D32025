@@ -7,7 +7,7 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Move : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
@@ -29,7 +29,7 @@ namespace Characters.Enemies.VynilDisc.States
 
 
             //Flipa o sprite
-            if (Mathf.Sign((houndController.followPoint - rb.position).x) != Mathf.Sign(tr.localScale.x))
+            if (Mathf.Sign((vynilDiscController.followPoint - rb.position).x) != Mathf.Sign(tr.localScale.x))
             {
                 Vector3 newScale = tr.localScale;
                 newScale.x *= -1;
@@ -37,17 +37,17 @@ namespace Characters.Enemies.VynilDisc.States
             }
 
             //Movimento dura uma batida
-            tween = rb.DOMove(houndController.followPoint, duration * beatLengthPercentage).SetEase(Ease.OutCirc)
-                .OnComplete(() => houndController.SetIdle());
+            tween = rb.DOMove(vynilDiscController.followPoint, duration * beatLengthPercentage).SetEase(Ease.OutCirc)
+                .OnComplete(() => vynilDiscController.SetIdle());
         }
 
         public override void StateUpdate()
         {
-            if (houndController.isAggroed)
+            if (vynilDiscController.isAggroed)
             {
                 tween?.Kill();
 
-                houndController.SetChase();
+                vynilDiscController.SetChase();
             }
         }
     }

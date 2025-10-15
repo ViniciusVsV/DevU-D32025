@@ -8,7 +8,7 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Chase : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
@@ -77,12 +77,12 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateUpdate()
         {
-            targetPosition = houndController.playerTransform.position;
+            targetPosition = vynilDiscController.playerTransform.position;
             targetVector = targetPosition - rb.position;
 
             seesPlayer = !Physics2D.CircleCast(tr.position, colliderRadius, targetVector.normalized, targetVector.magnitude, terrainLayers);
 
-            if (houndController.beatHappened)
+            if (vynilDiscController.beatHappened)
             {
                 // Transição para Wind Up
                 if
@@ -93,7 +93,7 @@ namespace Characters.Enemies.VynilDisc.States
                 )
                 {
                     chargeBeatCounter = chargeBeatsCooldown;
-                    houndController.SetWindUp();
+                    vynilDiscController.SetWindUp();
                     return;
                 }
 

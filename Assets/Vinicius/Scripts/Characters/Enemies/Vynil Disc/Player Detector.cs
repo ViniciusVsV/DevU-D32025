@@ -5,7 +5,7 @@ namespace Characters.Enemies.VynilDisc
     public class PlayerDetector : MonoBehaviour
     {
         [Header("||===== Objects =====||")]
-        [SerializeField] StateController houndController;
+        [SerializeField] StateController vynilDiscController;
         [SerializeField] LayerMask terrainLayers;
 
         private Transform playerTransform;
@@ -18,7 +18,7 @@ namespace Characters.Enemies.VynilDisc
             if (other.CompareTag("Player"))
             {
                 playerTransform = other.transform;
-                houndController.playerTransform = playerTransform;
+                vynilDiscController.playerTransform = playerTransform;
             }
         }
 
@@ -35,7 +35,7 @@ namespace Characters.Enemies.VynilDisc
                 playerVector = playerTransform.position - transform.position;
 
                 if (!Physics2D.Raycast(transform.position, playerVector.normalized, playerVector.magnitude, terrainLayers))
-                    houndController.isAggroed = true;
+                    vynilDiscController.isAggroed = true;
             }
         }
 

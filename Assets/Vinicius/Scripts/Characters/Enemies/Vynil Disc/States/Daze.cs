@@ -6,7 +6,7 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Daze : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
@@ -31,16 +31,16 @@ namespace Characters.Enemies.VynilDisc.States
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.white;
 
-            houndController.isStunned = true;
+            vynilDiscController.isStunned = true;
 
             beatCounter = 0;
 
-            direction = (houndController.followPoint - rb.position).normalized * -1;
+            direction = (vynilDiscController.followPoint - rb.position).normalized * -1;
         }
 
         public override void StateUpdate()
         {
-            if (houndController.beatHappened)
+            if (vynilDiscController.beatHappened)
             {
                 if (beatCounter == 0)
                     rb.linearVelocity = initialSpeed * direction;
@@ -52,7 +52,7 @@ namespace Characters.Enemies.VynilDisc.States
 
                 // Transição para Chase
                 if (beatCounter > beatsDuration)
-                    houndController.SetChase();
+                    vynilDiscController.SetChase();
             }
         }
 
@@ -65,7 +65,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateExit()
         {
-            houndController.isStunned = false;
+            vynilDiscController.isStunned = false;
 
             rb.linearVelocity = Vector2.zero;
         }

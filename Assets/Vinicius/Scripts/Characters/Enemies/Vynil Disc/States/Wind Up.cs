@@ -6,7 +6,7 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class WindUp : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
@@ -32,8 +32,8 @@ namespace Characters.Enemies.VynilDisc.States
         public override void StateUpdate()
         {
             // Transição para Charge
-            if (houndController.beatHappened)
-                houndController.SetCharge();
+            if (vynilDiscController.beatHappened)
+                vynilDiscController.SetCharge();
         }
     }
 }

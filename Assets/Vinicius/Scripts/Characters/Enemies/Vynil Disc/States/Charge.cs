@@ -5,7 +5,7 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Charge : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
@@ -42,12 +42,12 @@ namespace Characters.Enemies.VynilDisc.States
 
             beatTimer = 0;
 
-            targetVector = houndController.playerTransform.position - tr.position;
+            targetVector = vynilDiscController.playerTransform.position - tr.position;
             targetDirection = targetVector.normalized;
 
             targetPosition = rb.position + targetDirection * chargeDistance;
 
-            houndController.followPoint = targetPosition;
+            vynilDiscController.followPoint = targetPosition;
 
             chargeSpeed = chargeDistance / (beatLength * chargeBeatPercentage) * targetDirection;
 
@@ -60,11 +60,11 @@ namespace Characters.Enemies.VynilDisc.States
 
             // Transição para Daze
             if (Physics2D.CircleCast(tr.position, dazeDetectionRadius, targetDirection, dazeDetectionDistance, terrainLayers))
-                houndController.SetDaze();
+                vynilDiscController.SetDaze();
 
             // Transição para Chase
             else if (beatTimer >= beatLength * (chargeBeatPercentage + brakeBeatPercentage))
-                houndController.SetChase();
+                vynilDiscController.SetChase();
         }
 
         public override void StateFixedUpdate()
