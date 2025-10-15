@@ -12,21 +12,19 @@ namespace Characters.Enemies.VynilDisc.States
         [SerializeField] private AnimationClip animationClip;
 
         [Header("||===== Parameters =====||")]
-        [Range(0, 1)][SerializeField] private float beatLengthPercentage; //O quanto do tempo da batida que será usado para o movimento
-        private float duration;
+        private float beatLength;
 
         private Tween tween;
 
         private void Start()
         {
-            duration = BeatController.Instance.GetBeatLength();
+            beatLength = BeatController.Instance.GetBeatLength();
         }
 
         public override void StateEnter()
         {
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.cyan;
-
 
             //Flipa o sprite
             if (Mathf.Sign((vynilDiscController.followPoint - rb.position).x) != Mathf.Sign(tr.localScale.x))
@@ -36,18 +34,25 @@ namespace Characters.Enemies.VynilDisc.States
                 tr.localScale = newScale;
             }
 
-            //Movimento dura uma batida
-            tween = rb.DOMove(vynilDiscController.followPoint, duration * beatLengthPercentage).SetEase(Ease.OutCirc)
-                .OnComplete(() => vynilDiscController.SetIdle());
+            tween = rb.DOMove(vynilDiscController.followPoint, beatLength).SetEase(Ease.OutCirc);
         }
 
         public override void StateUpdate()
         {
+            // Transição para Chase
             if (vynilDiscController.isAggroed)
             {
                 tween?.Kill();
 
                 vynilDiscController.SetChase();
+            }
+
+            // Transição para Idle
+            else if (vynilDiscController.beatHappened)
+            {
+                tween?.Kill();
+
+                vynilDiscController.SetIdle();
             }
         }
     }

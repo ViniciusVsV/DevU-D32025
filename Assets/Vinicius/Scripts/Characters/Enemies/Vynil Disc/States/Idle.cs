@@ -33,6 +33,8 @@ namespace Characters.Enemies.VynilDisc.States
         {
             initialPosition = transform.position;
             colliderRadius = houndCollider.radius;
+
+            beatCounter = beatsDuration;
         }
 
         public override void StateEnter()
@@ -40,7 +42,6 @@ namespace Characters.Enemies.VynilDisc.States
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.blue;
 
-            beatCounter = 0;
             attemptCounter = 0;
 
             do
@@ -67,11 +68,16 @@ namespace Characters.Enemies.VynilDisc.States
             if (vynilDiscController.beatHappened)
                 beatCounter++;
 
+            // Transição para Chase
             if (vynilDiscController.isAggroed)
                 vynilDiscController.SetChase();
 
+            // Transição para Move
             else if (beatCounter > beatsDuration)
+            {
+                beatCounter = 0;
                 vynilDiscController.SetMove();
+            }
         }
     }
 }

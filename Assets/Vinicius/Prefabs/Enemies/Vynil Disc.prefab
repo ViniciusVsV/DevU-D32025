@@ -138,7 +138,7 @@ MonoBehaviour:
   houndCollider: {fileID: 14037788492274712}
   maxAttempts: 30
   maxDistance: 2
-  beatsDuration: 3
+  beatsDuration: 2
 --- !u!1 &3006086862183200692
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   pulseSize: {x: 1.3, y: 1.3, z: 1}
   stunnedPulseSize: {x: 1.1, y: 1.1, z: 1}
   spriteTransform: {fileID: 5590661141414487819}
-  beatDelay: 1
+  beatDelay: 4
   idleState: {fileID: 6180935798970201768}
   moveState: {fileID: 1473260214985939401}
   chaseState: {fileID: 992818925236273440}
@@ -597,7 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4e5e12e03824c44b631686007d62fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  houndController: {fileID: 5221180792176499395}
+  vynilDiscController: {fileID: 5221180792176499395}
   terrainLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -1254,4 +1254,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
-  beatLengthPercentage: 0.95

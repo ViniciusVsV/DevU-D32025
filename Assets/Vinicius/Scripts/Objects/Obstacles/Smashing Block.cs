@@ -14,6 +14,7 @@ namespace Objects.Obstacles
         [Header("||===== Parameters =====||")]
         [SerializeField] private int beatsCooldown;
         [SerializeField] private int beatsStill; // Tempo em batidas que fica parado após bater
+        [SerializeField] private int beatDelay;
         private int beatCounter;
         private int stillCounter;
 
@@ -43,10 +44,18 @@ namespace Objects.Obstacles
 
             smashLength = beatLength;
             retreatLength = beatLength * beatsCooldown;
+
+            beatCounter = beatsCooldown;
         }
 
         public void RespondToBeat()
         {
+            if (beatDelay > 0)
+            {
+                beatDelay--;
+                return;
+            }
+
             if (isStill)
             {
                 stillCounter--;
@@ -56,10 +65,12 @@ namespace Objects.Obstacles
                 return;
             }
 
-            beatCounter = (beatCounter + 1) % (beatsCooldown + 1);
+            beatCounter++;
 
-            if (beatCounter == 0)
+            if (beatCounter > beatsCooldown)
             {
+                beatCounter = 0;
+
                 StopAllCoroutines();
                 StartCoroutine(SmashRoutine());
             }

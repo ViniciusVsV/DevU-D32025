@@ -128,8 +128,9 @@ MonoBehaviour:
   smashPoint: {fileID: 2728821067086853910}
   smashTrigger: {fileID: 6126983207439364797}
   retreatTrigger: {fileID: 5887758888917717821}
-  beatsCooldown: 3
+  beatsCooldown: 1
   beatsStill: 1
+  beatDelay: 4
   smashCurve:
     serializedVersion: 2
     m_Curve:
