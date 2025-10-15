@@ -10,6 +10,7 @@ namespace Characters.Enemies.VynilDisc.States
         [SerializeField] private AnimationClip animationClip;
 
         [Header("||===== Objects =====||")]
+        [SerializeField] private CircleCollider2D killTrigger;
         [SerializeField] private LayerMask terrainLayers;
 
         [Header("||===== Parameters =====||")]
@@ -51,6 +52,8 @@ namespace Characters.Enemies.VynilDisc.States
 
             chargeSpeed = chargeDistance / (beatLength * chargeBeatPercentage) * targetDirection;
 
+            killTrigger.enabled = true;
+
             rb.linearVelocity = chargeSpeed;
         }
 
@@ -72,6 +75,8 @@ namespace Characters.Enemies.VynilDisc.States
             //Passou do tempo de charge
             if (beatTimer >= beatLength * chargeBeatPercentage)
             {
+                killTrigger.enabled = false;
+
                 float brakeElapsed = beatTimer - (beatLength * chargeBeatPercentage);
 
                 float brakeDuration = beatLength * brakeBeatPercentage;
@@ -85,6 +90,8 @@ namespace Characters.Enemies.VynilDisc.States
         public override void StateExit()
         {
             rb.linearVelocity = Vector2.zero;
+
+            killTrigger.enabled = false;
         }
 
         private void OnDrawGizmos()

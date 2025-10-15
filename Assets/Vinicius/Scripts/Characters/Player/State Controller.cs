@@ -53,9 +53,14 @@ namespace Characters.Player
             knockbackState.Setup(rb, transform, animator, spriteRenderer, this);
             dieState.Setup(rb, transform, animator, spriteRenderer, this);
 
+            isFacingRight = true;
+        }
+
+        private void Start()
+        {
             SetIdle(false);
 
-            isFacingRight = true;
+            transform.position = CheckpointManager.Instance.GetSpawnPoint();
         }
 
         protected override void Update()

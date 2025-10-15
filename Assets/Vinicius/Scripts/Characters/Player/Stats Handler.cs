@@ -6,19 +6,22 @@ namespace Characters.Player
     public class StatsHandler : MonoBehaviour
     {
         [SerializeField] private StateController playerController;
-        [SerializeField] private string[] dangerousTags;
+        [SerializeField] private string[] undodgeableTags;
+        [SerializeField] private string[] dodgeableTags;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (playerController.isDashing)
-            {
-                Debug.Log("Desviou!");
-                return;
-            }
+            if (undodgeableTags.Contains(other.tag))
+                playerController.SetDie();
 
-            if (dangerousTags.Contains(other.tag))
+            else if (dodgeableTags.Contains(other.tag))
             {
-                Debug.Log("Morreu!");
+                if (playerController.isDashing)
+                {
+                    Debug.Log("Desviou!");
+                    return;
+                }
+
                 playerController.SetDie();
             }
         }

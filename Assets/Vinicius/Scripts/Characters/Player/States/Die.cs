@@ -11,6 +11,7 @@ namespace Characters.Player.States
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float respawnDelay;
+        [SerializeField] private float respawnDuration;
 
         public override void StateEnter()
         {
@@ -18,9 +19,10 @@ namespace Characters.Player.States
 
             //Desativa tudo
             playerController.enabled = false;
+            spriteRenderer.enabled = false;
 
             rb.simulated = false;
-            spriteRenderer.enabled = false;
+            rb.linearVelocity = Vector2.zero;
 
             StartCoroutine(Routine());
         }
@@ -29,7 +31,26 @@ namespace Characters.Player.States
         {
             yield return new WaitForSeconds(respawnDelay);
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Restaurar todos os objetos / inimigos ativos
+
+            // Ativar efeito de transição
+
+            // Mover o jogador para a posição do spawn point
+            tr.position = CheckpointManager.Instance.GetSpawnPoint();
+
+            // Ativar o sprite
+            spriteRenderer.enabled = true;
+
+            yield return new WaitForSeconds(respawnDuration);
+
+            // Tirar o efeito de transição
+
+            // Ativar os controles
+            playerController.enabled = true;
+            rb.simulated = true;
+
+            // Transição para Idle
+            playerController.SetIdle();
         }
     }
 }

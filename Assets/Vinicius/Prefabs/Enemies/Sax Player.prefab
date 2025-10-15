@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 1944906826882478369}
   m_Layer: 0
   m_Name: Mark
-  m_TagString: Obstacle
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

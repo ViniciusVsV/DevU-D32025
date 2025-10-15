@@ -3,12 +3,14 @@ using UnityEngine;
 
 namespace Objects.Interactables
 {
-    public class CameraLookAhead : MonoBehaviour
+    public class CameraShifter : MonoBehaviour
     {
+        [Header("||==== Objects ====||")]
         [SerializeField] private CinemachineCamera cam; //Serializable para caso queira ver o gizmos da câmera no editor
         private CinemachineFollow cinemachineFollow;
-
         [SerializeField] private Transform focusPoint;
+
+        [Header("||==== Parameters ====||")]
         [SerializeField] private float timeToActivate;
         private float timer;
 

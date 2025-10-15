@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnDelay: 1
+  respawnDuration: 0.5
 --- !u!1 &3630620789058827432
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,9 +537,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 4408628242471473937}
-  dangerousTags:
-  - Killbox
+  undodgeableTags:
   - Obstacle
+  - Killbox
+  dodgeableTags:
+  - EnemyAttack
 --- !u!114 &564142571572223655
 MonoBehaviour:
   m_ObjectHideFlags: 0
