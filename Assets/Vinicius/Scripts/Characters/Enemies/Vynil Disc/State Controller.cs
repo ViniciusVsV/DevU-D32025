@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Characters.Enemies.VynilDisc
 {
-    public class StateController : BaseStateController, IRythmSyncable
+    public class StateController : BaseStateController, IRythmSyncable, IActivatable, IDeactivatable, IRestorable
     {
         [HideInInspector] public Vector2 followPoint;
         [HideInInspector] public Transform playerTransform;
@@ -16,6 +16,7 @@ namespace Characters.Enemies.VynilDisc
         [SerializeField] private Transform spriteTransform;
         [SerializeField] private int beatDelay;
         private float beatLength;
+        public int beatCounter;
 
         [Header("||===== States =====||")]
         [SerializeField] private Idle idleState;
@@ -24,11 +25,17 @@ namespace Characters.Enemies.VynilDisc
         [SerializeField] private WindUp windUpState;
         [SerializeField] private Charge chargeState;
         [SerializeField] private Daze dazeState;
+        [SerializeField] private Die dieState;
+        [SerializeField] private Respawn respawnState;
+        [SerializeField] private Deactivate deactivateState;
 
         [Header("||===== Booleans =====||")]
+        public bool beatHappened;
+        public bool restored;
+        public bool activated;
+
         public bool isAggroed;
         public bool isStunned;
-        public bool beatHappened;
 
         protected override void Awake()
         {
@@ -40,13 +47,16 @@ namespace Characters.Enemies.VynilDisc
             windUpState.Setup(rb, transform, animator, spriteRenderer, this);
             chargeState.Setup(rb, transform, animator, spriteRenderer, this);
             dazeState.Setup(rb, transform, animator, spriteRenderer, this);
+            dieState.Setup(rb, transform, animator, spriteRenderer, this);
+            respawnState.Setup(rb, transform, animator, spriteRenderer, this);
+            deactivateState.Setup(rb, transform, animator, spriteRenderer, this);
         }
 
         private void Start()
         {
             beatLength = BeatController.Instance.GetBeatLength();
 
-            SetIdle(false);
+            SetDeactivate(false);
         }
 
         protected override void Update()
@@ -54,6 +64,8 @@ namespace Characters.Enemies.VynilDisc
             base.Update();
 
             beatHappened = false;
+            restored = false;
+            activated = false;
         }
 
         public void SetIdle(bool forced = false) => SetNewState(idleState, forced);
@@ -62,6 +74,9 @@ namespace Characters.Enemies.VynilDisc
         public void SetWindUp(bool forced = false) => SetNewState(windUpState, forced);
         public void SetCharge(bool forced = false) => SetNewState(chargeState, forced);
         public void SetDaze(bool forced = false) => SetNewState(dazeState, forced);
+        public void SetDie(bool forced = false) => SetNewState(dieState, forced);
+        public void SetRespawn(bool forced = false) => SetNewState(respawnState, forced);
+        public void SetDeactivate(bool forced = false) => SetNewState(deactivateState, forced);
 
         public void RespondToBeat()
         {
@@ -73,10 +88,18 @@ namespace Characters.Enemies.VynilDisc
 
             beatHappened = true;
 
+            beatCounter = (beatCounter + 1) % 4;
+
             Vector3 pulseScale = isStunned ? stunnedPulseSize : pulseSize;
 
             spriteTransform.localScale = pulseScale;
             spriteTransform.DOScale(Vector3.one, beatLength * 0.9f);
         }
+
+        public void Activate() { activated = true; }
+
+        public void Deactivate() { SetDeactivate(); }
+
+        public void Restore() { restored = true; }
     }
 }

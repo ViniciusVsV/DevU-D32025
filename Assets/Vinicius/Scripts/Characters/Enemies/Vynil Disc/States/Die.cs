@@ -1,22 +1,24 @@
 using StateMachine;
 using UnityEngine;
 
-namespace Characters.Enemies.SaxPlayer.States
+namespace Characters.Enemies.VynilDisc.States
 {
     public class Die : BaseState
     {
-        private StateController saxPlayerController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         public override void StateEnter()
         {
+            vynilDiscController.isAggroed = false;
+
             spriteRenderer.enabled = false;
         }
 
         public override void StateUpdate()
         {
             // Transição para Respawn
-            if (saxPlayerController.restored)
-                saxPlayerController.SetRespawn();
+            if (vynilDiscController.restored)
+                vynilDiscController.SetRespawn();
         }
     }
 }

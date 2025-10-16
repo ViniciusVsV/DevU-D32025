@@ -1,14 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace Objects.Interactables
 {
     [RequireComponent(typeof(Collider2D))]
-    public class Checkpoint : MonoBehaviour
+    public class CheckpointCollider : MonoBehaviour
     {
         public int checkpointId;
-        public Transform spawnPoint;
 
         private Collider2D col;
+
+        public static event Action OnCheckpointReached;
 
         private void Awake()
         {
@@ -22,6 +24,8 @@ namespace Objects.Interactables
                 col.enabled = false;
 
                 PlayerPrefs.SetInt("checkpointId", checkpointId);
+
+                OnCheckpointReached?.Invoke();
             }
         }
     }

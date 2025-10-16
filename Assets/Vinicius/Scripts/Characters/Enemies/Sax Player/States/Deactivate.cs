@@ -1,15 +1,17 @@
-using StateMachine;
 using UnityEngine;
+using StateMachine;
 
 namespace Characters.Enemies.SaxPlayer.States
 {
-    public class Die : BaseState
+    public class Deactivate : BaseState
     {
         private StateController saxPlayerController => (StateController)controller;
 
         public override void StateEnter()
         {
-            spriteRenderer.enabled = false;
+            // Não faz nada
+
+            spriteRenderer.color = Color.black;
         }
 
         public override void StateUpdate()
@@ -17,6 +19,10 @@ namespace Characters.Enemies.SaxPlayer.States
             // Transição para Respawn
             if (saxPlayerController.restored)
                 saxPlayerController.SetRespawn();
+
+            // Transição para Idle
+            else if (saxPlayerController.activated)
+                saxPlayerController.SetIdle();
         }
     }
 }

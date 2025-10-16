@@ -18,8 +18,6 @@ namespace Characters.Enemies.VynilDisc.States
         [Header("||===== Parameters =====||")]
         [SerializeField] private int maxAttempts;
         [SerializeField] private float maxDistance;
-        [SerializeField] private int beatsDuration; //Duração do estado em batidas
-        private int beatCounter;
         private int attemptCounter;
 
         private Vector2 initialPosition;
@@ -33,8 +31,6 @@ namespace Characters.Enemies.VynilDisc.States
         {
             initialPosition = transform.position;
             colliderRadius = houndCollider.radius;
-
-            beatCounter = beatsDuration;
         }
 
         public override void StateEnter()
@@ -65,18 +61,15 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateUpdate()
         {
-            if (vynilDiscController.beatHappened)
-                beatCounter++;
-
             // Transição para Chase
             if (vynilDiscController.isAggroed)
                 vynilDiscController.SetChase();
 
             // Transição para Move
-            else if (beatCounter > beatsDuration)
+            else if (vynilDiscController.beatHappened)
             {
-                beatCounter = 0;
-                vynilDiscController.SetMove();
+                if (vynilDiscController.beatCounter == 0 || vynilDiscController.beatCounter == 2)
+                    vynilDiscController.SetMove();
             }
         }
     }

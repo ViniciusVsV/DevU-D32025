@@ -22,8 +22,11 @@ public class BeatInterval
 
             foreach (var syncedObject in syncedObjects)
             {
-                rythmSyncable = syncedObject.GetComponent<IRythmSyncable>();
-                rythmSyncable?.RespondToBeat();
+                if (syncedObject != null)
+                {
+                    rythmSyncable = syncedObject.GetComponent<IRythmSyncable>();
+                    rythmSyncable?.RespondToBeat();
+                }
             }
         }
     }

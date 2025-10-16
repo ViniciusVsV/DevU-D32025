@@ -33,6 +33,8 @@ Transform:
   - {fileID: 7100155878383998948}
   - {fileID: 4923471353930202129}
   - {fileID: 5214920174926297239}
+  - {fileID: 7565633024705348434}
+  - {fileID: 4988096418350130865}
   m_Father: {fileID: 2061526302473603074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &958412103445542534
@@ -84,7 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8126e596db477f7409c91b5743e08ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
   moveDirection: 0
   beatDelay: 5
   beatCounter: 0
@@ -92,7 +93,11 @@ MonoBehaviour:
   moveState: {fileID: 4932093096984383105}
   playSaxState: {fileID: 1112286464815306139}
   dieState: {fileID: 9157881258623342198}
+  respawnState: {fileID: 3050699869879533625}
+  deactivateState: {fileID: 1621760137517081857}
   beatHappened: 0
+  restored: 0
+  activated: 0
   isFacingRight: 0
 --- !u!61 &6997849949931396877
 BoxCollider2D:
@@ -306,6 +311,50 @@ MonoBehaviour:
   terrainLayers:
     serializedVersion: 2
     m_Bits: 64
+--- !u!1 &2753924181014902967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4988096418350130865}
+  - component: {fileID: 1621760137517081857}
+  m_Layer: 0
+  m_Name: Deactivate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4988096418350130865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753924181014902967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1101271501647245741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1621760137517081857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2753924181014902967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf3600ba630b2742a9b42bff7192aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4718101614580626890
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea9bd1837fee644c8c9b5b4d9fa5f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saxPlayer: {fileID: 958412103445542534}
 --- !u!1 &6076946292277930869
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,3 +894,47 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9196247029693218276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7565633024705348434}
+  - component: {fileID: 3050699869879533625}
+  m_Layer: 0
+  m_Name: Respawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7565633024705348434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196247029693218276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1101271501647245741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3050699869879533625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196247029693218276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71513d83659fd3e4e90e9fea4867e1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

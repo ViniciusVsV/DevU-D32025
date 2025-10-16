@@ -13,10 +13,6 @@ namespace StateMachine
         protected Animator animator;
         protected SpriteRenderer spriteRenderer;
 
-        [Header("||===== Health Parameters =====||")]
-        [SerializeField] protected int maxHealth;
-        protected int currentHealth;
-
         protected virtual void Awake()
         {
             stateMachine = new StateMachine();
@@ -25,8 +21,6 @@ namespace StateMachine
             col = GetComponent<Collider2D>();
             animator = GetComponentInChildren<Animator>();
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-            currentHealth = maxHealth;
         }
 
         protected virtual void Update()
