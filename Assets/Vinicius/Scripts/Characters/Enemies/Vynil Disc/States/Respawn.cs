@@ -7,6 +7,8 @@ namespace Characters.Enemies.VynilDisc.States
     {
         private StateController vynilDiscController => (StateController)controller;
 
+        [SerializeField] private GameObject notesObject;
+
         private Vector2 spawnPoint;
 
         private void Awake()
@@ -21,6 +23,9 @@ namespace Characters.Enemies.VynilDisc.States
 
             // Restaura o sprite
             spriteRenderer.enabled = true;
+
+            // Restaura as notas
+            notesObject.SetActive(true);
 
             // Transição para Idle
             vynilDiscController.SetIdle();

@@ -7,6 +7,8 @@ namespace Characters.Enemies.SaxPlayer.States
     {
         private StateController saxPlayerController => (StateController)controller;
 
+        [SerializeField] private GameObject notesObject;
+
         private Vector2 spawnPoint;
 
         private void Awake()
@@ -21,6 +23,9 @@ namespace Characters.Enemies.SaxPlayer.States
 
             // Restaura o sprite
             spriteRenderer.enabled = true;
+
+            // Restaura as notas
+            notesObject.SetActive(true);
 
             // Transição para Idle
             saxPlayerController.SetIdle();

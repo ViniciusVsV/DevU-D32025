@@ -138,7 +138,6 @@ MonoBehaviour:
   houndCollider: {fileID: 14037788492274712}
   maxAttempts: 30
   maxDistance: 2
-  beatsDuration: 2
 --- !u!1 &2578632037916562616
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61501177c45b50498d4838c6e0bfe1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notesObject: {fileID: 7537983744900286055}
 --- !u!1 &3006086862183200692
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6405034288545533752}
   - component: {fileID: 5221180792176499395}
+  - component: {fileID: 4287624041679957495}
   - component: {fileID: 4315135067057366512}
   - component: {fileID: 9204457626488275847}
   - component: {fileID: 14037788492274712}
@@ -398,6 +399,7 @@ MonoBehaviour:
   stunnedPulseSize: {x: 1.1, y: 1.1, z: 1}
   spriteTransform: {fileID: 5590661141414487819}
   beatDelay: 4
+  beatCounter: 0
   idleState: {fileID: 6180935798970201768}
   moveState: {fileID: 1473260214985939401}
   chaseState: {fileID: 992818925236273440}
@@ -409,8 +411,38 @@ MonoBehaviour:
   deactivateState: {fileID: 7837417365549712989}
   beatHappened: 0
   restored: 0
+  activated: 0
   isAggroed: 0
   isStunned: 0
+--- !u!114 &4287624041679957495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4444608898358654599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbea516bf2c2b74cbeb7e158bd0173c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vynilDiscController: {fileID: 5221180792176499395}
+  maxHealth: 3
+  OnEntityRestored:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2313345896574455244}
+        m_TargetAssemblyTypeName: Characters.Enemies.NoteSequence, Assembly-CSharp
+        m_MethodName: RegenerateSequence
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!195 &4315135067057366512
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -595,6 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788731df4ec54bd4b869ed688767334d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notesObject: {fileID: 7537983744900286055}
 --- !u!1 &4687512236547870199
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +947,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02deb3d35a09af4cb9b83a7e462b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnSequenceCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4287624041679957495}
+        m_TargetAssemblyTypeName: Characters.Enemies.VynilDisc.StatsHandler, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   sequenceSize: 3
   notePoints:
   - {fileID: 7852802877585939541}
