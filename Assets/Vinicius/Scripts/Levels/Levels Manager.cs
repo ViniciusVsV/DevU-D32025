@@ -15,10 +15,6 @@ public class LevelsManager : MonoBehaviour
     private void Awake()
     {
         levels.OrderBy(l => l.GetCheckpointId());
-
-#if UNITY_EDITOR
-        PlayerPrefs.DeleteKey("checkpointId");
-#endif
     }
 
     void OnEnable()
@@ -43,8 +39,6 @@ public class LevelsManager : MonoBehaviour
     //// Restaura os inimigos/objetos com IRestorable da fase atual
     public void PlayerSpawned()
     {
-        Debug.Log("Player Spawned chamadop!");
-
         player.transform.position = currentLevel.GetSpawnPoint();
 
         currentLevel.RestoreObjects();
@@ -54,8 +48,6 @@ public class LevelsManager : MonoBehaviour
     //// Desativa os inimigos da fase atual
     public void PlayerDied()
     {
-        Debug.Log("Player DIed chamado!");
-
         currentLevel.DeactivateObjects();
     }
 
@@ -64,8 +56,6 @@ public class LevelsManager : MonoBehaviour
     //// Ativa os inimigos da fase atual
     public void LevelEntered()
     {
-        Debug.Log("Level entered chamado!");
-
         int id = currentLevelId;
 
         if (id > 0)

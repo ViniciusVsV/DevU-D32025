@@ -12,4 +12,9 @@ public class GameMenuController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void ResetCheckpoint()
+    {
+        PlayerPrefs.DeleteKey("checkpointId");
+    }
 }

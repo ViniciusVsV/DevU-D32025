@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7943832424373995516}
   - component: {fileID: 943694995459654493}
   m_Layer: 0
-  m_Name: Camera Look Ahead Box
+  m_Name: Camera Shifter Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   focusPoint: {fileID: 5183530763438526287}
-  timeToActivate: 1
+  timeToActivate: 0.5
   showGizmos: 1
 --- !u!61 &943694995459654493
 BoxCollider2D:

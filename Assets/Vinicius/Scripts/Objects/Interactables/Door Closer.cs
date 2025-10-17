@@ -4,22 +4,31 @@ using UnityEngine;
 namespace Objects.Interactables
 {
     [RequireComponent(typeof(Collider2D))]
-    public class DoorCloser : MonoBehaviour
+    public class DoorCloser : MonoBehaviour, IActivatable, IDeactivatable
     {
         private Collider2D col;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private Transform doorTransform;
-        [SerializeField] private Transform doorClosedPosition;
+        [SerializeField] private Transform closedPosition;
         [SerializeField] private float closeDuration;
         [SerializeField] private float shakeDuration;
         [SerializeField] private float closeShakeIntensity;
+        private Vector2 initialPos;
 
         public bool showGizmos;
 
         private void Awake()
         {
             col = GetComponent<Collider2D>();
+
+            initialPos = doorTransform.position;
+        }
+
+        private void Start()
+        {
+            // Começa desativada
+            Deactivate();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -28,12 +37,26 @@ namespace Objects.Interactables
             {
                 col.enabled = false;
 
-                doorTransform.DOMove(doorClosedPosition.position, closeDuration).SetEase(Ease.Linear)
+                doorTransform.DOMove(closedPosition.position, closeDuration).SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
                     doorTransform.DOShakePosition(shakeDuration, new Vector3(closeShakeIntensity, 0f, 0f), 10, 0);
                 });
             }
+        }
+
+        // ATIVAR a porta = Abrir
+        public void Activate()
+        {
+            doorTransform.position = initialPos;
+            col.enabled = true;
+        }
+
+        // DESATIVAR a porta = Fechar
+        public void Deactivate()
+        {
+            doorTransform.position = closedPosition.position;
+            col.enabled = false;
         }
 
         private void OnDrawGizmos()
@@ -42,7 +65,7 @@ namespace Objects.Interactables
                 return;
 
             Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(doorClosedPosition.position, doorTransform.localScale);
+            Gizmos.DrawWireCube(closedPosition.position, doorTransform.localScale);
         }
     }
 }

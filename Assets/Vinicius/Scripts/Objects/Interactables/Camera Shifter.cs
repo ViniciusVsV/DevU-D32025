@@ -9,12 +9,12 @@ namespace Objects.Interactables
         [SerializeField] private CinemachineCamera cam; //Serializable para caso queira ver o gizmos da câmera no editor
         private CinemachineFollow cinemachineFollow;
         [SerializeField] private Transform focusPoint;
+        private Rigidbody2D playerRb;
 
         [Header("||==== Parameters ====||")]
         [SerializeField] private float timeToActivate;
         private float timer;
 
-        private bool isColliding;
         public bool showGizmos; //Habilta mostrar o gizmos
 
         private void Start()
@@ -25,22 +25,34 @@ namespace Objects.Interactables
 
         private void Update()
         {
-            timer = isColliding ? timer + Time.deltaTime : 0;
+            if (playerRb != null)
+            {
+                if (playerRb.linearVelocity.sqrMagnitude < 0.01f)
+                    timer += Time.deltaTime;
 
-            if (timer >= timeToActivate)
-                cam.Follow = focusPoint;
+                else
+                {
+                    timer = 0;
+                    cam.Follow = playerRb.transform;
+                }
+
+                if (timer >= timeToActivate)
+                    cam.Follow = focusPoint;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
-                isColliding = true;
+                playerRb = other.GetComponent<Rigidbody2D>();
         }
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
             {
-                isColliding = false;
+                timer = 0;
+
+                playerRb = null;
 
                 cam.Follow = other.transform;
             }
