@@ -9,9 +9,7 @@ public class Level : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
 
     [Header("||===== Object Lists =====||")]
-    [SerializeField] private List<GameObject> activatableObjects;
-    [SerializeField] private List<GameObject> deactivatableObjects;
-    [SerializeField] private List<GameObject> restorableObjects;
+    [SerializeField] private List<GameObject> dynamicObjects;
 
     private IActivatable activatable;
     private IDeactivatable deactivatable;
@@ -19,7 +17,7 @@ public class Level : MonoBehaviour
 
     public void ActivateObjects()
     {
-        foreach (GameObject obj in activatableObjects)
+        foreach (GameObject obj in dynamicObjects)
         {
             if (obj != null)
             {
@@ -31,7 +29,7 @@ public class Level : MonoBehaviour
 
     public void DeactivateObjects()
     {
-        foreach (GameObject obj in deactivatableObjects)
+        foreach (GameObject obj in dynamicObjects)
         {
             if (obj != null)
             {
@@ -43,7 +41,7 @@ public class Level : MonoBehaviour
 
     public void RestoreObjects()
     {
-        foreach (GameObject obj in restorableObjects)
+        foreach (GameObject obj in dynamicObjects)
         {
             if (obj != null)
             {

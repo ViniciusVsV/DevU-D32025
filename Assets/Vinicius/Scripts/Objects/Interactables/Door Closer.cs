@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Objects.Interactables
 {
     [RequireComponent(typeof(Collider2D))]
-    public class DoorCloser : MonoBehaviour, IActivatable, IDeactivatable
+    public class DoorCloser : MonoBehaviour, IActivatable, IDeactivatable, IRestorable
     {
         private Collider2D col;
 
@@ -55,8 +55,19 @@ namespace Objects.Interactables
         // DESATIVAR a porta = Fechar
         public void Deactivate()
         {
+            // Se já está no processo de fechar a porta
+            if (col.enabled == false)
+                return;
+
             doorTransform.position = closedPosition.position;
             col.enabled = false;
+        }
+
+        // RESTAURAR a porta = Abrir
+        public void Restore()
+        {
+            doorTransform.position = initialPos;
+            col.enabled = true;
         }
 
         private void OnDrawGizmos()
