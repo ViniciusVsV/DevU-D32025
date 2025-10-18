@@ -441,7 +441,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 5586608455800694535}
-  respawnDelay: 1
 --- !u!1 &3630620789058827432
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576e6d31ff894b74b99937ba180e1dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   moveDirection: {x: 0, y: 0}
   knockbackDirection: {x: 0, y: 0}
   platformVelocity: {x: 0, y: 0}
@@ -566,7 +564,6 @@ MonoBehaviour:
   dashPressed: 0
   dashHappened: 0
   tookKnockback: 0
-  died: 0
   isFacingRight: 0
   isGrounded: 0
   isDashing: 0
@@ -940,6 +937,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   wallSlideBuffer: 0.1
+  isOnController: 0
 --- !u!114 &6266998490962529608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,6 +968,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5586608455800694535}
         m_TargetAssemblyTypeName: Player.InputReader, Assembly-CSharp
         m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1019,6 +1029,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 27c5f898-bc57-4ee1-8800-db469aca5fe3
     m_ActionName: 'Player/Crouch[/Keyboard/c]'
   - m_PersistentCalls:
@@ -1026,6 +1048,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5586608455800694535}
         m_TargetAssemblyTypeName: Player.InputReader, Assembly-CSharp
         m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1050,6 +1084,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5586608455800694535}
         m_TargetAssemblyTypeName: Player.InputReader, Assembly-CSharp
         m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1115,6 +1161,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 579cfebd-796a-4cee-a8a5-39ecefdf9eea
     m_ActionName: 'Player/Green[/Keyboard/u]'
   - m_PersistentCalls:
@@ -1122,6 +1180,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5586608455800694535}
         m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
         m_MethodName: Blue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1147,6 +1217,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e0aae964-afd3-4366-816f-4f235f548e80
     m_ActionName: 'Player/Red[/Keyboard/o]'
   - m_PersistentCalls:
@@ -1154,6 +1236,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5586608455800694535}
         m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
         m_MethodName: Yellow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5586608455800694535}
+        m_TargetAssemblyTypeName: Characters.Player.InputHandler, Assembly-CSharp
+        m_MethodName: CheckForController
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

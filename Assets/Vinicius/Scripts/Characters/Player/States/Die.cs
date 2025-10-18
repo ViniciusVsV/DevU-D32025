@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEngine;
 
@@ -9,35 +10,42 @@ namespace Characters.Player.States
     {
         private StateController playerController => (StateController)controller;
 
+        [Header("||===== Objects =====||")]
         [SerializeField] private InputHandler inputHandler;
-
-        [Header("||===== Parameters =====||")]
-        [SerializeField] private float respawnDelay;
+        private DeathEffects deathEffects;
 
         public static event Action OnPlayerDied;
+
+        private void Start()
+        {
+            deathEffects = DeathEffects.Instance;
+        }
 
         public override void StateEnter()
         {
             //Desativa tudo
             playerController.enabled = false;
             inputHandler.enabled = false;
-            spriteRenderer.enabled = false;
 
             rb.simulated = false;
             rb.linearVelocity = Vector2.zero;
 
-            // Desativa os inimigos (evento, talvez)
             OnPlayerDied?.Invoke();
+
+            deathEffects.ApplyEffects(tr.position);
 
             StartCoroutine(Routine());
         }
 
         private IEnumerator Routine()
         {
-            yield return new WaitForSeconds(respawnDelay);
+            while (!deathEffects.finishedHitStopping)
+                yield return null;
 
-            // Ativar efeito de transição
-            //
+            spriteRenderer.enabled = false;
+
+            while (!deathEffects.finishedPlaying)
+                yield return null;
 
             // Transição para Respawn
             playerController.SetRespawn();

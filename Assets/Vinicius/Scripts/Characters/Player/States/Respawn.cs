@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Effects.Complex.Player;
 using StateMachine;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Characters.Player.States
@@ -10,12 +12,16 @@ namespace Characters.Player.States
     {
         private StateController playerController => (StateController)controller;
 
+        [Header("||===== Objects =====||")]
         [SerializeField] private InputHandler inputHandler;
+        private RespawnEffects respawnEffects;
 
-        [Header("||===== Parameters =====||")]
-        [SerializeField] private float respawnDuration;
-        
         public static event Action OnPlayerRespawned;
+
+        private void Start()
+        {
+            respawnEffects = RespawnEffects.Instance;
+        }
 
         public override void StateEnter()
         {
@@ -28,15 +34,15 @@ namespace Characters.Player.States
             // Transição para Idle
             playerController.SetIdle();
 
+            respawnEffects.ApplyEffects();
+
             StartCoroutine(Routine());
         }
 
         private IEnumerator Routine()
         {
-            yield return new WaitForSeconds(respawnDuration);
-
-            // Tirar o efeito de transição
-            //
+            while (!respawnEffects.finishedPlaying)
+                yield return null;
 
             // Ativar física e input handler
             rb.simulated = true;

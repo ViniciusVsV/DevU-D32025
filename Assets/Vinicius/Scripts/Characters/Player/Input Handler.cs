@@ -41,6 +41,8 @@ namespace Characters.Player
 
         private int lookingDirection;
 
+        public bool isOnController;
+
         private void Awake()
         {
             playerTransform = transform.parent;
@@ -167,6 +169,14 @@ namespace Characters.Player
         {
             if (context.performed)
                 guitarController.PlayNote(MusicalNote.Amarelo);
+        }
+
+        public void CheckForController(InputAction.CallbackContext context)
+        {
+            if (context.control.device is Gamepad)
+                isOnController = true;
+            else
+                isOnController = false;
         }
 
         private void Flip()
