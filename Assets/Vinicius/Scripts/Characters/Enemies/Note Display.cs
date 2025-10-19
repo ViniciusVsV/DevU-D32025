@@ -1,5 +1,6 @@
 using System;
 using Effects.Simple;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Characters.Enemies
@@ -44,9 +45,10 @@ namespace Characters.Enemies
             noteMovement.ApplyHitEffect(initialPosition, transform, spriteRenderer);
         }
 
-        public void SetAsUnhit()
+        public void SetAsUnhit(bool callEffects)
         {
-            noteMovement.ApplyUnhitEffect(initialPosition, transform, spriteRenderer);
+            if (callEffects)
+                noteMovement.ApplyUnhitEffect(initialPosition, transform, spriteRenderer);
         }
     }
 }

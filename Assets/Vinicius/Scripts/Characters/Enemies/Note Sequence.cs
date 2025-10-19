@@ -99,10 +99,12 @@ namespace Characters.Enemies
 
         private void ResetSequence()
         {
+            bool callEffects = sequenceCounter > 0;
+
             sequenceCounter = 0;
 
             foreach (var display in noteDisplays)
-                display.SetAsUnhit();
+                display.SetAsUnhit(callEffects);
         }
 
         private IEnumerator Setup()

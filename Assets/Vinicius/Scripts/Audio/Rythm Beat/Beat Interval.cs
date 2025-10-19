@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,6 +10,8 @@ public class BeatInterval
     [SerializeField] private float noteLength;
     private float lastInterval;
 
+    public static event Action OnOneBeatHappened; // Evento apenas a cada uma batida (a cada duas batidas, por exemplo, não ocorre)
+
     public float GetBeatLength(float bpm)
     {
         return 60f / (bpm * noteLength);
@@ -19,6 +22,9 @@ public class BeatInterval
         if (Mathf.FloorToInt(interval) != lastInterval)
         {
             lastInterval = Mathf.FloorToInt(interval);
+
+            if (noteLength == 1)
+                OnOneBeatHappened?.Invoke();
 
             foreach (var syncedObject in syncedObjects)
             {

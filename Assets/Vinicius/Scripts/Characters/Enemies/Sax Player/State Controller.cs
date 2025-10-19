@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Characters.Enemies.SaxPlayer
 {
-    public class StateController : BaseStateController, IRythmSyncable, IActivatable, IDeactivatable, IRestorable
+    public class StateController : BaseStateController, IActivatable, IDeactivatable, IRestorable, IRythmSyncable
     {
         [HideInInspector] public int moveDirection;
 
@@ -64,6 +64,13 @@ namespace Characters.Enemies.SaxPlayer
         public void SetRespawn(bool forced = false) => SetNewState(respawnState, forced);
         public void SetDeactivate(bool forced = false) => SetNewState(deactivateState, forced);
 
+        public void Activate() { activated = true; }
+        public void Deactivate() { SetDeactivate(); }
+        public void Restore() { restored = true; }
+
+        private void OnEnable() { BeatInterval.OnOneBeatHappened += RespondToBeat; }
+        private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
+
         public void RespondToBeat()
         {
             if (beatDelay > 0)
@@ -76,11 +83,5 @@ namespace Characters.Enemies.SaxPlayer
 
             beatCounter = (beatCounter + 1) % 4; // Mantém o momento da batida no 4:4
         }
-
-        public void Activate() { activated = true; }
-
-        public void Deactivate() { SetDeactivate(); }
-
-        public void Restore() { restored = true; }
     }
 }

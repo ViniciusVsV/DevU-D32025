@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Objects.Obstacles
 {
-    public class SmashingBlock : MonoBehaviour, IRythmSyncable
+    public class SmashingBlock : MonoBehaviour, IActivatable, IDeactivatable, IRestorable, IRythmSyncable
     {
         [Header("||===== Objects =====||")]
         [SerializeField] private Rigidbody2D blockRb;
@@ -28,6 +28,7 @@ namespace Objects.Obstacles
         private float progress;
         private float curveFactor;
 
+        private bool isActive;
         public bool showGizmos;
 
         private void Start()
@@ -36,6 +37,20 @@ namespace Objects.Obstacles
 
             beatLength = BeatController.Instance.GetBeatLength();
         }
+
+        public void Activate() { isActive = true; }
+        public void Deactivate() { isActive = false; }
+        public void Restore()
+        {
+            StopAllCoroutines();
+
+            blockRb.position = initialPosition;
+
+            isActive = true;
+        }
+
+        private void OnEnable() { BeatInterval.OnOneBeatHappened += RespondToBeat; }
+        private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
 
         public void RespondToBeat()
         {
@@ -46,6 +61,9 @@ namespace Objects.Obstacles
             }
 
             beatCounter = (beatCounter + 1) % 4; // Mantendo todo o comportamento do bloco dentro do 4:4
+
+            if (!isActive)
+                return;
 
             if (beatCounter == 0)
             {

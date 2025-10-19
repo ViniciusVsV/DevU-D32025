@@ -18,8 +18,6 @@ namespace Effects.Simple.LightningBolt
 
                 newBolt.Initialize(this);
 
-                newBolt.gameObject.SetActive(false);
-
                 pool.Enqueue(newBolt);
             }
         }
@@ -40,15 +38,11 @@ namespace Effects.Simple.LightningBolt
 
             var bolt = pool.Dequeue();
 
-            bolt.gameObject.SetActive(true);
-
             bolt.ApplyEffect(startPoint, endPoint);
         }
 
         public void ReturnBolt(LightningBolt bolt)
         {
-            bolt.gameObject.SetActive(false);
-
             pool.Enqueue(bolt);
         }
     }

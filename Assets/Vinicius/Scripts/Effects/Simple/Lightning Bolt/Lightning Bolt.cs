@@ -6,6 +6,9 @@ namespace Effects.Simple.LightningBolt
     [RequireComponent(typeof(LineRenderer))]
     public class LightningBolt : MonoBehaviour
     {
+        [Header("||===== Objects =====||")]
+        [SerializeField] private ParticleSystem originParticles;
+        [SerializeField] private ParticleSystem hitParticles;
         private LightningBoltsManager lightningBoltsManager;
         private LineRenderer lineRenderer;
 
@@ -59,6 +62,10 @@ namespace Effects.Simple.LightningBolt
         {
             ocurrenceCounter = 0;
 
+            // Invoca partícula de origem no ponto de origem
+            originParticles.transform.position = startPoint;
+            originParticles.Play();
+
             while (ocurrenceCounter < ocurrences)
             {
                 lineRenderer.positionCount = usedSegments;
@@ -80,6 +87,10 @@ namespace Effects.Simple.LightningBolt
                 }
 
                 lineRenderer.SetPosition(usedSegments - 1, endPoint);
+
+                // Invoca partícula de acerto no ponto final
+                hitParticles.transform.position = endPoint;
+                hitParticles.Play();
 
                 ocurrenceCounter++;
 

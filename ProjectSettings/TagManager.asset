@@ -59,6 +59,9 @@ TagManager:
   - name: Player
     uniqueID: 381549551
     locked: 0
+  - name: Particles
+    uniqueID: 2609654799
+    locked: 0
   - name: Foreground
     uniqueID: 3339524497
     locked: 0

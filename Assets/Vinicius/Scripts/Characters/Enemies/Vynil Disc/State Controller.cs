@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Characters.Enemies.VynilDisc
 {
-    public class StateController : BaseStateController, IRythmSyncable, IActivatable, IDeactivatable, IRestorable
+    public class StateController : BaseStateController, IActivatable, IDeactivatable, IRestorable, IRythmSyncable
     {
         [HideInInspector] public Vector2 followPoint;
         [HideInInspector] public Transform playerTransform;
@@ -79,6 +79,13 @@ namespace Characters.Enemies.VynilDisc
         public void SetRespawn(bool forced = false) => SetNewState(respawnState, forced);
         public void SetDeactivate(bool forced = false) => SetNewState(deactivateState, forced);
 
+        public void Activate() { activated = true; }
+        public void Deactivate() { SetDeactivate(); }
+        public void Restore() { restored = true; }
+
+        private void OnEnable() { BeatInterval.OnOneBeatHappened += RespondToBeat; }
+        private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
+
         public void RespondToBeat()
         {
             if (beatDelay > 0)
@@ -93,11 +100,5 @@ namespace Characters.Enemies.VynilDisc
 
             Vector3 pulseScale = isStunned ? stunnedPulseSize : pulseSize;
         }
-
-        public void Activate() { activated = true; }
-
-        public void Deactivate() { SetDeactivate(); }
-
-        public void Restore() { restored = true; }
     }
 }
