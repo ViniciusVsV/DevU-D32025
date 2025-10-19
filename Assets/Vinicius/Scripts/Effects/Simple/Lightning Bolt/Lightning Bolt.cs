@@ -6,7 +6,7 @@ namespace Effects.Simple.LightningBolt
     [RequireComponent(typeof(LineRenderer))]
     public class LightningBolt : MonoBehaviour
     {
-        private LightningBoltManager pool;
+        private LightningBoltsManager lightningBoltsManager;
         private LineRenderer lineRenderer;
 
         [Header("||===== Parameters =====||")]
@@ -33,9 +33,9 @@ namespace Effects.Simple.LightningBolt
 
         public bool isPlaying;
 
-        public void Initialize(LightningBoltManager pool)
+        public void Initialize(LightningBoltsManager lightningBoltsManager)
         {
-            this.pool = pool;
+            this.lightningBoltsManager = lightningBoltsManager;
 
             lineRenderer = GetComponent<LineRenderer>();
         }
@@ -88,7 +88,7 @@ namespace Effects.Simple.LightningBolt
                 lineRenderer.positionCount = 0;
             }
 
-            pool.ReturnBolt(this);
+            lightningBoltsManager.ReturnBolt(this);
         }
     }
 }

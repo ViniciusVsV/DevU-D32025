@@ -7,12 +7,16 @@ namespace Characters.Enemies.SaxPlayer.States
     {
         private StateController saxPlayerController => (StateController)controller;
 
+        [Header("||===== Objects =====||")]
+        [SerializeField] private Transform spriteTransform;
+
         [Header("||===== Parameters =====||")]
         [SerializeField] private float moveSpeed;
         [SerializeField] private int playSaxCooldown; // Quantidade de 4's de cooldown do ataque
 
         private int beatCounter => saxPlayerController.beatCounter;
         private int playSaxCounter => saxPlayerController.playSaxCounter;
+
         public override void StateEnter()
         {
             //animator.Play(animationClip.name);
@@ -23,10 +27,10 @@ namespace Characters.Enemies.SaxPlayer.States
                 saxPlayerController.moveDirection == -1 && saxPlayerController.isFacingRight
             )
             {
-                tr.localScale = new Vector3(
-                    tr.localScale.x * -1,
-                    tr.localScale.y,
-                    tr.localScale.z
+                spriteTransform.localScale = new Vector3(
+                    spriteTransform.localScale.x * -1,
+                    spriteTransform.localScale.y,
+                    spriteTransform.localScale.z
                 );
 
                 saxPlayerController.isFacingRight = !saxPlayerController.isFacingRight;

@@ -5,7 +5,7 @@ namespace Characters.Enemies.SaxPlayer
     public class FlipDetector : MonoBehaviour
     {
         [SerializeField] private StateController saxPlayerController;
-        [SerializeField] private Transform saxPlayerTransform;
+        [SerializeField] private Transform spriteTransform;
 
         [SerializeField] private Transform checkPoint;
         [SerializeField] private float rayDistance;
@@ -24,10 +24,10 @@ namespace Characters.Enemies.SaxPlayer
 
             if (!hasGroundAhead || hasWallAhead)
             {
-                saxPlayerTransform.localScale = new Vector3(
-                    saxPlayerTransform.localScale.x * -1,
-                    saxPlayerTransform.localScale.y,
-                    saxPlayerTransform.localScale.z
+                spriteTransform.localScale = new Vector3(
+                    spriteTransform.localScale.x * -1,
+                    spriteTransform.localScale.y,
+                    spriteTransform.localScale.z
                 );
 
                 saxPlayerController.isFacingRight = !saxPlayerController.isFacingRight;

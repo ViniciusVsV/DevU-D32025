@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Effects.Simple.LightningBolt
 {
-    public class LightningBoltManager : MonoBehaviour
+    public class LightningBoltsManager : MonoBehaviour
     {
         [SerializeField] private LightningBolt lightningBoltPrefab;
         [SerializeField] private int poolSize = 10;

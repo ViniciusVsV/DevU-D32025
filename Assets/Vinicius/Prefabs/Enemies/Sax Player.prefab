@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saxPlayerController: {fileID: 997105068160540}
-  saxPlayerTransform: {fileID: 2061526302473603074}
+  spriteTransform: {fileID: 8018982899945398343}
   checkPoint: {fileID: 7161083817596081043}
   rayDistance: 0.5
   terrainLayers:
@@ -1218,6 +1218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00dadb15ec7584149a50cfe34978a0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteTransform: {fileID: 8018982899945398343}
   moveSpeed: 3
   playSaxCooldown: 1
 --- !u!1 &8864108476603788900
@@ -1377,7 +1378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02deb3d35a09af4cb9b83a7e462b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequenceSize: 3
   notePoints:
   - {fileID: 4627506614459106328}
   - {fileID: 555937815723800364}
@@ -1391,6 +1391,10 @@ MonoBehaviour:
     noteSprite: {fileID: 21300000, guid: 93e7358f39c9d184eafd4c98332a6e6b, type: 3}
   - note: 3
     noteSprite: {fileID: 21300000, guid: 6ddf22e6f56f43c47a06988964129807, type: 3}
+  sequenceSize: 3
+  setupDelay: 0.05
+  isActive: 0
+  finishedSetup: 0
   OnSequenceCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -1406,7 +1410,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isActive: 0
 --- !u!1 &9196247029693218276
 GameObject:
   m_ObjectHideFlags: 0

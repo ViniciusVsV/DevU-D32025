@@ -1,4 +1,5 @@
 using StateMachine;
+using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 namespace Characters.Player.States
@@ -57,6 +58,10 @@ namespace Characters.Player.States
             // Transição para Fall
             else if (rb.linearVelocityY < -0.1f)
                 playerController.SetFall();
+
+            // Transição para Idle
+            else if (rb.linearVelocityY < Mathf.Abs(Mathf.Epsilon))
+                playerController.SetIdle();
         }
 
         public override void StateFixedUpdate()

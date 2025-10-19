@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class test : MonoBehaviour
 {
     [SerializeField] private StateController stateController;
-    [SerializeField] private LightningBoltManager lightningBoltManager;
+    [SerializeField] private LightningBoltsManager lightningBoltManager;
 
     private void Start()
     {

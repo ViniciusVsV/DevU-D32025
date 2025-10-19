@@ -30,8 +30,6 @@ namespace Characters.Player.States
             rb.simulated = false;
             rb.linearVelocity = Vector2.zero;
 
-            OnPlayerDied?.Invoke();
-
             deathEffects.ApplyEffects(tr.position);
 
             StartCoroutine(Routine());
@@ -43,6 +41,8 @@ namespace Characters.Player.States
                 yield return null;
 
             spriteRenderer.enabled = false;
+
+            OnPlayerDied?.Invoke();
 
             while (!deathEffects.finishedPlaying)
                 yield return null;

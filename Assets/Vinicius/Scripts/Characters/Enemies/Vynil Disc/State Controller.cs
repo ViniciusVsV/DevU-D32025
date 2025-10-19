@@ -92,9 +92,6 @@ namespace Characters.Enemies.VynilDisc
             beatCounter = (beatCounter + 1) % 4;
 
             Vector3 pulseScale = isStunned ? stunnedPulseSize : pulseSize;
-
-            spriteTransform.localScale = pulseScale;
-            spriteTransform.DOScale(Vector3.one, beatLength * 0.9f);
         }
 
         public void Activate() { activated = true; }

@@ -11,6 +11,9 @@ namespace Characters.Enemies.VynilDisc.States
 
         [SerializeField] private AnimationClip animationClip;
 
+        [Header("||===== Objects =====||")]
+        [SerializeField] private Transform spriteTransform;
+
         [Header("||===== Parameters =====||")]
         private float beatLength;
 
@@ -27,11 +30,11 @@ namespace Characters.Enemies.VynilDisc.States
             spriteRenderer.color = Color.cyan;
 
             //Flipa o sprite
-            if (Mathf.Sign((vynilDiscController.followPoint - rb.position).x) != Mathf.Sign(tr.localScale.x))
+            if (Mathf.Sign((vynilDiscController.followPoint - rb.position).x) != Mathf.Sign(spriteTransform.localScale.x))
             {
-                Vector3 newScale = tr.localScale;
+                Vector3 newScale = spriteTransform.localScale;
                 newScale.x *= -1;
-                tr.localScale = newScale;
+                spriteTransform.localScale = newScale;
             }
 
             tween = rb.DOMove(vynilDiscController.followPoint, beatLength).SetEase(Ease.OutCirc);

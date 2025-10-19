@@ -12,6 +12,7 @@ namespace Characters.Enemies.VynilDisc.States
         [SerializeField] private AnimationClip animationClip;
 
         [Header("||===== Objects =====||")]
+        [SerializeField] private Transform spriteTransform;
         [SerializeField] private NavMeshAgent navMeshAgent;
         private Vector2 targetPosition;
         private Vector2 targetVector;
@@ -78,6 +79,14 @@ namespace Characters.Enemies.VynilDisc.States
         {
             targetPosition = vynilDiscController.playerTransform.position;
             targetVector = targetPosition - rb.position;
+
+            //Flipa o sprite
+            if (Mathf.Sign(targetVector.x) != Mathf.Sign(spriteTransform.localScale.x))
+            {
+                Vector3 newScale = spriteTransform.localScale;
+                newScale.x *= -1;
+                spriteTransform.localScale = newScale;
+            }
 
             seesPlayer = !Physics2D.CircleCast(tr.position, colliderRadius, targetVector.normalized, targetVector.magnitude, terrainLayers);
 

@@ -3,32 +3,38 @@ using System.Collections.Generic;
 using Characters.Player;
 using System;
 using UnityEngine.Events;
-using Characters.Player.States;
+using System.Collections;
 
 namespace Characters.Enemies
 {
     public class NoteSequence : MonoBehaviour
     {
-        [Header("Número de notas na sequência")]
-        [SerializeField] public int sequenceSize;
-        private int currentStep = 0;
-
-        [System.Serializable]
+        [Serializable]
         public class NoteAssetMapping
         {
             public MusicalNote note;
             public Sprite noteSprite;
         }
 
-        [Header("Local dos pontos de vida")][SerializeField] private List<GameObject> notePoints;
-        [Header("Nota e seu sprite")] public List<NoteAssetMapping> noteAssets;
-        private List<NoteDisplay> activeNoteDisplays = new List<NoteDisplay>();
-        private List<MusicalNote> requiredSequence = new List<MusicalNote>();
+        [Header("||===== Objects =====||")]
+        [SerializeField] private List<GameObject> notePoints;
+        [SerializeField] private List<NoteAssetMapping> noteAssets;
+
+        private List<NoteDisplay> noteDisplays = new();
+        private List<MusicalNote> requiredSequence = new();
+
+        [Header("||===== Parameters =====||")]
+        [SerializeField] private int sequenceSize;
+        [SerializeField] private float setupDelay;
+
+        private int sequenceCounter = 0;
+
+        [Header("||===== Booleans =====||")]
+        public bool isActive;
+        public bool finishedSetup;
 
         public UnityEvent OnSequenceCompleted;
         public static event Action<Transform> OnSequenceCompletedEffects;
-
-        public bool isActive;
 
         public void Activate()
         {
@@ -37,57 +43,39 @@ namespace Characters.Enemies
 
             isActive = true;
 
-            GuitarController.OnNotePlayed += OnPlayedNote;
+            GuitarController.OnNotePlayed += PlayNote;
 
-            GenerateSequence();
-            SetupVisuals();
+            StartCoroutine(Setup());
         }
 
         public void Deactivate()
         {
             isActive = false;
 
-            GuitarController.OnNotePlayed -= OnPlayedNote;
+            GuitarController.OnNotePlayed -= PlayNote;
 
-            ClearVisuals();
+            foreach (var display in noteDisplays)
+                display.Deactivate();
         }
 
-        private void ClearVisuals()
+        private void PlayNote(MusicalNote playedNote)
         {
-            foreach (var display in activeNoteDisplays)
-            {
-                if (display != null)
-                    display.SetUnhit();
-            }
+            if (!finishedSetup)
+                return;
 
-            foreach (var point in notePoints)
-            {
-                var renderer = point.GetComponentInChildren<SpriteRenderer>();
-                if (renderer != null)
-                    renderer.sprite = null;
-            }
-        }
-
-        private void OnDisable()
-        {
-            GuitarController.OnNotePlayed -= OnPlayedNote;
-        }
-
-        private void OnPlayedNote(MusicalNote playedNote)
-        {
-            if (currentStep >= sequenceSize)
+            if (sequenceCounter >= sequenceSize)
             {
                 ResetSequence();
                 return;
             }
 
-            if (playedNote == requiredSequence[currentStep])
+            if (playedNote == requiredSequence[sequenceCounter])
             {
-                activeNoteDisplays[currentStep].SetAsHit();
+                noteDisplays[sequenceCounter].SetAsHit();
 
-                currentStep++;
+                sequenceCounter++;
 
-                if (currentStep >= sequenceSize)
+                if (sequenceCounter >= sequenceSize)
                     CompleteSequence();
             }
 
@@ -95,9 +83,31 @@ namespace Characters.Enemies
                 ResetSequence();
         }
 
-        private void GenerateSequence()
+        private void CompleteSequence()
         {
-            currentStep = 0;
+            OnSequenceCompleted.Invoke();
+            OnSequenceCompletedEffects?.Invoke(transform);
+
+            sequenceCounter = 0;
+
+            if (isActive)
+            {
+                finishedSetup = false;
+                StartCoroutine(Setup());
+            }
+        }
+
+        private void ResetSequence()
+        {
+            sequenceCounter = 0;
+
+            foreach (var display in noteDisplays)
+                display.SetAsUnhit();
+        }
+
+        private IEnumerator Setup()
+        {
+            sequenceCounter = 0;
 
             requiredSequence.Clear();
 
@@ -107,59 +117,28 @@ namespace Characters.Enemies
 
                 requiredSequence.Add(randomNote);
             }
-        }
 
-        private void SetupVisuals()
-        {
-            activeNoteDisplays.Clear();
+            noteDisplays.Clear();
 
             for (int i = 0; i < sequenceSize; i++)
             {
                 GameObject placeholder = notePoints[i];
                 MusicalNote noteForThisSlot = requiredSequence[i];
-                Sprite slotSprite = GetStaticSpriteForNote(noteForThisSlot);
+                Sprite slotSprite = noteAssets.Find(a => a.note == noteForThisSlot).noteSprite;
 
                 NoteDisplay display = placeholder.GetComponent<NoteDisplay>();
 
                 if (display != null && slotSprite != null)
                 {
-                    display.Initialize(slotSprite);
-                    activeNoteDisplays.Add(display);
+                    display.Activate(slotSprite);
+
+                    noteDisplays.Add(display);
+
+                    yield return new WaitForSeconds(0.2f);
                 }
             }
-        }
 
-        private Sprite GetStaticSpriteForNote(MusicalNote note)
-        {
-            foreach (var asset in noteAssets)
-            {
-                if (asset.note == note)
-                    return asset.noteSprite;
-            }
-
-            return null;
-        }
-
-        private void ResetSequence()
-        {
-            currentStep = 0;
-
-            foreach (var display in activeNoteDisplays)
-                display.SetUnhit();
-        }
-
-        private void CompleteSequence()
-        {
-            OnSequenceCompleted.Invoke();
-            OnSequenceCompletedEffects?.Invoke(transform);
-
-            currentStep = 0;
-
-            if (isActive)
-            {
-                GenerateSequence();
-                SetupVisuals();
-            }
+            finishedSetup = true;
         }
     }
 }

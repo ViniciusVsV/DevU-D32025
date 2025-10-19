@@ -17,7 +17,7 @@ namespace Effects.Complex.Player
         [SerializeField] private CinemachineImpulseSource impulseSource;
 
         private CameraShake cameraShake;
-        private LightningBoltManager lightningBoltManager;
+        private LightningBoltsManager lightningBoltManager;
         private ControllerRumble controllerRumble;
 
         private List<Transform> enemyTransforms = new();
@@ -62,7 +62,7 @@ namespace Effects.Complex.Player
         private void Start()
         {
             cameraShake = FindFirstObjectByType<CameraShake>();
-            lightningBoltManager = FindFirstObjectByType<LightningBoltManager>();
+            lightningBoltManager = FindFirstObjectByType<LightningBoltsManager>();
             controllerRumble = FindFirstObjectByType<ControllerRumble>();
 
             playerTransform = GameObject.FindWithTag("Player").transform;

@@ -12,6 +12,7 @@ namespace Characters.Enemies.VynilDisc.States
         [Header("||===== Objects =====||")]
         [SerializeField] private CircleCollider2D killTrigger;
         [SerializeField] private LayerMask terrainLayers;
+        [SerializeField] private Transform spriteTransform;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float chargeDistance;
@@ -45,6 +46,16 @@ namespace Characters.Enemies.VynilDisc.States
 
             targetVector = vynilDiscController.playerTransform.position - tr.position;
             targetDirection = targetVector.normalized;
+
+            //Flipa o sprite
+            if (Mathf.Sign(targetVector.x) != Mathf.Sign(spriteTransform.localScale.x))
+            {
+                Debug.Log("Dando o charge em uma direção diferente!");
+
+                Vector3 newScale = spriteTransform.localScale;
+                newScale.x *= -1;
+                spriteTransform.localScale = newScale;
+            }
 
             targetPosition = rb.position + targetDirection * chargeDistance;
 
