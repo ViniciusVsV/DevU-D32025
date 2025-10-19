@@ -7,13 +7,16 @@ namespace Characters.Enemies.SaxPlayer.States
     {
         private StateController saxPlayerController => (StateController)controller;
 
-        [SerializeField] private GameObject notesObject;
+        [Header("||===== Objects =====||")]
+        [SerializeField] private NoteSequence noteSequence;
 
         public override void StateEnter()
         {
+            saxPlayerController.isDead = true;
+
             spriteRenderer.enabled = false;
 
-            notesObject.SetActive(false);
+            noteSequence.Deactivate();
         }
 
         public override void StateUpdate()
@@ -21,6 +24,11 @@ namespace Characters.Enemies.SaxPlayer.States
             // Transição para Respawn
             if (saxPlayerController.restored)
                 saxPlayerController.SetRespawn();
+        }
+
+        public override void StateExit()
+        {
+            saxPlayerController.isDead = false;
         }
     }
 }

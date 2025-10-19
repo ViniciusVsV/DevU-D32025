@@ -1,5 +1,6 @@
 using UnityEngine;
 using StateMachine;
+using UnityEngine.Events;
 
 namespace Characters.Enemies.VynilDisc.States
 {
@@ -7,11 +8,16 @@ namespace Characters.Enemies.VynilDisc.States
     {
         private StateController vynilDiscController => (StateController)controller;
 
+        [Header("||===== Objects ====||")]
+        [SerializeField] private NoteSequence noteSequence;
+
         public override void StateEnter()
         {
             vynilDiscController.isAggroed = false;
 
             spriteRenderer.color = Color.black;
+
+            noteSequence.Deactivate();
         }
 
         public override void StateUpdate()

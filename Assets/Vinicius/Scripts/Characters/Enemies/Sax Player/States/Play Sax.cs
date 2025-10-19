@@ -23,7 +23,7 @@ namespace Characters.Enemies.SaxPlayer.States
 
         private int beatCounter => saxPlayerController.beatCounter;
 
-        private Coroutine coroutine;
+        private bool isExploding;
 
         private void Start()
         {
@@ -55,7 +55,7 @@ namespace Characters.Enemies.SaxPlayer.States
                 // Transição para Idle
                 else
                 {
-                    coroutine = StartCoroutine(ExplosionRoutine());
+                    StartCoroutine(ExplosionRoutine());
 
                     saxPlayerController.SetIdle();
                 }
@@ -65,15 +65,21 @@ namespace Characters.Enemies.SaxPlayer.States
         public override void StateExit()
         {
             // Foi interrompido antes de iniciar a corrotina de explosão
-            if (coroutine == null)
+            if (!isExploding)
             {
-                markSprite.enabled = false;
-                markTransform.localScale = Vector3.one;
+                markTransform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack)
+                    .OnComplete(() =>
+                    {
+                        markSprite.enabled = false;
+                        markTransform.localScale = Vector3.one;
+                    });
             }
         }
 
         private IEnumerator ExplosionRoutine()
         {
+            isExploding = true;
+
             // Ativa o trigger de dano
             damageTrigger.enabled = true;
 
@@ -95,7 +101,7 @@ namespace Characters.Enemies.SaxPlayer.States
             // Volta a marca ao tamnho normal
             markTransform.localScale = Vector3.one;
 
-            coroutine = null;
+            isExploding = false;
         }
     }
 }

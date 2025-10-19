@@ -20,7 +20,7 @@ public class LevelsManager : MonoBehaviour
     void OnEnable()
     {
         Spawn.OnPlayerSpawned += PlayerSpawned;
-        Respawn.OnPlayerRespawned += PlayerSpawned;
+        Respawn.OnPlayerRespawned += PlayerRespawned;
         Die.OnPlayerDied += PlayerDied;
 
         CheckpointCollider.OnCheckpointReached += LevelEntered;
@@ -29,15 +29,18 @@ public class LevelsManager : MonoBehaviour
     void OnDisable()
     {
         Spawn.OnPlayerSpawned -= PlayerSpawned;
-        Respawn.OnPlayerRespawned -= PlayerSpawned;
+        Respawn.OnPlayerRespawned -= PlayerRespawned;
         Die.OnPlayerDied -= PlayerDied;
 
         CheckpointCollider.OnCheckpointReached -= LevelEntered;
     }
 
-    // Quando o jogador SPAWNAR/RESPAWNAR:
-    //// Restaura os inimigos/objetos com IRestorable da fase atual
     public void PlayerSpawned()
+    {
+        player.transform.position = currentLevel.GetSpawnPoint();
+    }
+
+    public void PlayerRespawned()
     {
         player.transform.position = currentLevel.GetSpawnPoint();
 

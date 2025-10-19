@@ -11,6 +11,7 @@ namespace Characters.Enemies.SaxPlayer
         [Header("||===== Rythm Parameters =====||")]
         [SerializeField] private int beatDelay;
         public int beatCounter;
+        public int playSaxCounter;
 
         [Header("||===== States =====||")]
         [SerializeField] private Idle idleState;
@@ -26,6 +27,7 @@ namespace Characters.Enemies.SaxPlayer
         public bool activated;
 
         public bool isFacingRight;
+        public bool isDead;
 
         protected override void Awake()
         {

@@ -13,6 +13,8 @@ namespace Effects.Simple
 
         private Coroutine coroutine;
 
+        public bool isPlaying;
+
         private void Start()
         {
             playerInput = FindFirstObjectByType<InputHandler>();
@@ -27,6 +29,8 @@ namespace Effects.Simple
 
             if (gamepad != null)
             {
+                isPlaying = true;
+
                 if (coroutine != null)
                     StopCoroutine(coroutine);
 
@@ -41,6 +45,8 @@ namespace Effects.Simple
             yield return new WaitForSeconds(duration);
 
             gamepad.SetMotorSpeeds(0f, 0f);
+
+            isPlaying = false;
 
             coroutine = null;
         }

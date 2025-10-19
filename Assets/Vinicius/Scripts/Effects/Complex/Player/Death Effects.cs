@@ -25,7 +25,7 @@ namespace Effects.Complex.Player
         [SerializeField] private float musicMufflingDuration;
         [SerializeField] private float transitionDelay;
         [SerializeField] private float transitionDuration;
-
+        [SerializeField] private float cameraShakeForce;
 
         [Header("Controller Rumble Parameters")]
         [SerializeField] private float lowFrequency;
@@ -80,7 +80,7 @@ namespace Effects.Complex.Player
 
 
             //Camera treme
-            cameraShake.ApplyEffect(impulseSource);
+            cameraShake.ApplyEffect(impulseSource, cameraShakeForce);
 
             //Da play em aprticulas
             particles.transform.position = positionn;

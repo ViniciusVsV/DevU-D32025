@@ -7,15 +7,18 @@ namespace Characters.Enemies.VynilDisc.States
     {
         private StateController vynilDiscController => (StateController)controller;
 
-        [SerializeField] private GameObject notesObject;
+        [Header("||===== Objects ====||")]
+        [SerializeField] private NoteSequence noteSequence;
 
         public override void StateEnter()
         {
+            vynilDiscController.isDead = true;
+
             vynilDiscController.isAggroed = false;
 
             spriteRenderer.enabled = false;
-            
-            notesObject.SetActive(false);
+
+            noteSequence.Deactivate();
         }
 
         public override void StateUpdate()
@@ -23,6 +26,11 @@ namespace Characters.Enemies.VynilDisc.States
             // Transição para Respawn
             if (vynilDiscController.restored)
                 vynilDiscController.SetRespawn();
+        }
+
+        public override void StateExit()
+        {
+            vynilDiscController.isDead = false;
         }
     }
 }

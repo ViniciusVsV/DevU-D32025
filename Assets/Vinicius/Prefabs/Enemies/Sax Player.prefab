@@ -170,6 +170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7485632376587993192}
   - {fileID: 8620274606002993849}
   - {fileID: 8018982899945398343}
   - {fileID: 8147874829834630920}
@@ -191,6 +192,7 @@ MonoBehaviour:
   moveDirection: 0
   beatDelay: 5
   beatCounter: 0
+  playSaxCounter: 0
   idleState: {fileID: 453631682940880175}
   moveState: {fileID: 4932093096984383105}
   playSaxState: {fileID: 1112286464815306139}
@@ -201,6 +203,7 @@ MonoBehaviour:
   restored: 0
   activated: 0
   isFacingRight: 0
+  isDead: 0
 --- !u!114 &2210849324212607525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,21 +218,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saxPlayerController: {fileID: 997105068160540}
   maxHealth: 2
-  OnEntityRestored:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7651095692121960496}
-        m_TargetAssemblyTypeName: Characters.Enemies.NoteSequence, Assembly-CSharp
-        m_MethodName: RegenerateSequence
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!61 &6997849949931396877
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -486,6 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf3600ba630b2742a9b42bff7192aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteSequence: {fileID: 7651095692121960496}
 --- !u!1 &4627506614459106328
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea9bd1837fee644c8c9b5b4d9fa5f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notesObject: {fileID: 8990176476599601984}
+  noteSequence: {fileID: 7651095692121960496}
 --- !u!1 &5660471521991392757
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,6 +654,89 @@ Transform:
   - {fileID: 1663082557115308439}
   m_Father: {fileID: 8147874829834630920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5943509415085255442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7485632376587993192}
+  - component: {fileID: 7743661975579604429}
+  - component: {fileID: 8574588693542548427}
+  m_Layer: 0
+  m_Name: Player Detector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7485632376587993192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943509415085255442}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2061526302473603074}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7743661975579604429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943509415085255442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99fc3463135ea4843bf740ec8b3a468a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saxPlayerController: {fileID: 997105068160540}
+  noteSequence: {fileID: 7651095692121960496}
+--- !u!58 &8574588693542548427
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943509415085255442}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 8
 --- !u!1 &6076946292277930869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,6 +1377,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02deb3d35a09af4cb9b83a7e462b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sequenceSize: 3
+  notePoints:
+  - {fileID: 4627506614459106328}
+  - {fileID: 555937815723800364}
+  - {fileID: 8293880258398324259}
+  noteAssets:
+  - note: 0
+    noteSprite: {fileID: 21300000, guid: 5046cbce9e2274f4c907f930dad330a5, type: 3}
+  - note: 1
+    noteSprite: {fileID: 21300000, guid: 45492cd52f997f74d85e18f394a4ff47, type: 3}
+  - note: 2
+    noteSprite: {fileID: 21300000, guid: 93e7358f39c9d184eafd4c98332a6e6b, type: 3}
+  - note: 3
+    noteSprite: {fileID: 21300000, guid: 6ddf22e6f56f43c47a06988964129807, type: 3}
   OnSequenceCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -1320,20 +1406,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  sequenceSize: 3
-  notePoints:
-  - {fileID: 4627506614459106328}
-  - {fileID: 555937815723800364}
-  - {fileID: 8293880258398324259}
-  noteAssets:
-  - note: 0
-    noteSprite: {fileID: 21300000, guid: 5046cbce9e2274f4c907f930dad330a5, type: 3}
-  - note: 1
-    noteSprite: {fileID: 21300000, guid: 45492cd52f997f74d85e18f394a4ff47, type: 3}
-  - note: 2
-    noteSprite: {fileID: 21300000, guid: 93e7358f39c9d184eafd4c98332a6e6b, type: 3}
-  - note: 3
-    noteSprite: {fileID: 21300000, guid: 6ddf22e6f56f43c47a06988964129807, type: 3}
+  isActive: 0
 --- !u!1 &9196247029693218276
 GameObject:
   m_ObjectHideFlags: 0

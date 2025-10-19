@@ -1,5 +1,6 @@
 using UnityEngine;
 using StateMachine;
+using UnityEngine.Events;
 
 namespace Characters.Enemies.SaxPlayer.States
 {
@@ -7,11 +8,16 @@ namespace Characters.Enemies.SaxPlayer.States
     {
         private StateController saxPlayerController => (StateController)controller;
 
+        [Header("||===== Objects ====||")]
+        [SerializeField] private NoteSequence noteSequence;
+
         public override void StateEnter()
         {
-            // Não faz nada
+            saxPlayerController.playSaxCounter = 0;
 
             spriteRenderer.color = Color.black;
+
+            noteSequence.Deactivate();
         }
 
         public override void StateUpdate()

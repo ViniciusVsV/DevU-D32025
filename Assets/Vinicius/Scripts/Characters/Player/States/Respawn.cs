@@ -41,11 +41,12 @@ namespace Characters.Player.States
 
         private IEnumerator Routine()
         {
+            rb.simulated = true;
+
             while (!respawnEffects.finishedPlaying)
                 yield return null;
 
-            // Ativar física e input handler
-            rb.simulated = true;
+            // Ativar input handler
             inputHandler.enabled = true;
         }
     }

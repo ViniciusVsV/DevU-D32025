@@ -132,7 +132,11 @@ namespace Characters.Enemies.VynilDisc.States
                 navMeshAgent.ResetPath();
         }
 
-        // Método opcional para debug visual
+        public override void StateExit()
+        {
+            navMeshAgent.ResetPath();
+        }
+
         private void OnDrawGizmos()
         {
             if (!showGizmos) return;

@@ -36,6 +36,7 @@ namespace Characters.Enemies.VynilDisc
 
         public bool isAggroed;
         public bool isStunned;
+        public bool isDead;
 
         protected override void Awake()
         {

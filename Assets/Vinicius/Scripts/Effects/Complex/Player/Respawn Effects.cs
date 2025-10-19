@@ -54,14 +54,14 @@ namespace Effects.Complex.Player
 
             cameraTransition.RemoveEffect(transitionDuration);
 
+            // Reativa o damping
+            cinemachineFollow.TrackerSettings.PositionDamping = originalDamping;
+
             while (cameraTransition.isPlaying)
                 yield return null;
 
             // Volta música ao normal
             musicMuffling.RemoveEffect(musicDemufflingDuration);
-
-            // Reativa o damping
-            cinemachineFollow.TrackerSettings.PositionDamping = originalDamping;
 
             finishedPlaying = true;
         }

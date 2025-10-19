@@ -9,17 +9,10 @@ namespace Characters.Enemies.SaxPlayer.States
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float moveSpeed;
-
         [SerializeField] private int playSaxCooldown; // Quantidade de 4's de cooldown do ataque
-        private int playSaxCountdown;
 
         private int beatCounter => saxPlayerController.beatCounter;
-
-        private void Awake()
-        {
-            playSaxCountdown = playSaxCooldown;
-        }
-
+        private int playSaxCounter => saxPlayerController.playSaxCounter;
         public override void StateEnter()
         {
             //animator.Play(animationClip.name);
@@ -46,9 +39,9 @@ namespace Characters.Enemies.SaxPlayer.States
             {
                 if (beatCounter == 0)
                 {
-                    if (playSaxCountdown == 0)
+                    if (playSaxCounter == playSaxCooldown)
                     {
-                        playSaxCountdown = playSaxCooldown;
+                        saxPlayerController.playSaxCounter = 0;
 
                         // Transição para Play Sax
                         saxPlayerController.SetPlaySax();
@@ -56,7 +49,7 @@ namespace Characters.Enemies.SaxPlayer.States
 
                     else
                     {
-                        playSaxCountdown--;
+                        saxPlayerController.playSaxCounter++;
                         saxPlayerController.SetIdle();
                     }
                 }

@@ -10,8 +10,6 @@ namespace Characters.Enemies.VynilDisc
         [SerializeField] private int maxHealth;
         private int currentHealth;
 
-        public UnityEvent OnEntityRestored;
-
         private void Awake()
         {
             currentHealth = maxHealth;
@@ -28,10 +26,7 @@ namespace Characters.Enemies.VynilDisc
         public void Update()
         {
             if (vynilDiscController.restored)
-            {
-                OnEntityRestored.Invoke();
                 currentHealth = maxHealth;
-            }
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Characters.Enemies.VynilDisc
     public class PlayerDetector : MonoBehaviour
     {
         [Header("||===== Objects =====||")]
+        [SerializeField] private NoteSequence noteSequence;
         [SerializeField] StateController vynilDiscController;
         [SerializeField] LayerMask terrainLayers;
 
@@ -35,7 +36,12 @@ namespace Characters.Enemies.VynilDisc
                 playerVector = playerTransform.position - transform.position;
 
                 if (!Physics2D.Raycast(transform.position, playerVector.normalized, playerVector.magnitude, terrainLayers))
+                {
                     vynilDiscController.isAggroed = true;
+                    
+                    if(!vynilDiscController.isDead)
+                        noteSequence.Activate();
+                }
             }
         }
 

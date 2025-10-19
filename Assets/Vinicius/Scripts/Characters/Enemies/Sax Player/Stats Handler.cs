@@ -10,8 +10,6 @@ namespace Characters.Enemies.SaxPlayer
         [SerializeField] private int maxHealth;
         private int currentHealth;
 
-        public UnityEvent OnEntityRestored;
-
         private void Awake()
         {
             currentHealth = maxHealth;
@@ -28,10 +26,7 @@ namespace Characters.Enemies.SaxPlayer
         public void Update()
         {
             if (saxPlayerController.restored)
-            {
-                OnEntityRestored.Invoke();
                 currentHealth = maxHealth;
-            }
         }
     }
 }

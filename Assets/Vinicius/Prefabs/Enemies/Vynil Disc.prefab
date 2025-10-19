@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61501177c45b50498d4838c6e0bfe1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notesObject: {fileID: 7537983744900286055}
+  noteSequence: {fileID: 2313345896574455244}
 --- !u!1 &3006086862183200692
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +414,7 @@ MonoBehaviour:
   activated: 0
   isAggroed: 0
   isStunned: 0
+  isDead: 0
 --- !u!114 &4287624041679957495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,21 +429,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vynilDiscController: {fileID: 5221180792176499395}
   maxHealth: 3
-  OnEntityRestored:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2313345896574455244}
-        m_TargetAssemblyTypeName: Characters.Enemies.NoteSequence, Assembly-CSharp
-        m_MethodName: RegenerateSequence
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!195 &4315135067057366512
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -721,6 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4e5e12e03824c44b631686007d62fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteSequence: {fileID: 2313345896574455244}
   vynilDiscController: {fileID: 5221180792176499395}
   terrainLayers:
     serializedVersion: 2
@@ -947,6 +934,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02deb3d35a09af4cb9b83a7e462b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sequenceSize: 3
+  notePoints:
+  - {fileID: 7852802877585939541}
+  - {fileID: 8904244099310362503}
+  - {fileID: 6241077810297819456}
+  noteAssets:
+  - note: 0
+    noteSprite: {fileID: 21300000, guid: 5046cbce9e2274f4c907f930dad330a5, type: 3}
+  - note: 1
+    noteSprite: {fileID: 21300000, guid: 45492cd52f997f74d85e18f394a4ff47, type: 3}
+  - note: 2
+    noteSprite: {fileID: 21300000, guid: 93e7358f39c9d184eafd4c98332a6e6b, type: 3}
+  - note: 3
+    noteSprite: {fileID: 21300000, guid: 6ddf22e6f56f43c47a06988964129807, type: 3}
   OnSequenceCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -962,20 +963,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  sequenceSize: 3
-  notePoints:
-  - {fileID: 7852802877585939541}
-  - {fileID: 8904244099310362503}
-  - {fileID: 6241077810297819456}
-  noteAssets:
-  - note: 0
-    noteSprite: {fileID: 21300000, guid: 5046cbce9e2274f4c907f930dad330a5, type: 3}
-  - note: 1
-    noteSprite: {fileID: 21300000, guid: 45492cd52f997f74d85e18f394a4ff47, type: 3}
-  - note: 2
-    noteSprite: {fileID: 21300000, guid: 93e7358f39c9d184eafd4c98332a6e6b, type: 3}
-  - note: 3
-    noteSprite: {fileID: 21300000, guid: 6ddf22e6f56f43c47a06988964129807, type: 3}
+  isActive: 0
 --- !u!1 &7807163458919442298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,6 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a376e0ccea756624f86002f5472191e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteSequence: {fileID: 2313345896574455244}
 --- !u!1 &7852802877585939541
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,10 +13,10 @@ namespace Effects.Simple
             baseSource = GetComponent<CinemachineImpulseSource>();
         }
 
-        public void ApplyEffect(CinemachineImpulseSource source = null)
+        public void ApplyEffect(CinemachineImpulseSource source = null, float force = 0)
         {
             if (source != null)
-                source.GenerateImpulse();
+                source.GenerateImpulse(force);
 
             else
                 baseSource.GenerateImpulse();
