@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 693047381439289170}
   m_Father: {fileID: 7891327677703865395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7574385567550206713
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleClip: {fileID: 7400000, guid: e52a2aa1e4c3da64fbf66efa44338de5, type: 2}
   landClip: {fileID: 7400000, guid: 49ad771b725b2c648ae291573b9c4446, type: 2}
+  landParticlePoint: {fileID: 693047381439289170}
   deceleration: 12
 --- !u!1 &1094989217078055233
 GameObject:
@@ -470,7 +472,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 399688596820521933}
   m_Father: {fileID: 7891327677703865395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4540585263336497089
@@ -485,8 +488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8ddf976dcd1f042a67530393435175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runState: {fileID: 1608626281881388064}
   animationClip: {fileID: 7400000, guid: 9f9b75be006f0ef4c827aa305758a10e, type: 2}
+  runState: {fileID: 1608626281881388064}
+  particlePoint: {fileID: 399688596820521933}
   jumpForce: 10
   jumpCutMultiplier: 0.5
   minJumpDuration: 0.1
@@ -829,6 +833,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 5586608455800694535}
+--- !u!1 &4896058081541789335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 399688596820521933}
+  m_Layer: 0
+  m_Name: Particle Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &399688596820521933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4896058081541789335}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.09399986, y: -0.64900017, z: 1.8062327}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3189699031638283058}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4896648339828268649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,6 +1345,37 @@ MonoBehaviour:
   animationClip: {fileID: 0}
   knockbackStrength: 10
   knockbackDuration: 0.2
+--- !u!1 &5529589066848647801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 693047381439289170}
+  m_Layer: 0
+  m_Name: Particle Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &693047381439289170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5529589066848647801}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5042771, y: -0.49568608, z: -0.49568596, w: 0.5042771}
+  m_LocalPosition: {x: 0.09399986, y: -0.64900017, z: 1.8052326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3323450343735427926}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7021537090910069079
 GameObject:
   m_ObjectHideFlags: 0

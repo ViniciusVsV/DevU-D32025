@@ -3,23 +3,14 @@ using UnityEngine;
 
 namespace Effects.Simple
 {
-    [RequireComponent(typeof(CinemachineImpulseSource))]
     public class CameraShake : MonoBehaviour
     {
-        private CinemachineImpulseSource baseSource;
-
-        private void Awake()
+        public void ApplyEffect(CinemachineImpulseSource source, float force, Vector2 position)
         {
-            baseSource = GetComponent<CinemachineImpulseSource>();
-        }
+            if (position != Vector2.zero)
+                source.transform.position = position;
 
-        public void ApplyEffect(CinemachineImpulseSource source = null, float force = 0)
-        {
-            if (source != null)
-                source.GenerateImpulse(force);
-
-            else
-                baseSource.GenerateImpulse();
+            source.GenerateImpulse(force);
         }
     }
 }

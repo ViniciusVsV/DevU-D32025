@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using Effects.Complex.Enemies.SaxPlayer;
 using StateMachine;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Characters.Enemies.SaxPlayer.States
         private Transform playerTransform;
         private Transform markTransform;
         private SpriteRenderer markSprite;
+        private MarkExplosionEffects markExplosionEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float explosionDuration;
@@ -30,6 +32,8 @@ namespace Characters.Enemies.SaxPlayer.States
             playerTransform = GameObject.FindWithTag("Player").transform;
             markTransform = markObject.transform;
             markSprite = markObject.GetComponent<SpriteRenderer>();
+
+            markExplosionEffects = MarkExplosionEffects.Instance;
         }
 
         public override void StateEnter()
@@ -85,6 +89,8 @@ namespace Characters.Enemies.SaxPlayer.States
 
             // Temporario: muda a cor do sprite
             markSprite.color = Color.red;
+
+            markExplosionEffects.ApplyEffects(markTransform.position);
 
             // Chama os efeitos
 

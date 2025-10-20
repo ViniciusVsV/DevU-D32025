@@ -19,9 +19,11 @@ namespace Effects.Complex.Player
         private HitStop hitStop;
         private ControllerRumble controllerRumble;
         private MusicMuffling musicMuffling;
+        private FullScreenShockwave fullScreenShockwave;
 
         [Header("Parameters")]
         [SerializeField] private float hitStopDuration;
+        [SerializeField] private float shockwaveDuration;
         [SerializeField] private float musicMufflingDuration;
         [SerializeField] private float transitionDelay;
         [SerializeField] private float transitionDuration;
@@ -48,6 +50,7 @@ namespace Effects.Complex.Player
             hitStop = FindFirstObjectByType<HitStop>();
             controllerRumble = FindFirstObjectByType<ControllerRumble>();
             musicMuffling = FindFirstObjectByType<MusicMuffling>();
+            fullScreenShockwave = FindFirstObjectByType<FullScreenShockwave>();
         }
 
         public void ApplyEffects(Vector2 position)
@@ -65,6 +68,9 @@ namespace Effects.Complex.Player
 
             //Chama primeira parte do efeito sonoro
 
+            //Aplica abafamento na música
+            musicMuffling.ApplyEffect(musicMufflingDuration);
+
             //Aplica hitstop
             hitStop.ApplyEffect(hitStopDuration);
 
@@ -73,14 +79,14 @@ namespace Effects.Complex.Player
 
             finishedHitStopping = true;
 
-            //Aplica abafamento na música
-            musicMuffling.ApplyEffect(musicMufflingDuration);
-
             //Chama segunda parte do efeito sonoro
 
 
             //Camera treme
-            cameraShake.ApplyEffect(impulseSource, cameraShakeForce);
+            cameraShake.ApplyEffect(impulseSource, cameraShakeForce, Vector2.zero);
+
+            //Aplica a shockwave
+            fullScreenShockwave.ApplyEffect(shockwaveDuration);
 
             //Da play em aprticulas
             particles.transform.position = positionn;

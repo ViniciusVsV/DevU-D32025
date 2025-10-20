@@ -91,7 +91,7 @@ namespace Effects.Complex.Player
             // Invoca efeito de partículas
 
             // Camera treme um pouco
-            cameraShake.ApplyEffect(impulseSource, cameraShakeForce);
+            cameraShake.ApplyEffect(impulseSource, cameraShakeForce, Vector2.zero);
 
             // Controle treme um pouco 
             controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration);

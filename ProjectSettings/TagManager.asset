@@ -68,5 +68,8 @@ TagManager:
   - name: UI
     uniqueID: 3523494695
     locked: 0
+  - name: Camera Effects
+    uniqueID: 201263793
+    locked: 0
   m_RenderingLayers:
   - Default

@@ -1,3 +1,4 @@
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEditor.ShortcutManagement;
 using UnityEngine;
@@ -8,8 +9,12 @@ namespace Characters.Player.States
     {
         private StateController playerController => (StateController)controller;
 
-        [SerializeField] private Run runState;
         [SerializeField] private AnimationClip animationClip;
+
+        [Header("||===== Objects =====||")]
+        [SerializeField] private Run runState;
+        [SerializeField] private Transform particlePoint;
+        private MovementEffects movementEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float jumpForce;
@@ -20,11 +25,21 @@ namespace Characters.Player.States
 
         private float appliedForce;
 
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
+
         public override void StateEnter()
         {
             playerController.jumpPressed = false;
 
             animator.Play(animationClip.name);
+
+            if (playerController.isGrounded)
+                movementEffects.ApplyJumpEffects(particlePoint.position);
+            else
+                movementEffects.ApplyDoubleJumpEffects(particlePoint.position);
 
             appliedForce = jumpForce;
 
