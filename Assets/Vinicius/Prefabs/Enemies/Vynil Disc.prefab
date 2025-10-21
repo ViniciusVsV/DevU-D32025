@@ -567,7 +567,7 @@ MonoBehaviour:
     m_Bits: 64
   houndCollider: {fileID: 14037788492274712}
   chargeBeatsCooldown: 2
-  chargeThreshold: 8
+  chargeThreshold: 9
   beatLengthPercentage: 0.25
   numberOfPoints: 12
   showGizmos: 0
@@ -1266,9 +1266,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   spriteTransform: {fileID: 5590661141414487819}
-  chargeDistance: 10
+  chargeDistance: 12
   chargeBeatPercentage: 0.7
-  brakeBeatPercentage: 0.2
+  brakeBeatPercentage: 0.25
   dazeDetectionRadius: 0.36
   dazeDetectionDistance: 0.17
   showGismoz: 0
