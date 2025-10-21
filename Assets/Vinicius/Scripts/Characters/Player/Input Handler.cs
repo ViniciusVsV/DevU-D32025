@@ -97,9 +97,6 @@ namespace Characters.Player
 
         public void Move(InputAction.CallbackContext context)
         {
-            if (!isEnabled)
-                return;
-
             playerController.moveDirection = context.ReadValue<Vector2>();
         }
 

@@ -14,6 +14,7 @@ namespace Effects.Complex.Player
         [Header("Parameters")]
         [SerializeField] private float transitionDuration;
         [SerializeField] private int beatsToStart;
+        [SerializeField] private int beatsToFinish;
         private int beatCounter;
 
         private Vector3 originalDamping;
@@ -29,7 +30,7 @@ namespace Effects.Complex.Player
         private void Start()
         {
             cameraTransition = FindFirstObjectByType<CameraTransition>();
-            cameraTransition.ApplyEffect(0);
+            cameraTransition.ApplyEffect(0, true);
         }
 
         private void OnEnable() { BeatInterval.OnOneBeatHappened += RespondToBeat; }
@@ -51,7 +52,7 @@ namespace Effects.Complex.Player
 
             cameraTransition.RemoveEffect(transitionDuration);
 
-            while (cameraTransition.isPlaying)
+            while (beatCounter < beatsToFinish)
                 yield return null;
 
             finishedPlaying = true;

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Effects.Simple;
 using UnityEngine;
 
 namespace Objects.Obstacles.DestructibleSpike
@@ -15,17 +16,22 @@ namespace Objects.Obstacles.DestructibleSpike
         [SerializeField] private float pulseDuration;
         [SerializeField] private Ease pulseEase;
 
+        private SpriteShockwave spriteShockwave;
+
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             col = GetComponent<Collider2D>();
         }
 
+        private void Start()
+        {
+            spriteShockwave = FindFirstObjectByType<SpriteShockwave>();
+        }
+
         public void RespondToBeat()
         {
-            transform.localScale = pulseSize;
-
-            transform.DOScale(Vector3.one, pulseDuration).SetEase(pulseEase);
+            spriteShockwave.ApplyEffect(spriteRenderer, 0.4f);
         }
 
         public void Activate()

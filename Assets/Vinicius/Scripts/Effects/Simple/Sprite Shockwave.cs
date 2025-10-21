@@ -3,38 +3,27 @@ using UnityEngine;
 
 namespace Effects.Simple
 {
-    public class FullScreenShockwave : MonoBehaviour
+    public class SpriteShockwave : MonoBehaviour
     {
         [Header("||===== Objects =====||")]
-        [SerializeField] private GameObject shockwaveObject;
-        private Renderer shockwaveRenderer;
         private MaterialPropertyBlock propertyBlock;
 
         private static int shockwaveProgress = Shader.PropertyToID("_WaveDistanceFromCenter");
 
-        private Coroutine coroutine;
-
         private void Awake()
         {
             propertyBlock = new MaterialPropertyBlock();
-
-            shockwaveRenderer = shockwaveObject.GetComponent<Renderer>();
         }
 
-        public void ApplyEffect(float duration)
+        public void ApplyEffect(Renderer renderer, float duration)
         {
-            if (coroutine != null)
-                StopCoroutine(coroutine);
-
-            coroutine = StartCoroutine(Routine(duration));
+            StartCoroutine(Routine(renderer, duration));
         }
 
-        private IEnumerator Routine(float duration)
+        private IEnumerator Routine(Renderer renderer, float duration)
         {
-            shockwaveObject.SetActive(true);
-
             propertyBlock.SetFloat(shockwaveProgress, -0.1f);
-            shockwaveRenderer.SetPropertyBlock(propertyBlock);
+            renderer.SetPropertyBlock(propertyBlock);
 
             float elapsedTime = 0;
             float progress;
@@ -47,16 +36,12 @@ namespace Effects.Simple
                 newValue = Mathf.Lerp(-0.1f, 1, progress);
 
                 propertyBlock.SetFloat(shockwaveProgress, newValue);
-                shockwaveRenderer.SetPropertyBlock(propertyBlock);
+                renderer.SetPropertyBlock(propertyBlock);
 
                 elapsedTime += Time.deltaTime;
 
                 yield return null;
             }
-
-            shockwaveObject.SetActive(false);
-
-            coroutine = null;
         }
     }
 }

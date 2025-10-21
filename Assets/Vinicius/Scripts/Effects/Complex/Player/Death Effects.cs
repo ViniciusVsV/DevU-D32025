@@ -98,7 +98,7 @@ namespace Effects.Complex.Player
             // Ativa transição de tela após um tempo
             yield return new WaitForSeconds(transitionDelay);
 
-            cameraTransition.ApplyEffect(transitionDuration);
+            cameraTransition.ApplyEffect(transitionDuration, false);
 
             while (cameraTransition.isPlaying)
                 yield return null;

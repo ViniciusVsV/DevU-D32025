@@ -1,6 +1,5 @@
 using Effects.Complex.Player;
 using StateMachine;
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 namespace Characters.Player.States

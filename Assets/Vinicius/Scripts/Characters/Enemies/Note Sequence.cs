@@ -58,6 +58,9 @@ namespace Characters.Enemies
                 display.Deactivate();
         }
 
+        private void OnDisable() { GuitarController.OnNotePlayed -= PlayNote; }
+        private void OnDestroy() { GuitarController.OnNotePlayed -= PlayNote; }
+
         private void PlayNote(MusicalNote playedNote)
         {
             if (!finishedSetup)
