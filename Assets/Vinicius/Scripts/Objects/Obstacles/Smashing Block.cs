@@ -3,22 +3,19 @@ using System.Collections;
 
 namespace Objects.Obstacles
 {
-    public class SmashingBlock : MonoBehaviour, IRythmSyncable
+    public class SmashingBlock : MonoBehaviour, IActivatable, IDeactivatable, IRestorable, IRythmSyncable
     {
         [Header("||===== Objects =====||")]
         [SerializeField] private Rigidbody2D blockRb;
         [SerializeField] private Transform smashPoint;
-        [SerializeField] private BoxCollider2D smashZone;
+        [SerializeField] private BoxCollider2D smashTrigger;
+        [SerializeField] private BoxCollider2D retreatTrigger;
 
         [Header("||===== Parameters =====||")]
-        [SerializeField] private int beatsCooldown;
-        [SerializeField] private int beatsStill; // Tempo em batidas que fica parado após bater
-        private int beatCounter;
-        private int stillCounter;
+        [SerializeField] private int beatDelay;
+        private int beatCounter = -1;
 
         private float beatLength;
-        private float smashLength;
-        private float retreatLength;
 
         [SerializeField] private AnimationCurve smashCurve;
         [SerializeField] private AnimationCurve retreatCurve;
@@ -31,36 +28,52 @@ namespace Objects.Obstacles
         private float progress;
         private float curveFactor;
 
+        private bool isActive;
         public bool showGizmos;
-        private bool isStill;
 
         private void Start()
         {
             initialPosition = transform.position;
 
             beatLength = BeatController.Instance.GetBeatLength();
-
-            smashLength = beatLength;
-            retreatLength = beatLength * beatsCooldown;
         }
+
+        public void Activate() { isActive = true; }
+        public void Deactivate() { isActive = false; }
+        public void Restore()
+        {
+            StopAllCoroutines();
+
+            blockRb.position = initialPosition;
+
+            isActive = true;
+        }
+
+        private void OnEnable() { BeatInterval.OnOneBeatHappened += RespondToBeat; }
+        private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
 
         public void RespondToBeat()
         {
-            if (isStill)
+            if (beatDelay > 0)
             {
-                stillCounter--;
-
-                isStill = stillCounter > 0;
-
+                beatDelay--;
                 return;
             }
 
-            beatCounter = (beatCounter + 1) % (beatsCooldown + 1);
+            beatCounter = (beatCounter + 1) % 4; // Mantendo todo o comportamento do bloco dentro do 4:4
+
+            if (!isActive)
+                return;
 
             if (beatCounter == 0)
             {
                 StopAllCoroutines();
                 StartCoroutine(SmashRoutine());
+            }
+            else if (beatCounter == 2)
+            {
+                StopAllCoroutines();
+                StartCoroutine(RetreatRoutine());
             }
         }
 
@@ -69,17 +82,14 @@ namespace Objects.Obstacles
             startPos = initialPosition;
             targetPos = smashPoint.position;
 
-            // Atribui os valores antes para não ocorrer possível dessincronização
-            stillCounter = beatsStill + 1;
-            isStill = true;
-
-            smashZone.enabled = true;
-
             float elapsedTime = 0f;
 
-            while (elapsedTime < smashLength)
+            while (elapsedTime < beatLength)
             {
-                progress = elapsedTime / smashLength;
+                progress = elapsedTime / beatLength;
+
+                if (progress >= 0.8)
+                    smashTrigger.enabled = true;
 
                 curveFactor = smashCurve.Evaluate(progress);
 
@@ -96,9 +106,7 @@ namespace Objects.Obstacles
             blockRb.position = targetPos;
             blockRb.linearVelocity = Vector2.zero;
 
-            smashZone.enabled = false;
-
-            StartCoroutine(RetreatRoutine());
+            smashTrigger.enabled = false;
         }
 
         private IEnumerator RetreatRoutine()
@@ -106,14 +114,14 @@ namespace Objects.Obstacles
             startPos = smashPoint.position;
             targetPos = initialPosition;
 
-            while (isStill)
-                yield return null;
-
             float elapsedTime = 0f;
 
-            while (elapsedTime < retreatLength)
+            while (elapsedTime < beatLength)
             {
-                progress = elapsedTime / retreatLength;
+                progress = elapsedTime / beatLength;
+
+                if (progress >= 0.7)
+                    retreatTrigger.enabled = true;
 
                 curveFactor = retreatCurve.Evaluate(progress);
 
@@ -129,6 +137,8 @@ namespace Objects.Obstacles
 
             blockRb.position = targetPos;
             blockRb.linearVelocity = Vector2.zero;
+
+            retreatTrigger.enabled = false;
         }
 
         private void OnDrawGizmos()

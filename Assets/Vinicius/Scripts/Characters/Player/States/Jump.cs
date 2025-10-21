@@ -1,4 +1,6 @@
+using Effects.Complex.Player;
 using StateMachine;
+using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 namespace Characters.Player.States
@@ -7,8 +9,12 @@ namespace Characters.Player.States
     {
         private StateController playerController => (StateController)controller;
 
-        [SerializeField] private Run runState;
         [SerializeField] private AnimationClip animationClip;
+
+        [Header("||===== Objects =====||")]
+        [SerializeField] private Run runState;
+        [SerializeField] private Transform particlePoint;
+        private MovementEffects movementEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float jumpForce;
@@ -19,11 +25,21 @@ namespace Characters.Player.States
 
         private float appliedForce;
 
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
+
         public override void StateEnter()
         {
             playerController.jumpPressed = false;
 
             animator.Play(animationClip.name);
+
+            if (playerController.isGrounded)
+                movementEffects.ApplyJumpEffects(particlePoint.position);
+            else
+                movementEffects.ApplyDoubleJumpEffects(particlePoint.position);
 
             appliedForce = jumpForce;
 
@@ -50,10 +66,6 @@ namespace Characters.Player.States
             else if (playerController.dashPressed)
                 playerController.SetDash();
 
-            // Transição para Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
-
             // Transição para Wall Slide
             else if (playerController.isWallSliding && jumpTimer <= Mathf.Epsilon)
                 playerController.SetWallSlide();
@@ -61,6 +73,10 @@ namespace Characters.Player.States
             // Transição para Fall
             else if (rb.linearVelocityY < -0.1f)
                 playerController.SetFall();
+
+            // Transição para Idle
+            else if (rb.linearVelocityY < Mathf.Abs(Mathf.Epsilon))
+                playerController.SetIdle();
         }
 
         public override void StateFixedUpdate()

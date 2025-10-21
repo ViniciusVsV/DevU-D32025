@@ -5,7 +5,7 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Idle : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
@@ -18,8 +18,6 @@ namespace Characters.Enemies.VynilDisc.States
         [Header("||===== Parameters =====||")]
         [SerializeField] private int maxAttempts;
         [SerializeField] private float maxDistance;
-        [SerializeField] private int beatsDuration; //Duração do estado em batidas
-        private int beatCounter;
         private int attemptCounter;
 
         private Vector2 initialPosition;
@@ -40,7 +38,6 @@ namespace Characters.Enemies.VynilDisc.States
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.blue;
 
-            beatCounter = 0;
             attemptCounter = 0;
 
             do
@@ -59,19 +56,21 @@ namespace Characters.Enemies.VynilDisc.States
                 attemptCounter++;
             } while (attemptCounter < 30);
 
-            houndController.followPoint = nextPoint;
+            vynilDiscController.followPoint = nextPoint;
         }
 
         public override void StateUpdate()
         {
-            if (houndController.beatHappened)
-                beatCounter++;
+            // Transição para Chase
+            if (vynilDiscController.isAggroed)
+                vynilDiscController.SetChase();
 
-            if (houndController.isAggroed)
-                houndController.SetChase();
-
-            else if (beatCounter > beatsDuration)
-                houndController.SetMove();
+            // Transição para Move
+            else if (vynilDiscController.beatHappened)
+            {
+                if (vynilDiscController.beatCounter == 0 || vynilDiscController.beatCounter == 2)
+                    vynilDiscController.SetMove();
+            }
         }
     }
 }

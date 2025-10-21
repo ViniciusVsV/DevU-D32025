@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Characters.Enemies.VynilDisc;
 using StateMachine;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,11 +7,12 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Chase : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
         [Header("||===== Objects =====||")]
+        [SerializeField] private Transform spriteTransform;
         [SerializeField] private NavMeshAgent navMeshAgent;
         private Vector2 targetPosition;
         private Vector2 targetVector;
@@ -77,12 +77,20 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateUpdate()
         {
-            targetPosition = houndController.playerTransform.position;
+            targetPosition = vynilDiscController.playerTransform.position;
             targetVector = targetPosition - rb.position;
+
+            //Flipa o sprite
+            if (Mathf.Sign(targetVector.x) != Mathf.Sign(spriteTransform.localScale.x))
+            {
+                Vector3 newScale = spriteTransform.localScale;
+                newScale.x *= -1;
+                spriteTransform.localScale = newScale;
+            }
 
             seesPlayer = !Physics2D.CircleCast(tr.position, colliderRadius, targetVector.normalized, targetVector.magnitude, terrainLayers);
 
-            if (houndController.beatHappened)
+            if (vynilDiscController.beatHappened)
             {
                 // Transição para Wind Up
                 if
@@ -93,7 +101,7 @@ namespace Characters.Enemies.VynilDisc.States
                 )
                 {
                     chargeBeatCounter = chargeBeatsCooldown;
-                    houndController.SetWindUp();
+                    vynilDiscController.SetWindUp();
                     return;
                 }
 
@@ -133,7 +141,11 @@ namespace Characters.Enemies.VynilDisc.States
                 navMeshAgent.ResetPath();
         }
 
-        // Método opcional para debug visual
+        public override void StateExit()
+        {
+            navMeshAgent.ResetPath();
+        }
+
         private void OnDrawGizmos()
         {
             if (!showGizmos) return;

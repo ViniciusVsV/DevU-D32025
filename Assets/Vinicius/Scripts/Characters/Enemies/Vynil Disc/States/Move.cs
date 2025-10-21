@@ -7,19 +7,21 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Move : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
+        [Header("||===== Objects =====||")]
+        [SerializeField] private Transform spriteTransform;
+
         [Header("||===== Parameters =====||")]
-        [Range(0, 1)][SerializeField] private float beatLengthPercentage; //O quanto do tempo da batida que será usado para o movimento
-        private float duration;
+        private float beatLength;
 
         private Tween tween;
 
         private void Start()
         {
-            duration = BeatController.Instance.GetBeatLength();
+            beatLength = BeatController.Instance.GetBeatLength();
         }
 
         public override void StateEnter()
@@ -27,27 +29,33 @@ namespace Characters.Enemies.VynilDisc.States
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.cyan;
 
-
             //Flipa o sprite
-            if (Mathf.Sign((houndController.followPoint - rb.position).x) != Mathf.Sign(tr.localScale.x))
+            if (Mathf.Sign((vynilDiscController.followPoint - rb.position).x) != Mathf.Sign(spriteTransform.localScale.x))
             {
-                Vector3 newScale = tr.localScale;
+                Vector3 newScale = spriteTransform.localScale;
                 newScale.x *= -1;
-                tr.localScale = newScale;
+                spriteTransform.localScale = newScale;
             }
 
-            //Movimento dura uma batida
-            tween = rb.DOMove(houndController.followPoint, duration * beatLengthPercentage).SetEase(Ease.OutCirc)
-                .OnComplete(() => houndController.SetIdle());
+            tween = rb.DOMove(vynilDiscController.followPoint, beatLength).SetEase(Ease.OutCirc);
         }
 
         public override void StateUpdate()
         {
-            if (houndController.isAggroed)
+            // Transição para Chase
+            if (vynilDiscController.isAggroed)
             {
                 tween?.Kill();
 
-                houndController.SetChase();
+                vynilDiscController.SetChase();
+            }
+
+            // Transição para Idle
+            else if (vynilDiscController.beatHappened)
+            {
+                tween?.Kill();
+
+                vynilDiscController.SetIdle();
             }
         }
     }

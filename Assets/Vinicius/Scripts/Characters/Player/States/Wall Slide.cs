@@ -38,10 +38,6 @@ namespace Characters.Player.States
             else if (playerController.dashPressed)
                 playerController.SetDash();
 
-            // Transição para Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
-
             // Transição para Fall
             else if (!playerController.isWalled && !playerController.isGrounded || playerController.isCrouching)
                 playerController.SetFall();

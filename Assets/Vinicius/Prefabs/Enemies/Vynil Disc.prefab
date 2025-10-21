@@ -138,7 +138,51 @@ MonoBehaviour:
   houndCollider: {fileID: 14037788492274712}
   maxAttempts: 30
   maxDistance: 2
-  beatsDuration: 3
+--- !u!1 &2578632037916562616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1305472267270500674}
+  - component: {fileID: 1322063864655517915}
+  m_Layer: 0
+  m_Name: Die
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1305472267270500674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578632037916562616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3432857915197499499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322063864655517915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578632037916562616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61501177c45b50498d4838c6e0bfe1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noteSequence: {fileID: 2313345896574455244}
 --- !u!1 &3006086862183200692
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6405034288545533752}
   - component: {fileID: 5221180792176499395}
+  - component: {fileID: 4287624041679957495}
   - component: {fileID: 4315135067057366512}
   - component: {fileID: 9204457626488275847}
   - component: {fileID: 14037788492274712}
@@ -348,22 +393,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136989ad2a8030c4d8a9672d990b12e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
   followPoint: {x: 0, y: 0}
   playerTransform: {fileID: 0}
   pulseSize: {x: 1.3, y: 1.3, z: 1}
   stunnedPulseSize: {x: 1.1, y: 1.1, z: 1}
   spriteTransform: {fileID: 5590661141414487819}
-  beatDelay: 1
+  beatDelay: 4
+  beatCounter: 0
   idleState: {fileID: 6180935798970201768}
   moveState: {fileID: 1473260214985939401}
   chaseState: {fileID: 992818925236273440}
   windUpState: {fileID: 3849338034027499970}
   chargeState: {fileID: 1921499522347777812}
   dazeState: {fileID: 2820987854111755431}
+  dieState: {fileID: 1322063864655517915}
+  respawnState: {fileID: 2663056304133684392}
+  deactivateState: {fileID: 7837417365549712989}
+  beatHappened: 0
+  restored: 0
+  activated: 0
   isAggroed: 0
   isStunned: 0
-  beatHappened: 0
+  isDead: 0
+--- !u!114 &4287624041679957495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4444608898358654599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbea516bf2c2b74cbeb7e158bd0173c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vynilDiscController: {fileID: 5221180792176499395}
+  sprite: {fileID: 774162594619040228}
+  maxHealth: 3
 --- !u!195 &4315135067057366512
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -494,16 +560,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
+  spriteTransform: {fileID: 5590661141414487819}
   navMeshAgent: {fileID: 4315135067057366512}
   terrainLayers:
     serializedVersion: 2
     m_Bits: 64
   houndCollider: {fileID: 14037788492274712}
-  chargeBeatsCooldown: 3
+  chargeBeatsCooldown: 2
   chargeThreshold: 8
   beatLengthPercentage: 0.25
   numberOfPoints: 12
-  showGizmos: 1
+  showGizmos: 0
+--- !u!1 &4560650351596622735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232256787910319201}
+  - component: {fileID: 2663056304133684392}
+  m_Layer: 0
+  m_Name: Respawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232256787910319201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560650351596622735}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3432857915197499499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2663056304133684392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560650351596622735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788731df4ec54bd4b869ed688767334d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notesObject: {fileID: 7537983744900286055}
 --- !u!1 &4687512236547870199
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +663,7 @@ MonoBehaviour:
   animationClip: {fileID: 0}
   initialSpeed: 10
   deceleration: 4
-  beatsDuration: 2
+  beatsDuration: 1
 --- !u!1 &5570113520260993705
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4e5e12e03824c44b631686007d62fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  houndController: {fileID: 5221180792176499395}
+  noteSequence: {fileID: 2313345896574455244}
+  vynilDiscController: {fileID: 5221180792176499395}
   terrainLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -773,6 +886,9 @@ Transform:
   - {fileID: 3750081694282762126}
   - {fileID: 7504981185686078055}
   - {fileID: 7283154830650835602}
+  - {fileID: 1305472267270500674}
+  - {fileID: 1232256787910319201}
+  - {fileID: 3912269333413163305}
   m_Father: {fileID: 6405034288545533752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7537983744900286055
@@ -820,7 +936,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02deb3d35a09af4cb9b83a7e462b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequenceSize: 3
   notePoints:
   - {fileID: 7852802877585939541}
   - {fileID: 8904244099310362503}
@@ -834,6 +949,70 @@ MonoBehaviour:
     noteSprite: {fileID: 21300000, guid: 93e7358f39c9d184eafd4c98332a6e6b, type: 3}
   - note: 3
     noteSprite: {fileID: 21300000, guid: 6ddf22e6f56f43c47a06988964129807, type: 3}
+  sequenceSize: 3
+  setupDelay: 0.05
+  isActive: 0
+  finishedSetup: 0
+  OnSequenceCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4287624041679957495}
+        m_TargetAssemblyTypeName: Characters.Enemies.VynilDisc.StatsHandler, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &7807163458919442298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3912269333413163305}
+  - component: {fileID: 7837417365549712989}
+  m_Layer: 0
+  m_Name: Deactivate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3912269333413163305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807163458919442298}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3432857915197499499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7837417365549712989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807163458919442298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a376e0ccea756624f86002f5472191e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noteSequence: {fileID: 2313345896574455244}
 --- !u!1 &7852802877585939541
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +1113,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7894530224089130635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2379839571389592612}
+  - component: {fileID: 5474697559859537197}
+  m_Layer: 0
+  m_Name: Kill Trigger
+  m_TagString: EnemyAttack
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2379839571389592612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7894530224089130635}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7504981185686078055}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &5474697559859537197
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7894530224089130635}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.44
 --- !u!1 &8446270137895973014
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +1244,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2379839571389592612}
   m_Father: {fileID: 3432857915197499499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1921499522347777812
@@ -1013,9 +1261,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
+  killTrigger: {fileID: 5474697559859537197}
   terrainLayers:
     serializedVersion: 2
     m_Bits: 64
+  spriteTransform: {fileID: 5590661141414487819}
   chargeDistance: 10
   chargeBeatPercentage: 0.7
   brakeBeatPercentage: 0.2
@@ -1254,4 +1504,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationClip: {fileID: 0}
-  beatLengthPercentage: 0.95
+  spriteTransform: {fileID: 5590661141414487819}

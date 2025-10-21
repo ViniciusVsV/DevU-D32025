@@ -4,7 +4,7 @@ namespace StateMachine
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]
-    public class BaseStateController : MonoBehaviour, IDamageable
+    public class BaseStateController : MonoBehaviour
     {
         protected StateMachine stateMachine;
 
@@ -12,10 +12,6 @@ namespace StateMachine
         protected Collider2D col;
         protected Animator animator;
         protected SpriteRenderer spriteRenderer;
-
-        [Header("||===== Health Parameters =====||")]
-        [SerializeField] protected int maxHealth;
-        protected int currentHealth;
 
         protected virtual void Awake()
         {
@@ -25,8 +21,6 @@ namespace StateMachine
             col = GetComponent<Collider2D>();
             animator = GetComponentInChildren<Animator>();
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-            currentHealth = maxHealth;
         }
 
         protected virtual void Update()

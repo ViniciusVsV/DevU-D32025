@@ -1,3 +1,4 @@
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEngine;
 
@@ -10,15 +11,26 @@ namespace Characters.Player.States
         [SerializeField] private AnimationClip idleClip;
         [SerializeField] private AnimationClip landClip;
 
+        [Header("||===== Objects =====||")]
+        [SerializeField] private Transform landParticlePoint;
+        private MovementEffects movementEffects;
+
         [Header("||===== Parameters =====||")]
         [SerializeField] private float deceleration;
         private float speedDiff;
+
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
 
         public override void StateEnter()
         {
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fall"))
             {
                 animator.Play(landClip.name);
+
+                movementEffects.ApplyLandEffects(landParticlePoint.position);
             }
             else
             {
@@ -35,10 +47,6 @@ namespace Characters.Player.States
             // Transição para Dash
             else if (playerController.dashPressed)
                 playerController.SetDash();
-
-            // Transição para Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
 
             // Transição para Run
             else if (Mathf.Abs(playerController.moveDirection.x) > 0.01f)

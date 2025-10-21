@@ -10,8 +10,6 @@ namespace Characters.Player
         public void PlayNote(MusicalNote note)
         {
             OnNotePlayed?.Invoke(note);
-
-            Debug.Log("Tocou " + note);
         }
     }
 }

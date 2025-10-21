@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dc1c2b7fdb4cf54ab13c68502a38115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlaySceneName: Initial Scene
+  PlaySceneName: Game
 --- !u!1 &137862565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,78 +2588,12 @@ MonoBehaviour:
   bpm: 105
   musicSource: {fileID: 545082844}
   beatIntervals:
-  - beatHappened:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 625605715}
-          m_TargetAssemblyTypeName: pulsetest, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 137862570}
-          m_TargetAssemblyTypeName: pulsetest, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    numberBeats: 1
-  - beatHappened:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 390153773}
-          m_TargetAssemblyTypeName: pulsetest, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 2041872759}
-          m_TargetAssemblyTypeName: pulsetest, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1336612842}
-          m_TargetAssemblyTypeName: pulsetest, Assembly-CSharp
-          m_MethodName: Pulse
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    numberBeats: 0.5
-  - beatHappened:
-      m_PersistentCalls:
-        m_Calls: []
-    numberBeats: 0.25
+  - syncedObjects: []
+    noteLength: 0
+  - syncedObjects: []
+    noteLength: 0
+  - syncedObjects: []
+    noteLength: 0
 --- !u!4 &1918188770
 Transform:
   m_ObjectHideFlags: 0

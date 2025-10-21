@@ -1,4 +1,5 @@
 using System;
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace Characters.Player.States
 
         [Header("||==== Objects =====||")]
         [SerializeField] private LayerMask terrainLayers;
+        [SerializeField] private BoxCollider2D playerCollider;
+        [SerializeField] private Transform particlePoint;
+        private MovementEffects movementEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private Vector2 wallJumpForce;
@@ -23,6 +27,11 @@ namespace Characters.Player.States
 
         private Vector2 appliedForce;
         private int direction;
+
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
 
         public override void StateEnter()
         {
@@ -35,7 +44,7 @@ namespace Characters.Player.States
             appliedForce = wallJumpForce;
 
             //Se estiver na parede, sempre Flipa
-            if (Physics2D.CircleCast(transform.position, 0.5f, Vector2.right * direction, 0.2f, terrainLayers))
+            if (Physics2D.BoxCast(transform.position, playerCollider.size, 0, Vector2.right * direction, 0.3f, terrainLayers))
             {
                 appliedForce.x *= direction * -1;
 
@@ -56,6 +65,8 @@ namespace Characters.Player.States
                     appliedForce.x *= direction;
             }
 
+            movementEffects.ApplyWallJumpEffects(particlePoint.position);
+
             rb.AddForce(appliedForce, ForceMode2D.Impulse);
 
             jumpTimer = minJumpDuration;
@@ -74,10 +85,6 @@ namespace Characters.Player.States
             // Transição para Dash
             else if (playerController.dashPressed)
                 playerController.SetDash();
-
-            // Transição pra Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
 
             // Transição para Wall Slide
             else if (playerController.isWalled && jumpTimer <= Mathf.Epsilon)

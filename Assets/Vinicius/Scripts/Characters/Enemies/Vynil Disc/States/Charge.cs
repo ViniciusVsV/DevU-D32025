@@ -1,3 +1,4 @@
+using Effects.Complex.Enemies.VynilDisc;
 using StateMachine;
 using UnityEngine;
 
@@ -5,12 +6,15 @@ namespace Characters.Enemies.VynilDisc.States
 {
     public class Charge : BaseState
     {
-        private StateController houndController => (StateController)controller;
+        private StateController vynilDiscController => (StateController)controller;
 
         [SerializeField] private AnimationClip animationClip;
 
         [Header("||===== Objects =====||")]
+        [SerializeField] private CircleCollider2D killTrigger;
         [SerializeField] private LayerMask terrainLayers;
+        [SerializeField] private Transform spriteTransform;
+        private ChargeEffects chargeEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float chargeDistance;
@@ -33,6 +37,7 @@ namespace Characters.Enemies.VynilDisc.States
         private void Start()
         {
             beatLength = BeatController.Instance.GetBeatLength();
+            chargeEffects = ChargeEffects.Instance;
         }
 
         public override void StateEnter()
@@ -42,14 +47,26 @@ namespace Characters.Enemies.VynilDisc.States
 
             beatTimer = 0;
 
-            targetVector = houndController.playerTransform.position - tr.position;
+            targetVector = vynilDiscController.playerTransform.position - tr.position;
             targetDirection = targetVector.normalized;
+
+            //Flipa o sprite
+            if (Mathf.Sign(targetVector.x) != Mathf.Sign(spriteTransform.localScale.x))
+            {
+                Vector3 newScale = spriteTransform.localScale;
+                newScale.x *= -1;
+                spriteTransform.localScale = newScale;
+            }
 
             targetPosition = rb.position + targetDirection * chargeDistance;
 
-            houndController.followPoint = targetPosition;
+            vynilDiscController.followPoint = targetPosition;
 
             chargeSpeed = chargeDistance / (beatLength * chargeBeatPercentage) * targetDirection;
+
+            killTrigger.enabled = true;
+
+            chargeEffects.ApplyEffects(spriteTransform, spriteRenderer);
 
             rb.linearVelocity = chargeSpeed;
         }
@@ -60,11 +77,11 @@ namespace Characters.Enemies.VynilDisc.States
 
             // Transição para Daze
             if (Physics2D.CircleCast(tr.position, dazeDetectionRadius, targetDirection, dazeDetectionDistance, terrainLayers))
-                houndController.SetDaze();
+                vynilDiscController.SetDaze();
 
             // Transição para Chase
             else if (beatTimer >= beatLength * (chargeBeatPercentage + brakeBeatPercentage))
-                houndController.SetChase();
+                vynilDiscController.SetChase();
         }
 
         public override void StateFixedUpdate()
@@ -72,6 +89,8 @@ namespace Characters.Enemies.VynilDisc.States
             //Passou do tempo de charge
             if (beatTimer >= beatLength * chargeBeatPercentage)
             {
+                killTrigger.enabled = false;
+
                 float brakeElapsed = beatTimer - (beatLength * chargeBeatPercentage);
 
                 float brakeDuration = beatLength * brakeBeatPercentage;
@@ -84,7 +103,11 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateExit()
         {
+            chargeEffects.RemoveEffects(spriteTransform);
+
             rb.linearVelocity = Vector2.zero;
+
+            killTrigger.enabled = false;
         }
 
         private void OnDrawGizmos()

@@ -35,6 +35,7 @@ namespace Characters.Player.States
             animator.Play(animationClip.name);
 
             playerController.dashPressed = false;
+            playerController.isDashing = true;
 
             baseGravityScale = rb.gravityScale;
             rb.gravityScale = 0f;
@@ -71,6 +72,7 @@ namespace Characters.Player.States
                 if (isOnMainSection)
                 {
                     playerController.dashHappened = true;
+                    playerController.isDashing = false;
 
                     rb.gravityScale = baseGravityScale;
                     rb.linearVelocity = Vector2.zero;
@@ -93,6 +95,12 @@ namespace Characters.Player.States
                 else
                     playerController.SetFall();
             }
+        }
+
+        public override void StateExit()
+        {
+            rb.gravityScale = baseGravityScale; // Reforçando o retorno da gravidade ao normal
+            playerController.isDashing = false;
         }
     }
 }
