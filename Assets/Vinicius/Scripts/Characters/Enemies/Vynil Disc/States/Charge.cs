@@ -1,3 +1,4 @@
+using Effects.Complex.Enemies.VynilDisc;
 using StateMachine;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Characters.Enemies.VynilDisc.States
         [SerializeField] private CircleCollider2D killTrigger;
         [SerializeField] private LayerMask terrainLayers;
         [SerializeField] private Transform spriteTransform;
+        private ChargeEffects chargeEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float chargeDistance;
@@ -35,6 +37,7 @@ namespace Characters.Enemies.VynilDisc.States
         private void Start()
         {
             beatLength = BeatController.Instance.GetBeatLength();
+            chargeEffects = ChargeEffects.Instance;
         }
 
         public override void StateEnter()
@@ -50,8 +53,6 @@ namespace Characters.Enemies.VynilDisc.States
             //Flipa o sprite
             if (Mathf.Sign(targetVector.x) != Mathf.Sign(spriteTransform.localScale.x))
             {
-                Debug.Log("Dando o charge em uma direção diferente!");
-
                 Vector3 newScale = spriteTransform.localScale;
                 newScale.x *= -1;
                 spriteTransform.localScale = newScale;
@@ -64,6 +65,8 @@ namespace Characters.Enemies.VynilDisc.States
             chargeSpeed = chargeDistance / (beatLength * chargeBeatPercentage) * targetDirection;
 
             killTrigger.enabled = true;
+
+            chargeEffects.ApplyEffects(spriteTransform, spriteRenderer);
 
             rb.linearVelocity = chargeSpeed;
         }
@@ -100,6 +103,8 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateExit()
         {
+            chargeEffects.RemoveEffects(spriteTransform);
+
             rb.linearVelocity = Vector2.zero;
 
             killTrigger.enabled = false;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEngine;
 
@@ -10,23 +11,34 @@ namespace Characters.Player.States
     {
         private StateController playerController => (StateController)controller;
 
-        [SerializeField] private float spawnDuration;
+        private SpawnEffects spawnEffects;
 
         public static event Action OnPlayerSpawned;
+
+        private void Start()
+        {
+            spawnEffects = SpawnEffects.Instance;
+        }
 
         public override void StateEnter()
         {
             rb.simulated = false;
+
+            OnPlayerSpawned?.Invoke();
 
             StartCoroutine(Routine());
         }
 
         private IEnumerator Routine()
         {
-            OnPlayerSpawned?.Invoke();
+            while (spawnEffects == null)
+                yield return null;
+
+            spawnEffects.ApplyEffects();
 
             // Espera o tempo da transição
-            yield return new WaitForSeconds(spawnDuration);
+            while (!spawnEffects.finishedPlaying)
+                yield return null;
 
             rb.simulated = true;
 

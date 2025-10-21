@@ -1,3 +1,4 @@
+using Effects.Complex.Enemies;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +7,7 @@ namespace Characters.Enemies.SaxPlayer
     public class StatsHandler : MonoBehaviour, IDamageable
     {
         [SerializeField] private StateController saxPlayerController;
+        [SerializeField] private SpriteRenderer sprite;
 
         [SerializeField] private int maxHealth;
         private int currentHealth;
@@ -18,6 +20,8 @@ namespace Characters.Enemies.SaxPlayer
         public void TakeDamage()
         {
             currentHealth--;
+
+            DamagedEffects.Instance.ApplyEffects(sprite.transform, sprite);
 
             if (currentHealth <= 0)
                 saxPlayerController.SetDie();

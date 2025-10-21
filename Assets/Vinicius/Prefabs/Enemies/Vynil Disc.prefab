@@ -428,6 +428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vynilDiscController: {fileID: 5221180792176499395}
+  sprite: {fileID: 774162594619040228}
   maxHealth: 3
 --- !u!195 &4315135067057366512
 NavMeshAgent:
@@ -565,7 +566,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   houndCollider: {fileID: 14037788492274712}
-  chargeBeatsCooldown: 3
+  chargeBeatsCooldown: 2
   chargeThreshold: 8
   beatLengthPercentage: 0.25
   numberOfPoints: 12
@@ -662,7 +663,7 @@ MonoBehaviour:
   animationClip: {fileID: 0}
   initialSpeed: 10
   deceleration: 4
-  beatsDuration: 2
+  beatsDuration: 1
 --- !u!1 &5570113520260993705
 GameObject:
   m_ObjectHideFlags: 0

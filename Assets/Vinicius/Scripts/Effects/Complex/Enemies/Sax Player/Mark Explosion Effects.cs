@@ -57,6 +57,8 @@ namespace Effects.Complex.Enemies.SaxPlayer
 
             //Faz o controle tremer um pouco
             controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration);
+
+            finishedPlaying = true;
         }
     }
 }

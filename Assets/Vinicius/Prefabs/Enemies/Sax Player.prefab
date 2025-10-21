@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saxPlayerController: {fileID: 997105068160540}
+  sprite: {fileID: 3961194975734504471}
   maxHealth: 2
 --- !u!61 &6997849949931396877
 BoxCollider2D:

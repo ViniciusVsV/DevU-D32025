@@ -24,8 +24,7 @@ namespace Characters.Player.States
         public override void StateEnter()
         {
             //Desativa tudo
-            playerController.enabled = false;
-            inputHandler.enabled = false;
+            inputHandler.isEnabled = false;
 
             rb.simulated = false;
             rb.linearVelocity = Vector2.zero;

@@ -1,3 +1,4 @@
+using Effects.Simple.AfterImage;
 using UnityEngine;
 
 namespace Effects.Complex.Player
@@ -5,6 +6,9 @@ namespace Effects.Complex.Player
     public class MovementEffects : MonoBehaviour
     {
         public static MovementEffects Instance;
+
+        [Header("Objects")]
+        private AfterImagesManager afterImagesManager;
 
         [Header("Jump Parameters")]
         [SerializeField] private ParticleSystem jumpParticles;
@@ -17,6 +21,7 @@ namespace Effects.Complex.Player
         [Header("Fast Run Parameters")]
         [SerializeField] private ParticleSystem fastRunParticles;
 
+        private bool fastRunEffectsActive;
 
         private void Awake()
         {
@@ -25,7 +30,7 @@ namespace Effects.Complex.Player
 
         private void Start()
         {
-
+            afterImagesManager = FindFirstObjectByType<AfterImagesManager>();
         }
 
         public void ApplyJumpEffects(Vector2 position)
@@ -67,11 +72,27 @@ namespace Effects.Complex.Player
 
         }
 
-        public void ApplyFastRunEffects(Vector2 position)
+        public void ApplyFastRunEffects(Transform playerTransform, SpriteRenderer playerSprite)
         {
+            if (fastRunEffectsActive)
+                return;
+
+            fastRunEffectsActive = true;
+
             //Invoca partículas
-            fastRunParticles.transform.position = position;
-            fastRunParticles.Play();
+            //fastRunParticles.transform.position = position;
+            //fastRunParticles.Play();
+
+            //Ativa afetimages
+            afterImagesManager.StartAfterImages(playerTransform, playerSprite);
+        }
+        public void RemoveFastRunEffects(Transform playerTransform)
+        {
+            fastRunEffectsActive = false;
+
+            //fastRunParticles.Stop();
+            //Desativa afterimgaes
+            afterImagesManager.StopAfterImages(playerTransform);
         }
     }
 }

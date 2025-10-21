@@ -42,10 +42,13 @@ namespace Characters.Player
         private int lookingDirection;
 
         public bool isOnController;
+        public bool isEnabled;
 
         private void Awake()
         {
             playerTransform = transform.parent;
+
+            isEnabled = true;
         }
 
         private void Update()
@@ -94,11 +97,17 @@ namespace Characters.Player
 
         public void Move(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             playerController.moveDirection = context.ReadValue<Vector2>();
         }
 
         public void Jump(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.performed)
             {
                 bool canJump = false;
@@ -131,6 +140,9 @@ namespace Characters.Player
 
         public void Dash(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.performed && remainingDashes > 0)
             {
                 dashBufferTimer = dashBuffer;
@@ -141,6 +153,9 @@ namespace Characters.Player
 
         public void Crouch(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.performed)
                 playerController.isCrouching = true;
             else
@@ -149,30 +164,45 @@ namespace Characters.Player
 
         public void Green(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.performed)
                 guitarController.PlayNote(MusicalNote.Verde);
         }
 
         public void Blue(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.performed)
                 guitarController.PlayNote(MusicalNote.Azul);
         }
 
         public void Red(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.performed)
                 guitarController.PlayNote(MusicalNote.Vermelho);
         }
 
         public void Yellow(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.performed)
                 guitarController.PlayNote(MusicalNote.Amarelo);
         }
 
         public void CheckForController(InputAction.CallbackContext context)
         {
+            if (!isEnabled)
+                return;
+
             if (context.control.device is Gamepad)
                 isOnController = true;
             else

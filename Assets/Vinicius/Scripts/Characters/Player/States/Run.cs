@@ -1,3 +1,4 @@
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Characters.Player.States
 
         [SerializeField] private AnimationClip regularRunClip;
         [SerializeField] private AnimationClip fastRunClip;
+        private MovementEffects movementEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float maxSpeed;
@@ -27,9 +29,23 @@ namespace Characters.Player.States
 
         public bool conserveMomentum;
 
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
+
+        private void Update()
+        {
+            //gambiarra
+            if (Mathf.Abs(rb.linearVelocityX) >= maxSpeed * 1.3f)
+                movementEffects.ApplyFastRunEffects(tr, spriteRenderer);
+            else
+                movementEffects.RemoveFastRunEffects(tr);
+        }
+
         public override void StateEnter()
         {
-            if (Mathf.Abs(rb.linearVelocityX) > maxSpeed * 1.2f)
+            if (Mathf.Abs(rb.linearVelocityX) >= maxSpeed * 1.3f)
                 animator.Play(fastRunClip.name);
 
             else

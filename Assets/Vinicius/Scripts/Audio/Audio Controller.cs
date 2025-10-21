@@ -27,7 +27,7 @@ public class AudioController : MonoBehaviour
             musicSource.Play();
         }
     }
-    public void PlayGameMenuMusic()
+    public void PlayGameMusic()
     {
         if (musicSource.clip != gameMusic)
         {

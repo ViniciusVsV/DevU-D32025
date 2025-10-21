@@ -42,13 +42,20 @@ namespace Effects.Simple
         {
             gamepad.SetMotorSpeeds(lowFrequency, highFrequency);
 
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSecondsRealtime(duration);
 
             gamepad.SetMotorSpeeds(0f, 0f);
 
             isPlaying = false;
 
             coroutine = null;
+        }
+
+        private void OnDisable()
+        {
+            gamepad = Gamepad.current;
+
+            gamepad?.SetMotorSpeeds(0f, 0f);
         }
     }
 }

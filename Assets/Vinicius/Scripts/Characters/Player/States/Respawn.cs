@@ -27,9 +27,8 @@ namespace Characters.Player.States
         {
             OnPlayerRespawned?.Invoke();
 
-            // Ativar sprite e state controller
+            // Ativar sprite
             spriteRenderer.enabled = true;
-            playerController.enabled = true;
 
             // Transição para Idle
             playerController.SetIdle();
@@ -47,7 +46,7 @@ namespace Characters.Player.States
                 yield return null;
 
             // Ativar input handler
-            inputHandler.enabled = true;
+            inputHandler.isEnabled = true;
         }
     }
 }

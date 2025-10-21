@@ -1,4 +1,5 @@
 using System;
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Characters.Player.States
         [Header("||==== Objects =====||")]
         [SerializeField] private LayerMask terrainLayers;
         [SerializeField] private BoxCollider2D playerCollider;
+        [SerializeField] private Transform particlePoint;
+        private MovementEffects movementEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private Vector2 wallJumpForce;
@@ -24,6 +27,11 @@ namespace Characters.Player.States
 
         private Vector2 appliedForce;
         private int direction;
+
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
 
         public override void StateEnter()
         {
@@ -56,6 +64,8 @@ namespace Characters.Player.States
                 else
                     appliedForce.x *= direction;
             }
+
+            movementEffects.ApplyWallJumpEffects(particlePoint.position);
 
             rb.AddForce(appliedForce, ForceMode2D.Impulse);
 
