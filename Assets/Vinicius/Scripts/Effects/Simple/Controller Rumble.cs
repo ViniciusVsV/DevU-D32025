@@ -8,8 +8,11 @@ namespace Effects.Simple
     public class ControllerRumble : MonoBehaviour
     {
         private Gamepad gamepad;
-
         private InputHandler playerInput;
+
+        [SerializeField] private float maxDistance;
+        [SerializeField] private AnimationCurve dampingCurve;
+        private float dampingFactor;
 
         private Coroutine coroutine;
 
@@ -20,7 +23,7 @@ namespace Effects.Simple
             playerInput = FindFirstObjectByType<InputHandler>();
         }
 
-        public void ApplyEffect(float lowFrequency, float highFrequency, float duration)
+        public void ApplyEffect(float lowFrequency, float highFrequency, float duration, Vector2 position)
         {
             if (!playerInput.isOnController)
                 return;
@@ -29,6 +32,19 @@ namespace Effects.Simple
 
             if (gamepad != null)
             {
+                if (position != Vector2.zero)
+                {
+                    float distance = Vector2.Distance(position, playerInput.transform.position);
+
+                    if (distance > maxDistance)
+                        return;
+
+                    dampingFactor = dampingCurve.Evaluate(distance / maxDistance);
+
+                    lowFrequency *= dampingFactor;
+                    highFrequency *= dampingFactor;
+                }
+
                 isPlaying = true;
 
                 if (coroutine != null)
@@ -54,7 +70,11 @@ namespace Effects.Simple
         private void OnDisable()
         {
             gamepad = Gamepad.current;
-
+            gamepad?.SetMotorSpeeds(0f, 0f);
+        }
+        private void OnDestroy()
+        {
+            gamepad = Gamepad.current;
             gamepad?.SetMotorSpeeds(0f, 0f);
         }
     }

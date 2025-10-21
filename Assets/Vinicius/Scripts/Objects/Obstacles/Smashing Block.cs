@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Effects.Complex.Objects;
 
 namespace Objects.Obstacles
 {
@@ -10,8 +11,10 @@ namespace Objects.Obstacles
         [SerializeField] private Transform smashPoint;
         [SerializeField] private BoxCollider2D smashTrigger;
         [SerializeField] private BoxCollider2D retreatTrigger;
+        private SmashingBlockEffects smashingBlockEffects;
 
         [Header("||===== Parameters =====||")]
+        [SerializeField] private bool isHittingWall;
         [SerializeField] private int beatDelay;
         private int beatCounter = -1;
 
@@ -36,6 +39,8 @@ namespace Objects.Obstacles
             initialPosition = transform.position;
 
             beatLength = BeatController.Instance.GetBeatLength();
+
+            smashingBlockEffects = SmashingBlockEffects.Instance;
         }
 
         public void Activate() { isActive = true; }
@@ -105,6 +110,8 @@ namespace Objects.Obstacles
 
             blockRb.position = targetPos;
             blockRb.linearVelocity = Vector2.zero;
+
+            smashingBlockEffects.ApplyEffects(isHittingWall, targetPos);
 
             smashTrigger.enabled = false;
         }

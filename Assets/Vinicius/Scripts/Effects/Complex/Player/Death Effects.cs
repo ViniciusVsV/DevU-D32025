@@ -93,7 +93,7 @@ namespace Effects.Complex.Player
             particles.Play();
 
             // Controle treme bastante
-            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration);
+            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration, Vector2.zero);
 
             // Ativa transição de tela após um tempo
             yield return new WaitForSeconds(transitionDelay);

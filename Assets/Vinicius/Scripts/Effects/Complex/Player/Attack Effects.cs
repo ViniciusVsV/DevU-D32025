@@ -94,7 +94,7 @@ namespace Effects.Complex.Player
             cameraShake.ApplyEffect(impulseSource, cameraShakeForce, Vector2.zero);
 
             // Controle treme um pouco 
-            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration);
+            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration, Vector2.zero);
         }
     }
 }

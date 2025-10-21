@@ -1,25 +1,20 @@
-using System;
 using Effects.Simple;
 using Unity.Cinemachine;
 using UnityEngine;
 
-namespace Effects.Complex.Enemies.SaxPlayer
+namespace Effects.Complex.Objects
 {
-    public class MarkExplosionEffects : MonoBehaviour
+    public class SmashingBlockEffects : MonoBehaviour
     {
-        public static MarkExplosionEffects Instance;
+        public static SmashingBlockEffects Instance;
 
         [Header("Objects")]
-        [SerializeField] private ParticleSystem particles;
         [SerializeField] private CinemachineImpulseSource impulseSource;
 
         private CameraShake cameraShake;
         private ControllerRumble controllerRumble;
-        private LocalizedShockwave localizedShockwave;
 
         [Header("Parameters")]
-        [SerializeField] private float shockwaveDuration;
-        [SerializeField] private float shockwaveSize;
         [SerializeField] private float cameraShakeForce;
 
         [Header("Controller Rumble Parameters")]
@@ -39,24 +34,20 @@ namespace Effects.Complex.Enemies.SaxPlayer
         {
             cameraShake = FindFirstObjectByType<CameraShake>();
             controllerRumble = FindFirstObjectByType<ControllerRumble>();
-            localizedShockwave = FindFirstObjectByType<LocalizedShockwave>();
         }
 
-        public void ApplyEffects(Vector2 position)
+        public void ApplyEffects(bool hittingWall, Vector2 position)
         {
             finishedPlaying = false;
 
-            //Invoca efeitos de partícula
-            //particles.Play();
+            if (hittingWall)
+            {
+                //Faz a câmera tremer
+                cameraShake.ApplyEffect(impulseSource, cameraShakeForce, position);
 
-            //Faz a câmera tremer
-            cameraShake.ApplyEffect(impulseSource, cameraShakeForce, position);
-
-            //Invoca a shockwabe
-            localizedShockwave.ApplyEffect(shockwaveDuration, position, shockwaveSize * Vector3.one);
-
-            //Faz o controle tremer um pouco
-            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration, position);
+                //Faz o controle tremer um pouc
+                controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration, position);
+            }
 
             finishedPlaying = true;
         }
