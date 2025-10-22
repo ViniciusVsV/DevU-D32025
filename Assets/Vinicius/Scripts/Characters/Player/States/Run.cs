@@ -38,9 +38,9 @@ namespace Characters.Player.States
         {
             //gambiarra
             if (Mathf.Abs(rb.linearVelocityX) >= maxSpeed * 1.3f)
-                movementEffects.ApplyFastRunEffects(tr, spriteRenderer);
+                movementEffects?.ApplyFastRunEffects(tr, spriteRenderer);
             else
-                movementEffects.RemoveFastRunEffects(tr);
+                movementEffects?.RemoveFastRunEffects(tr);
         }
 
         public override void StateEnter()

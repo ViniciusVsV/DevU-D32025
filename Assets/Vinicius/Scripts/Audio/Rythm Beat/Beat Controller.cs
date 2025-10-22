@@ -9,6 +9,8 @@ public class BeatController : MonoBehaviour
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private BeatInterval[] beatIntervals;
 
+    public bool active;
+
     private void Awake()
     {
         Instance = this;
@@ -16,6 +18,9 @@ public class BeatController : MonoBehaviour
 
     private void Update()
     {
+        if (!active)
+            return;
+
         foreach (BeatInterval interval in beatIntervals)
         {
             float sampledTime = musicSource.timeSamples / (musicSource.clip.frequency * interval.GetBeatLength(bpm));

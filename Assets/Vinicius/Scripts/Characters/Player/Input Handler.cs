@@ -217,14 +217,5 @@ namespace Characters.Player
                 playerTransform.localScale = localScale;
             }
         }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(groundCheckPoint.position, groundCheckSize);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(wallCheckPoint.position, wallCheckSize);
-        }
     }
 }
