@@ -17,12 +17,17 @@ namespace Effects.Simple
 
         public void ApplyEffect(Renderer renderer, float duration)
         {
-            StartCoroutine(Routine(renderer, duration));
+            StartCoroutine(Routine(renderer, duration, 0, 1));
         }
 
-        private IEnumerator Routine(Renderer renderer, float duration)
+        public void RemoveEffect(Renderer renderer, float duration)
         {
-            propertyBlock.SetFloat(dissolveAmount, 0);
+            StartCoroutine(Routine(renderer, duration, 1, 0));
+        }
+
+        private IEnumerator Routine(Renderer renderer, float duration, float initialAmount, float targetAmount)
+        {
+            propertyBlock.SetFloat(dissolveAmount, initialAmount);
             renderer.SetPropertyBlock(propertyBlock);
 
             float elapsedTime = 0;
@@ -33,7 +38,7 @@ namespace Effects.Simple
             {
                 progress = elapsedTime / duration;
 
-                newValue = Mathf.Lerp(0, 1, progress);
+                newValue = Mathf.Lerp(initialAmount, targetAmount, progress);
 
                 propertyBlock.SetFloat(dissolveAmount, newValue);
                 renderer.SetPropertyBlock(propertyBlock);
@@ -43,7 +48,7 @@ namespace Effects.Simple
                 yield return null;
             }
 
-            propertyBlock.SetFloat(dissolveAmount, 1);
+            propertyBlock.SetFloat(dissolveAmount, targetAmount);
             renderer.SetPropertyBlock(propertyBlock);
         }
     }

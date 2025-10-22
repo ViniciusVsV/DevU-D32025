@@ -1,3 +1,4 @@
+using Effects.Complex.Enemies;
 using StateMachine;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         [SerializeField] private GameObject notesObject;
 
+        private RespawnEffects respawnEffects;
         private Vector2 spawnPoint;
 
         private void Awake()
@@ -16,15 +18,22 @@ namespace Characters.Enemies.VynilDisc.States
             spawnPoint = transform.position;
         }
 
+        private void Start()
+        {
+            respawnEffects = RespawnEffects.Instance;
+        }
+
         public override void StateEnter()
         {
             vynilDiscController.isAggroed = false;
-            
+
             // Restaura a posição
             tr.position = spawnPoint;
 
             // Restaura o sprite
             spriteRenderer.enabled = true;
+
+            respawnEffects.ApplyEffects(spriteRenderer);
 
             // Restaura as notas
             notesObject.SetActive(true);

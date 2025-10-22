@@ -62,6 +62,10 @@ namespace Effects.Complex.Menus
         [SerializeField] private float nextButtonDelay;
         [SerializeField] private Ease buttonEase;
 
+        [SerializeField] private float sliderMovementDuration;
+        [SerializeField] private float nextSliderDelay;
+        [SerializeField] private Ease sliderEase;
+
         [SerializeField] private float gameLogoDuration;
         [SerializeField] private float gameLogoInitialSize;
         [SerializeField] private float gameLogoCameraShakeStrength;
@@ -192,16 +196,16 @@ namespace Effects.Complex.Menus
             {
                 buttons[i].DOMove(buttonsStartPositions[i], buttonMovementDuration).SetEase(buttonEase);
 
-                if (i < buttons.Count - 1)
+                if (i < buttons.Count)
                     yield return new WaitForSeconds(nextButtonDelay);
             }
 
             for (int i = 0; i < sliders.Count; i++)
             {
-                sliders[i].DOMove(slidersStartPositions[i], buttonMovementDuration).SetEase(buttonEase);
+                sliders[i].DOMove(slidersStartPositions[i], sliderMovementDuration).SetEase(sliderEase);
 
                 if (i < sliders.Count - 1)
-                    yield return new WaitForSeconds(nextButtonDelay);
+                    yield return new WaitForSeconds(nextSliderDelay);
             }
 
             yield return new WaitForSeconds(gamelogoDelay);
