@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0000e950994a7a3448fb73271061321e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shockwaveMaterial: {fileID: 2100000, guid: 90c4f292cf5c2a14696bb19b87563c43, type: 2}
   pulseSize: {x: 1.2, y: 1.2, z: 1}
   pulseDuration: 0.2
   pulseEase: 1

@@ -8,15 +8,14 @@ namespace Effects.Simple
         private Coroutine coroutine;
 
         [SerializeField] private Material flashMaterial;
-        [SerializeField] private Material baseMaterial;
+        private Material baseMaterial;
 
         public void ApplyEffect(SpriteRenderer sprite, float duration)
         {
+            baseMaterial = sprite.material;
+
             if (coroutine != null)
-            {
                 StopCoroutine(coroutine);
-                sprite.material = baseMaterial;
-            }
 
             coroutine = StartCoroutine(Routine(sprite, duration));
         }

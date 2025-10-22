@@ -24,7 +24,7 @@ namespace Characters.Enemies.VynilDisc.States
             //animator.Play(animationClip.name);
             spriteRenderer.color = Color.blue;
 
-            tr.DORotate(new Vector3(0, 0, 360), beatLength * beatLengthPercentage, RotateMode.FastBeyond360)
+            spriteRenderer.transform.DORotate(new Vector3(0, 0, 360), beatLength * beatLengthPercentage, RotateMode.FastBeyond360)
                 .SetRelative(true)
                 .SetEase(Ease.OutExpo);
         }

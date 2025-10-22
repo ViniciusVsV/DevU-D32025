@@ -11,7 +11,7 @@ namespace Objects.Obstacles
         [SerializeField] private Transform smashPoint;
         [SerializeField] private BoxCollider2D smashTrigger;
         [SerializeField] private BoxCollider2D retreatTrigger;
-        private SmashingBlockEffects smashingBlockEffects;
+        private BlockSmashEffects blockSmashEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private bool isHittingWall;
@@ -40,7 +40,7 @@ namespace Objects.Obstacles
 
             beatLength = BeatController.Instance.GetBeatLength();
 
-            smashingBlockEffects = SmashingBlockEffects.Instance;
+            blockSmashEffects = BlockSmashEffects.Instance;
         }
 
         public void Activate() { isActive = true; }
@@ -111,7 +111,7 @@ namespace Objects.Obstacles
             blockRb.position = targetPos;
             blockRb.linearVelocity = Vector2.zero;
 
-            smashingBlockEffects.ApplyEffects(isHittingWall, targetPos);
+            blockSmashEffects.ApplyEffects(isHittingWall, targetPos);
 
             smashTrigger.enabled = false;
         }

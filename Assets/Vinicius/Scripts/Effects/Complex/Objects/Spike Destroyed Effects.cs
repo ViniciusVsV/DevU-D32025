@@ -1,17 +1,15 @@
-using System.Collections;
 using Effects.Simple;
-using Unity.Cinemachine;
 using UnityEngine;
 
-namespace Effects.Complex.Enemies
+namespace Effects.Complex.Objects
 {
-    public class DeathEffects : MonoBehaviour
+    public class SpikeDestroyedEffects : MonoBehaviour
     {
-        public static DeathEffects Instance;
+        public static SpikeDestroyedEffects Instance;
 
         [Header("Objects")]
-        [SerializeField] private ParticleSystem particles;
-
+        [SerializeField] private ParticleSystem particlesPrefab;
+        [SerializeField] private Material dissolveMaterial;
         private SpriteDissolve spriteDissolve;
 
         [Header("Parameters")]
@@ -34,12 +32,13 @@ namespace Effects.Complex.Enemies
         {
             finishedPlaying = false;
 
-            //Chama partículas
+            renderer.material = dissolveMaterial;
+
+            spriteDissolve.ApplyEffect(renderer, dissolveDuration);
+
+            ParticleSystem particles = Instantiate(particlesPrefab, transform);
             particles.transform.position = position;
             particles.Play();
-
-            //Chama o efeito de dissolve
-            spriteDissolve.ApplyEffect(renderer, dissolveDuration);
 
             finishedPlaying = true;
         }

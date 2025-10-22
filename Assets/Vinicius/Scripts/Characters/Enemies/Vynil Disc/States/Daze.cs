@@ -45,7 +45,7 @@ namespace Characters.Enemies.VynilDisc.States
                 if (beatCounter == 0)
                     rb.linearVelocity = initialSpeed * direction;
 
-                tr.DORotate(new Vector3(0, 0, 360), beatLength, RotateMode.FastBeyond360)
+                spriteRenderer.transform.DORotate(new Vector3(0, 0, 360), beatLength, RotateMode.FastBeyond360)
                     .SetRelative(true);
 
                 beatCounter++;

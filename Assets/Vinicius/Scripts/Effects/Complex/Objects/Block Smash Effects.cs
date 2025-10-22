@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Effects.Complex.Objects
 {
-    public class SmashingBlockEffects : MonoBehaviour
+    public class BlockSmashEffects : MonoBehaviour
     {
-        public static SmashingBlockEffects Instance;
+        public static BlockSmashEffects Instance;
 
         [Header("Objects")]
         [SerializeField] private CinemachineImpulseSource impulseSource;

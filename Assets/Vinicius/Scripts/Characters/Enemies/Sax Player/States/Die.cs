@@ -1,3 +1,4 @@
+using Effects.Complex.Enemies;
 using StateMachine;
 using UnityEngine;
 
@@ -9,12 +10,18 @@ namespace Characters.Enemies.SaxPlayer.States
 
         [Header("||===== Objects =====||")]
         [SerializeField] private NoteSequence noteSequence;
+        private DeathEffects deathEffects;
+
+        private void Start()
+        {
+            deathEffects = DeathEffects.Instance;
+        }
 
         public override void StateEnter()
         {
             saxPlayerController.isDead = true;
 
-            spriteRenderer.enabled = false;
+            deathEffects.ApplyEffects(tr.position, spriteRenderer);
 
             noteSequence.Deactivate();
         }

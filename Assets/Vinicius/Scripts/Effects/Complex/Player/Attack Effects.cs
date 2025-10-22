@@ -13,7 +13,6 @@ namespace Effects.Complex.Player
         public static AttackEffects Instance;
 
         [Header("Objects")]
-        [SerializeField] private ParticleSystem particles;
         [SerializeField] private CinemachineImpulseSource impulseSource;
 
         private CameraShake cameraShake;
