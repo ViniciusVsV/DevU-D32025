@@ -9,7 +9,8 @@ public class BossController : MonoBehaviour
     [SerializeField] public BossIdleState idleState;
     [SerializeField] public BossAttackState attackState;
     [SerializeField] public BassSolo bassSolo;
-    [SerializeField] public KeyboardSolo keyboardSolo; 
+    [SerializeField] public KeyboardSolo keyboardSolo;
+    [SerializeField] public DrumSolo drumSolo;
     private BossStateMachine bossStateMachine;
 
     [Header("-----Health------")]
@@ -24,7 +25,7 @@ public class BossController : MonoBehaviour
         bossStateMachine = new BossStateMachine();
         idleState = new BossIdleState(this, bossStateMachine);
         attackState = new BossAttackState(this, bossStateMachine);
-        
+
         currentHealth = maxHealth;
     }
 

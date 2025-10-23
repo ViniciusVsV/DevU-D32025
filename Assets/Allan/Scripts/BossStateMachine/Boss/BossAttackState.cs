@@ -25,11 +25,16 @@ public class BossAttackState : IState
             case 1:
                 bossController.keyboardSolo.StartKeyboardSolo();
                 break;
+            case 2:
+                bossController.drumSolo.Activate();
+                break;
         }
 
         nextSoloIndex++;
-        if (nextSoloIndex > 1)
+        if (nextSoloIndex > 2)
+        {
             nextSoloIndex = 0;
+        }
     }
 
     public void Update()
@@ -42,6 +47,10 @@ public class BossAttackState : IState
                 break;
             case 1:
                 if (!bossController.keyboardSolo.isSoloing)
+                    bossStateMachine.ChangeState(bossController.idleState);
+                break;
+            case 2:
+                if (!bossController.drumSolo.isSoloing)
                     bossStateMachine.ChangeState(bossController.idleState);
                 break;
         }
