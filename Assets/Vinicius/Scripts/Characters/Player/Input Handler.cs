@@ -1,4 +1,5 @@
 using Characters.Player.States;
+using Effects.Complex.Scenes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,8 +48,6 @@ namespace Characters.Player
         private void Awake()
         {
             playerTransform = transform.parent;
-
-            isEnabled = true;
         }
 
         private void Update()
@@ -193,6 +192,14 @@ namespace Characters.Player
 
             if (context.performed)
                 guitarController.PlayNote(MusicalNote.Amarelo);
+        }
+
+        public void Quit(InputAction.CallbackContext context)
+        {
+            if (!isEnabled)
+                return;
+
+            GameExitEffects.Instance.ApplyEffects();
         }
 
         public void CheckForController(InputAction.CallbackContext context)

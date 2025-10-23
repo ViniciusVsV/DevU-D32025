@@ -1,5 +1,5 @@
 using DG.Tweening;
-using Effects.Complex.Menus;
+using Effects.Complex.Scenes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -10,10 +10,11 @@ public class MainMenuController : MonoBehaviour
     [Header("||===== Objetcs =====||")]
     [SerializeField] private Button continueButton;
     [SerializeField] private Button newGameButton;
+    [SerializeField] private Button exitButton;
     [SerializeField] private EventSystem eventSystem;
 
-    private MainMenuEffects mainMenuEffects;
-    private SceneExitEffects sceneExitEffects;
+    private MenuEnterEffects menuEnterEffects;
+    private MenuExitEffects menuExitEffects;
 
     public bool firstFrame = true;
 
@@ -30,51 +31,54 @@ public class MainMenuController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        mainMenuEffects = MainMenuEffects.Instance;
-        sceneExitEffects = SceneExitEffects.Instance;
+        menuEnterEffects = MenuEnterEffects.Instance;
+        menuExitEffects = MenuExitEffects.Instance;
     }
 
     private void Update()
     {
         if (firstFrame)
-            mainMenuEffects.ApplyEffects();
+            menuEnterEffects.ApplyEffects();
 
         firstFrame = false;
     }
 
     public void Continue()
     {
-        if (PlayerPrefs.GetInt("checkpointId") == 0 || !mainMenuEffects.finishedPlaying)
+        if (PlayerPrefs.GetInt("checkpointId") == 0 || !menuEnterEffects.finishedPlaying)
             return;
 
-        sceneExitEffects.ApplyEffects("Game");
+        continueButton.interactable = false;
+        newGameButton.interactable = false;
+        exitButton.interactable = false;
+
+        menuExitEffects.ApplyEffects("Game");
     }
 
     public void NewGame()
     {
-        if (!mainMenuEffects.finishedPlaying)
+        if (!menuEnterEffects.finishedPlaying)
             return;
+
+        continueButton.interactable = false;
+        newGameButton.interactable = false;
+        exitButton.interactable = false;
 
         PlayerPrefs.DeleteKey("checkpointId");
 
-        sceneExitEffects.ApplyEffects("Game");
+        menuExitEffects.ApplyEffects("Game");
     }
 
     public void Exit()
     {
-        if (!mainMenuEffects.finishedPlaying)
+        if (!menuEnterEffects.finishedPlaying)
             return;
 
+        continueButton.interactable = false;
+        newGameButton.interactable = false;
+        exitButton.interactable = false;
+
         Application.Quit();
-    }
-
-    public void OpenConfig()
-    {
-
-    }
-    public void CloseConfig()
-    {
-
     }
 
     private void OnDestroy() { DOTween.KillAll(); }

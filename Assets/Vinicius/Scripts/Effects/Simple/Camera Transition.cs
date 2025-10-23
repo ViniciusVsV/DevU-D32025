@@ -60,6 +60,7 @@ namespace Effects.Simple
             }
 
             transitionImage.DOAnchorPos(center, duration).SetEase(applyEase)
+            .SetUpdate(true)
             .OnComplete(() => { isPlaying = false; });
 
         }
@@ -69,11 +70,12 @@ namespace Effects.Simple
             isPlaying = true;
 
             transitionImage.DOAnchorPos(offScreenRight, duration).SetEase(removeEase)
-                .OnComplete(() =>
-                    {
-                        transitionImage.anchoredPosition = offScreenLeft;
-                        isPlaying = false;
-                    });
+            .SetUpdate(true)
+            .OnComplete(() =>
+                {
+                    transitionImage.anchoredPosition = offScreenLeft;
+                    isPlaying = false;
+                });
         }
 
         public void RespondToBeat()
@@ -86,10 +88,11 @@ namespace Effects.Simple
             loadingLogo.localScale = Vector3.one;
 
             loadingLogo.DOScale(Vector3.one * logoSizePulse, 0)
-                .OnComplete(() =>
-                {
-                    loadingLogo.DOScale(Vector3.one, beatLength);
-                });
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                loadingLogo.DOScale(Vector3.one, beatLength);
+            });
         }
     }
 }

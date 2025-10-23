@@ -8,7 +8,8 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;
 
     [Header("||===== Music =====||")]
-    [SerializeField] private AudioClip mainMenuMusic;
+    [SerializeField] private AudioClip mainMenuStartMusic;
+    [SerializeField] private AudioClip mainMenuReturnMusic;
     [SerializeField] private AudioClip gameMusic;
 
     [Header("||===== SFX =====||")]
@@ -19,14 +20,24 @@ public class AudioController : MonoBehaviour
         Instance = this;
     }
 
-    public void PlayMainMenuMusic()
+    public void PlayMainMenuStartMusic()
     {
-        if (musicSource.clip != mainMenuMusic)
+        if (musicSource.clip != mainMenuStartMusic)
         {
-            musicSource.clip = mainMenuMusic;
+            musicSource.clip = mainMenuStartMusic;
             musicSource.Play();
         }
     }
+
+    public void PlayMainMenuReturnMusic()
+    {
+        if (musicSource.clip != mainMenuReturnMusic)
+        {
+            musicSource.clip = mainMenuReturnMusic;
+            musicSource.Play();
+        }
+    }
+
     public void PlayGameMusic()
     {
         if (musicSource.clip != gameMusic)

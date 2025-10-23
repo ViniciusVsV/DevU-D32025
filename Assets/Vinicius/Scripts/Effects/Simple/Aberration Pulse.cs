@@ -32,7 +32,7 @@ namespace Effects.Simple
 
                 chromaticAberration.intensity.value = Mathf.Lerp(intensity, 0, progress);
 
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.unscaledDeltaTime;
 
                 yield return null;
             }

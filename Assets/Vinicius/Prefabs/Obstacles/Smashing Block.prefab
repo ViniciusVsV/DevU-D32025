@@ -129,7 +129,7 @@ MonoBehaviour:
   smashTrigger: {fileID: 6126983207439364797}
   retreatTrigger: {fileID: 5887758888917717821}
   isHittingWall: 1
-  beatDelay: 4
+  beatDelay: 3
   smashCurve:
     serializedVersion: 2
     m_Curve:

@@ -18,7 +18,7 @@ public class BeatController : MonoBehaviour
 
     private void Update()
     {
-        if (!active)
+        if (!active || musicSource.clip == null)
             return;
 
         foreach (BeatInterval interval in beatIntervals)

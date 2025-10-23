@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Effects.Complex.Player;
+using Effects.Complex.Scenes;
 using StateMachine;
 using UnityEngine;
 
@@ -11,13 +11,15 @@ namespace Characters.Player.States
     {
         private StateController playerController => (StateController)controller;
 
-        private SpawnEffects spawnEffects;
+        [Header("||===== Objects =====||")]
+        [SerializeField] private InputHandler inputHandler;
+        private GameEnterEffects gameEnterEffects;
 
         public static event Action OnPlayerSpawned;
 
         private void Start()
         {
-            spawnEffects = SpawnEffects.Instance;
+            gameEnterEffects = GameEnterEffects.Instance;
         }
 
         public override void StateEnter()
@@ -31,18 +33,19 @@ namespace Characters.Player.States
 
         private IEnumerator Routine()
         {
-            while (spawnEffects == null)
+            while (gameEnterEffects == null)
                 yield return null;
 
-            spawnEffects.ApplyEffects();
+            gameEnterEffects.ApplyEffects();
 
             // Espera o tempo da transição
-            while (!spawnEffects.finishedPlaying)
+            while (!gameEnterEffects.finishedPlaying)
                 yield return null;
 
+            inputHandler.isEnabled = true;
             rb.simulated = true;
 
-            // Transição para Fall
+            // Transição para Idle
             playerController.SetIdle();
         }
     }

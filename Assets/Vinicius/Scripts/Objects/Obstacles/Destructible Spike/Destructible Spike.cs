@@ -62,5 +62,6 @@ namespace Objects.Obstacles.DestructibleSpike
             isActive = false;
         }
         private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
+        private void OnDestroy() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
     }
 }

@@ -34,7 +34,7 @@ namespace Effects.Simple
 
                 musicSource.volume = Mathf.Lerp(initialValue, targetValue, progress);
 
-                elapsedTime += Time.deltaTime;
+                elapsedTime += Time.unscaledDeltaTime;
 
                 yield return null;
             }

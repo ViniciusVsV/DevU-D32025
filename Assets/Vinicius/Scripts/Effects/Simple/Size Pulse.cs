@@ -19,6 +19,6 @@ public class SizePulse : MonoBehaviour, IRythmSyncable
 
         transform.localScale = Vector3.one * pulseSize;
 
-        tween = transform.DOScale(Vector3.one, beatLength);
+        tween = transform.DOScale(Vector3.one, beatLength).SetUpdate(true);
     }
 }
