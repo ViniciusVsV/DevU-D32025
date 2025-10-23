@@ -12,6 +12,8 @@ namespace Effects.Simple
         private Vector2 hitPosition;
 
         [Header("||===== Parameters =====||")]
+        [SerializeField] private Vector3 defaultNoteSize;
+
         [Header("Note Activated")]
         [SerializeField] private float activatedDuration;
         [SerializeField] private Ease activatedEase;
@@ -47,7 +49,7 @@ namespace Effects.Simple
 
             // Garante que está na posição e tamanho corretos
             noteTransform.localPosition = deactivatedPosition;
-            noteTransform.localScale = Vector3.one;
+            noteTransform.localScale = defaultNoteSize;
 
             noteTransform.DOLocalMove(activatedPosition, activatedDuration).SetEase(activatedEase);
         }
@@ -71,7 +73,7 @@ namespace Effects.Simple
             var sequence = DOTween.Sequence();
 
             sequence.Join(noteTransform.DOLocalMove(hitPosition, hitDuration)).SetEase(hitEase);
-            sequence.Join(noteTransform.DOScale(Vector3.one * sizeMultiplier, hitDuration)).SetEase(Ease.Linear);
+            sequence.Join(noteTransform.DOScale(defaultNoteSize * sizeMultiplier, hitDuration)).SetEase(Ease.Linear);
 
             sequence.OnComplete(() => { spriteRenderer.color = Color.gray; });
         }
@@ -87,7 +89,7 @@ namespace Effects.Simple
             sequence.Append(noteTransform.DOShakePosition(shakeDuration, new Vector3(shakeStrength, shakeStrength * 0.5f, 0), 20, 90, false, true));
 
             sequence.Append(noteTransform.DOLocalMove(activatedPosition, unhitDuration)).SetEase(hitEase);
-            sequence.Join(noteTransform.DOScale(Vector3.one, unhitDuration)).SetEase(Ease.Linear);
+            sequence.Join(noteTransform.DOScale(defaultNoteSize, unhitDuration)).SetEase(Ease.Linear);
 
             sequence.OnComplete(() => { spriteRenderer.color = Color.white; });
         }

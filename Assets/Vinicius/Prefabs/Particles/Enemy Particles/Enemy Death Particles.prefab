@@ -364,8 +364,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.6
-      minScalar: 0.4
+      scalar: 0.4
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -745,7 +745,7 @@ ParticleSystem:
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 1
+    radiusThickness: 0.18
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
@@ -828,7 +828,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.39
+      value: 0.58
       mode: 0
       spread: 0
       speed:
@@ -1512,9 +1512,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
-    timeMode: 0
+    enabled: 1
+    mode: 1
+    timeMode: 1
     fps: 30
     frameOverTime:
       serializedVersion: 2
@@ -1571,8 +1571,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 0.9999
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1622,7 +1622,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    speedRange: {x: 0, y: 1}
+    speedRange: {x: 0, y: 0}
     tilesX: 1
     tilesY: 1
     animationType: 0
@@ -1631,7 +1631,12 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 21300000, guid: 6599c654fed436e4f984f83d93e41ad3, type: 3}
+    - sprite: {fileID: 21300000, guid: 391af0e57e9c5904c92e1efae73cc537, type: 3}
+    - sprite: {fileID: 21300000, guid: 151d4cb898acc2141841a9a6ac1478dc, type: 3}
+    - sprite: {fileID: 21300000, guid: 335e4b418089061459566b42b2e0e574, type: 3}
+    - sprite: {fileID: 21300000, guid: a02e052a75a9eb54eb8c50c8044dd3c5, type: 3}
+    - sprite: {fileID: 21300000, guid: ec9f3a947af887e488c50b0df373ded9, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

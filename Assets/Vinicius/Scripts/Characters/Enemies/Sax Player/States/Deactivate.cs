@@ -15,8 +15,6 @@ namespace Characters.Enemies.SaxPlayer.States
         {
             saxPlayerController.playSaxCounter = 0;
 
-            spriteRenderer.color = Color.black;
-
             noteSequence.Deactivate();
         }
 

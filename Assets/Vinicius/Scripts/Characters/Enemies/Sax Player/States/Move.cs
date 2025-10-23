@@ -7,6 +7,8 @@ namespace Characters.Enemies.SaxPlayer.States
     {
         private StateController saxPlayerController => (StateController)controller;
 
+        [SerializeField] private AnimationClip animationClip;
+
         [Header("||===== Objects =====||")]
         [SerializeField] private Transform spriteTransform;
 
@@ -19,8 +21,7 @@ namespace Characters.Enemies.SaxPlayer.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.yellow;
+            animator.Play(animationClip.name, 0, 0);
 
             if (
                 saxPlayerController.moveDirection == 1 && !saxPlayerController.isFacingRight ||

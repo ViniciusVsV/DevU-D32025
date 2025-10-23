@@ -56,7 +56,7 @@ namespace Objects.Obstacles.DestructibleSpike
         {
             BeatInterval.OnOneBeatHappened -= RespondToBeat;
 
-            spikeDestroyedEffects.ApplyEffects(transform.position, spriteRenderer);
+            spikeDestroyedEffects.ApplyEffects(spriteRenderer);
             col.enabled = false;
 
             isActive = false;

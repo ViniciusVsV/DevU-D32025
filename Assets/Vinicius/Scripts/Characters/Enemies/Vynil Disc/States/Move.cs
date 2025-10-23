@@ -26,8 +26,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.cyan;
+            animator.Play(animationClip.name, 0, 0);
 
             //Flipa o sprite
             if (Mathf.Sign((vynilDiscController.followPoint - rb.position).x) != Mathf.Sign(spriteTransform.localScale.x))

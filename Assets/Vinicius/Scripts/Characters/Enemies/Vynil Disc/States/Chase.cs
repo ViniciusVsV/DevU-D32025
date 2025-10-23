@@ -69,12 +69,6 @@ namespace Characters.Enemies.VynilDisc.States
             beatLength = BeatController.Instance.GetBeatLength();
         }
 
-        public override void StateEnter()
-        {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.red;
-        }
-
         public override void StateUpdate()
         {
             targetPosition = vynilDiscController.playerTransform.position;
@@ -104,6 +98,8 @@ namespace Characters.Enemies.VynilDisc.States
                     vynilDiscController.SetWindUp();
                     return;
                 }
+
+                animator.Play(animationClip.name, 0, 0);
 
                 beatLenghtTimer = beatLength * beatLengthPercentage;
                 chargeBeatCounter--;

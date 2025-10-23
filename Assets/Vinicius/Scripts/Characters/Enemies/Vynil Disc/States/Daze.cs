@@ -28,8 +28,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.white;
+            animator.Play(animationClip.name, 0, 0);
 
             vynilDiscController.isStunned = true;
 
