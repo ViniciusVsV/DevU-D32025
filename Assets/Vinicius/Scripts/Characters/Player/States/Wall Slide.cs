@@ -19,8 +19,7 @@ namespace Characters.Player.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.black;
+            animator.Play(animationClip.name);
 
             baseGravityScale = rb.gravityScale;
             rb.gravityScale = 0;
@@ -32,16 +31,12 @@ namespace Characters.Player.States
         public override void StateUpdate()
         {
             // Transição para Wall Jump
-            if (playerController.jumpPressed)
+            if (playerController.wallJumpPressed)
                 playerController.SetWallJump();
 
             // Transição para Dash
             else if (playerController.dashPressed)
                 playerController.SetDash();
-
-            // Transição para Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
 
             // Transição para Fall
             else if (!playerController.isWalled && !playerController.isGrounded || playerController.isCrouching)

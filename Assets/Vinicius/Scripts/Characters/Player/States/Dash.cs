@@ -11,91 +11,96 @@ namespace Characters.Player.States
         [SerializeField] private AnimationClip animationClip;
 
         [Header("----- Parameters -----")]
-        [SerializeField] private float mainDashSpeed;
-        [SerializeField] private float secondaryDashSpeed;
-        [SerializeField] private float mainDashDuration;
-        [SerializeField] private float secondayDashDuration;
+        [SerializeField] private float mainSpeed;
+        [SerializeField] private float secondarySpeed;
+
+        [SerializeField] private float mainDuration;
+        [SerializeField] private float secondaryDuration;
+        private float totalDuration;
+        private float dashTimer;
 
         [Range(0, 1f)][SerializeField] private float runLerp;
 
         private int direction;
         private float baseGravityScale;
+        private bool isOnMainSection;
 
-        private float dashTimer;
-        private bool dashing;
-
-        public bool isOnSecondStage;
+        private void Awake()
+        {
+            totalDuration = mainDuration + secondaryDuration;
+        }
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.yellow;
+            animator.Play(animationClip.name);
 
-            if (rb.linearVelocity != Vector2.zero)
-                rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
-
-            direction = playerController.isFacingRight ? 1 : -1;
+            playerController.dashPressed = false;
+            playerController.isDashing = true;
 
             baseGravityScale = rb.gravityScale;
             rb.gravityScale = 0f;
 
-            dashing = true;
             dashTimer = 0f;
-            isOnSecondStage = false;
 
-            rb.linearVelocity = new Vector2(direction * mainDashSpeed, 0);
+            isOnMainSection = true;
+
+            rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
+
+            direction = playerController.isFacingRight ? 1 : -1;
+
+            rb.linearVelocity = new Vector2(direction * mainSpeed, 0);
 
             runState.SetLerp(runLerp);
         }
 
+        public override void StateUpdate()
+        {
+            dashTimer += Time.deltaTime;
+
+            // Transição para Dash
+            if (playerController.dashPressed && !isOnMainSection)
+                playerController.SetDash();
+        }
+
         public override void StateFixedUpdate()
         {
-            if (!dashing) return;
+            if (dashTimer <= mainDuration)
+                rb.linearVelocity = new Vector2(direction * mainSpeed, 0);
 
-            dashTimer += Time.fixedDeltaTime;
-
-            if (!isOnSecondStage)
+            else if (dashTimer <= totalDuration)
             {
-                rb.linearVelocity = new Vector2(direction * mainDashSpeed, 0);
-
-                if (dashTimer >= mainDashDuration)
+                if (isOnMainSection)
                 {
-                    isOnSecondStage = true;
-                    dashTimer = 0f;
+                    playerController.dashHappened = true;
+                    playerController.isDashing = false;
 
                     rb.gravityScale = baseGravityScale;
                     rb.linearVelocity = Vector2.zero;
-                    rb.AddForce(new Vector2(direction * secondaryDashSpeed, 0), ForceMode2D.Impulse);
+
+                    rb.AddForce(new Vector2(direction * secondarySpeed, 0), ForceMode2D.Impulse);
+
+                    isOnMainSection = false;
                 }
+
+                runState.StateFixedUpdate();
             }
 
             else
             {
-                runState.StateFixedUpdate();
+                // Transição para Idle
+                if (playerController.isGrounded)
+                    playerController.SetIdle();
 
-                if (dashTimer >= secondayDashDuration)
-                {
-                    dashing = false;
-
-                    // Transição para Dash
-                    if (playerController.dashPressed)
-                        playerController.SetDash();
-
-                    // Transição para Idle
-                    else if (playerController.isGrounded)
-                        playerController.SetIdle();
-
-                    // Transição para Fall
-                    else
-                        playerController.SetFall();
-                }
+                // Transição para Fall
+                else
+                    playerController.SetFall();
             }
         }
 
         public override void StateExit()
         {
-            dashing = false;
-            rb.gravityScale = baseGravityScale;
+            rb.gravityScale = baseGravityScale; // Reforçando o retorno da gravidade ao normal
+            playerController.isDashing = false;
         }
     }
 }

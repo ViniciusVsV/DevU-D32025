@@ -1,3 +1,4 @@
+using Effects.Complex.Player;
 using StateMachine;
 using UnityEngine;
 
@@ -8,23 +9,32 @@ namespace Characters.Player.States
         private StateController playerController => (StateController)controller;
 
         [SerializeField] private AnimationClip idleClip;
-        [SerializeField] private AnimationClip stopRunClip;
+        [SerializeField] private AnimationClip landClip;
+
+        [Header("||===== Objects =====||")]
+        [SerializeField] private Transform landParticlePoint;
+        private MovementEffects movementEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float deceleration;
         private float speedDiff;
 
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
+
         public override void StateEnter()
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fast Run"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Fall"))
             {
-                //animator.Play(stopRunClip.name);
-                spriteRenderer.color = Color.black;
+                animator.Play(landClip.name);
+
+                movementEffects.ApplyLandEffects(landParticlePoint.position);
             }
             else
             {
-                //animator.Play(idleClip.name);
-                spriteRenderer.color = Color.blue;
+                animator.Play(idleClip.name);
             }
         }
 
@@ -37,10 +47,6 @@ namespace Characters.Player.States
             // Transição para Dash
             else if (playerController.dashPressed)
                 playerController.SetDash();
-
-            // Transição para Knockback
-            else if (playerController.tookKnockback)
-                playerController.SetKnockback();
 
             // Transição para Run
             else if (Mathf.Abs(playerController.moveDirection.x) > 0.01f)
@@ -57,9 +63,15 @@ namespace Characters.Player.States
 
         public override void StateFixedUpdate()
         {
-            speedDiff = 0 - rb.linearVelocityX;
+            if (playerController.platformVelocity != Vector2.zero)
+                rb.linearVelocity = playerController.platformVelocity;
 
-            rb.AddForce(speedDiff * deceleration * Vector2.right, ForceMode2D.Force);
+            else
+            {
+                speedDiff = 0 - rb.linearVelocityX;
+
+                rb.AddForce(speedDiff * deceleration * Vector2.right, ForceMode2D.Force);
+            }
         }
     }
 }
