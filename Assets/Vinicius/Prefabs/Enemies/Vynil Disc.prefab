@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteSequence: {fileID: 2313345896574455244}
+  navMeshAgent: {fileID: 4315135067057366512}
 --- !u!1 &3006086862183200692
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788731df4ec54bd4b869ed688767334d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notesObject: {fileID: 7537983744900286055}
+  navMeshAgent: {fileID: 4315135067057366512}
 --- !u!1 &4687512236547870199
 GameObject:
   m_ObjectHideFlags: 0

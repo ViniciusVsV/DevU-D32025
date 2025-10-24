@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Effects.Simple
@@ -7,6 +8,8 @@ namespace Effects.Simple
     {
         [Header("||===== Objects =====||")]
         private MaterialPropertyBlock propertyBlock;
+
+        private Dictionary<Renderer, Coroutine> activeCoroutines = new();
 
         private static int shockwaveProgress = Shader.PropertyToID("_WaveDistanceFromCenter");
 
@@ -17,7 +20,25 @@ namespace Effects.Simple
 
         public void ApplyEffect(Renderer renderer, float duration)
         {
-            StartCoroutine(Routine(renderer, duration));
+            if (activeCoroutines.ContainsKey(renderer))
+                return;
+
+            Coroutine newRoutine = StartCoroutine(Routine(renderer, duration));
+
+            activeCoroutines.Add(renderer, newRoutine);
+        }
+
+        public void RemoveEffect(Renderer renderer)
+        {
+            if (activeCoroutines.TryGetValue(renderer, out Coroutine coroutine))
+            {
+                StopCoroutine(coroutine);
+
+                propertyBlock.SetFloat(shockwaveProgress, -0.1f);
+                renderer.SetPropertyBlock(propertyBlock);
+
+                activeCoroutines.Remove(renderer);
+            }
         }
 
         private IEnumerator Routine(Renderer renderer, float duration)
@@ -42,6 +63,8 @@ namespace Effects.Simple
 
                 yield return null;
             }
+
+            activeCoroutines.Remove(renderer);
         }
 
         private void OnDestroy() { StopAllCoroutines(); }

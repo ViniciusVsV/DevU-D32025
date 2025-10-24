@@ -35,6 +35,7 @@ namespace Effects.Complex.Enemies.VynilDisc
         public void ApplyEffects(Transform exclamationPoint)
         {
             //Chama efeito sonoro
+            AudioController.Instance.PlayDiscAggroedSFX();
 
             //Ativa o objeto de exclamação
             initialPos = exclamationPoint.localPosition;

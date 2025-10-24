@@ -13,7 +13,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioClip gameMusic;
 
     [Header("||===== SFX =====||")]
-    [SerializeField] private AudioClip clickSFX;
+    [SerializeField] private AudioClip discAggroedSFX;
 
     private void Awake()
     {
@@ -47,7 +47,7 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    public void PlayClickSFX() => PlaySFX(clickSFX);
+    public void PlayDiscAggroedSFX() => PlaySFX(discAggroedSFX);
     public void PlaySFX(AudioClip audioClip)
     {
         sfxSource.PlayOneShot(audioClip);

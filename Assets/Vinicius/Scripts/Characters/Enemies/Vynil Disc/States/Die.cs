@@ -1,6 +1,7 @@
 using Effects.Complex.Enemies;
 using StateMachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Characters.Enemies.VynilDisc.States
 {
@@ -10,6 +11,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         [Header("||===== Objects ====||")]
         [SerializeField] private NoteSequence noteSequence;
+        [SerializeField] private NavMeshAgent navMeshAgent;
         private DeathEffects deathEffects;
 
         private void Start()
@@ -22,6 +24,8 @@ namespace Characters.Enemies.VynilDisc.States
             vynilDiscController.isDead = true;
 
             vynilDiscController.isAggroed = false;
+
+            navMeshAgent.enabled = false;
 
             deathEffects.ApplyEffects(tr.position, spriteRenderer);
 
