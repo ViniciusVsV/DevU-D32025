@@ -10,7 +10,7 @@ namespace Effects.Complex.Enemies
         public static DeathEffects Instance;
 
         [Header("Objects")]
-        [SerializeField] private ParticleSystem particles;
+        [SerializeField] private ParticleSystem particlesPrefab;
 
         private SpriteDissolve spriteDissolve;
 
@@ -35,6 +35,7 @@ namespace Effects.Complex.Enemies
             finishedPlaying = false;
 
             //Chama partículas
+            var particles = Instantiate(particlesPrefab, transform);
             particles.transform.position = position;
             particles.Play();
 

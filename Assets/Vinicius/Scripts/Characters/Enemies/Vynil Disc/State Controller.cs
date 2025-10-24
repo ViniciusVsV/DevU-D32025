@@ -14,8 +14,7 @@ namespace Characters.Enemies.VynilDisc
         [SerializeField] private Vector3 pulseSize;
         [SerializeField] private Vector3 stunnedPulseSize;
         [SerializeField] private Transform spriteTransform;
-        [SerializeField] private int beatDelay;
-        private float beatLength;
+        [SerializeField] private int beatDelay; 
         public int beatCounter;
 
         [Header("||===== States =====||")]
@@ -33,6 +32,7 @@ namespace Characters.Enemies.VynilDisc
         public bool beatHappened;
         public bool restored;
         public bool activated;
+        public bool firstTimeAggroed;
 
         public bool isAggroed;
         public bool isStunned;
@@ -51,12 +51,12 @@ namespace Characters.Enemies.VynilDisc
             dieState.Setup(rb, transform, animator, spriteRenderer, this);
             respawnState.Setup(rb, transform, animator, spriteRenderer, this);
             deactivateState.Setup(rb, transform, animator, spriteRenderer, this);
+
+            firstTimeAggroed = true;
         }
 
         private void Start()
         {
-            beatLength = BeatController.Instance.GetBeatLength();
-
             SetDeactivate(false);
         }
 

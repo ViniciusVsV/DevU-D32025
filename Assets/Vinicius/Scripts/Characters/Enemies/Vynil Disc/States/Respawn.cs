@@ -26,6 +26,7 @@ namespace Characters.Enemies.VynilDisc.States
         public override void StateEnter()
         {
             vynilDiscController.isAggroed = false;
+            vynilDiscController.firstTimeAggroed = true;
 
             // Restaura a posição
             tr.position = spawnPoint;
