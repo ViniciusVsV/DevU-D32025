@@ -68,6 +68,7 @@ namespace Effects.Complex.Player
 
             //Chama primeira parte do efeito sonoro
 
+
             //Aplica abafamento na música
             musicMuffling.ApplyEffect(musicMufflingDuration);
 
@@ -80,7 +81,7 @@ namespace Effects.Complex.Player
             finishedHitStopping = true;
 
             //Chama segunda parte do efeito sonoro
-
+            AudioController.Instance.PlayPlayerDeathSFX();
 
             //Camera treme
             cameraShake.ApplyEffect(impulseSource, cameraShakeForce, Vector2.zero);

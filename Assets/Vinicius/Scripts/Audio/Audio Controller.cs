@@ -13,7 +13,24 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioClip gameMusic;
 
     [Header("||===== SFX =====||")]
+    [Header("Player")]
+    [SerializeField] private AudioClip[] playerJumpSFXs;
+    [SerializeField] private AudioClip[] playerDashSFXs;
+    [SerializeField] private AudioClip[] playerWalkSFXs;
+    [SerializeField] private AudioClip playerAttackSFX;
+    [SerializeField] private AudioClip playerDeathSFX;
+    [SerializeField] private AudioClip playerLandSFX;
+
+    [Header("Sax Player")]
+    [SerializeField] private AudioClip saxPlayerDeathSFX;
+    [SerializeField] private AudioClip saxPlayerAttackSFX;
+
+    [Header("Vynil Disc")]
     [SerializeField] private AudioClip discAggroedSFX;
+    [SerializeField] private AudioClip discWindUpSFX;
+    [SerializeField] private AudioClip discDashSFX;
+
+    [SerializeField] private AudioClip blockSmashSFX;
 
     private void Awake()
     {
@@ -47,7 +64,22 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    public void PlayPlayerJumpSFX() => PlaySFX(playerJumpSFXs[Random.Range(0, playerJumpSFXs.Length)]);
+    public void PlayPlayerDashSFX() => PlaySFX(playerDashSFXs[Random.Range(0, playerDashSFXs.Length)]);
+    public void PlayPlayerWalkSFX() => PlaySFX(playerWalkSFXs[Random.Range(0, playerWalkSFXs.Length)]);
+    public void PlayPlayerAttackSFX() => PlaySFX(playerAttackSFX);
+    public void PlayPlayerDeathSFX() => PlaySFX(playerDeathSFX);
+    public void PlayPlayerLandSFX() => PlaySFX(playerLandSFX);
+
+    public void PlaySaxPlayerDeathSFX() => PlaySFX(saxPlayerDeathSFX);
+    public void PlaySaxPlayerAttackSFX() => PlaySFX(saxPlayerAttackSFX);
+
     public void PlayDiscAggroedSFX() => PlaySFX(discAggroedSFX);
+    public void PlayDiscDashSFX() => PlaySFX(discDashSFX);
+    public void PlayDiscWindUpSFX() => PlaySFX(discWindUpSFX);
+
+    public void PlayBlockSmashSFX() => PlaySFX(blockSmashSFX);
+
     public void PlaySFX(AudioClip audioClip)
     {
         sfxSource.PlayOneShot(audioClip);

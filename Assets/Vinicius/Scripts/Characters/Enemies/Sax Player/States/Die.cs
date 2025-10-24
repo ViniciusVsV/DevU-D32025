@@ -21,6 +21,8 @@ namespace Characters.Enemies.SaxPlayer.States
         {
             saxPlayerController.isDead = true;
 
+            AudioController.Instance.PlaySaxPlayerDeathSFX();
+
             deathEffects.ApplyEffects(tr.position, spriteRenderer);
 
             noteSequence.Deactivate();

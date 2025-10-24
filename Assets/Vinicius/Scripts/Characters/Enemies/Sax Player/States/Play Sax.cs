@@ -42,6 +42,8 @@ namespace Characters.Enemies.SaxPlayer.States
         {
             animator.Play(animationClip.name, 0, 0);
 
+            AudioController.Instance.PlaySaxPlayerAttackSFX();
+
             // Posiciona a marca em cima do jogador
             markTransform.position = playerTransform.position;
 
