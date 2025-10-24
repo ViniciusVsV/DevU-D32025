@@ -23,6 +23,8 @@ namespace Characters.Enemies.VynilDisc.States
         {
             animator.Play(animationClip.name, 0, 0);
 
+            AudioController.Instance.PlayDiscWindUpSFX();
+
             spriteRenderer.transform.DORotate(new Vector3(0, 0, 360), beatLength * beatLengthPercentage, RotateMode.FastBeyond360)
                 .SetRelative(true)
                 .SetEase(Ease.OutExpo);

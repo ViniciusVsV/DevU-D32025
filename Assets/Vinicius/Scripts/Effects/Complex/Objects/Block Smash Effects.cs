@@ -42,6 +42,8 @@ namespace Effects.Complex.Objects
 
             if (hittingWall)
             {
+                AudioController.Instance.PlayBlockSmashSFX();
+
                 //Faz a câmera tremer
                 cameraShake.ApplyEffect(impulseSource, cameraShakeForce, position);
 

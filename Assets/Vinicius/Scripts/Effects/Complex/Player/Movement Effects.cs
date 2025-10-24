@@ -21,6 +21,7 @@ namespace Effects.Complex.Player
         [Header("Fast Run Parameters")]
         [SerializeField] private ParticleSystem fastRunParticles;
 
+        private AudioController audioController;
         private bool fastRunEffectsActive;
 
         private void Awake()
@@ -31,6 +32,8 @@ namespace Effects.Complex.Player
         private void Start()
         {
             afterImagesManager = FindFirstObjectByType<AfterImagesManager>();
+
+            audioController = AudioController.Instance;
         }
 
         public void ApplyJumpEffects(Vector2 position)
@@ -40,7 +43,7 @@ namespace Effects.Complex.Player
             jumpParticles.Play();
 
             //Chama efeito sonoro
-
+            audioController.PlayPlayerJumpSFX();
         }
 
         public void ApplyDoubleJumpEffects(Vector2 position)
@@ -50,7 +53,7 @@ namespace Effects.Complex.Player
             doubleJumpParticles.Play();
 
             //Chama efeito sonoro
-
+            audioController.PlayPlayerJumpSFX();
         }
 
         public void ApplyWallJumpEffects(Vector2 position)
@@ -60,6 +63,7 @@ namespace Effects.Complex.Player
             wallJumpParticles.Play();
 
             //Chama efeito sonoro
+            audioController.PlayPlayerJumpSFX();
         }
 
         public void ApplyLandEffects(Vector2 position)
@@ -68,8 +72,7 @@ namespace Effects.Complex.Player
             landParticles.transform.position = position;
             landParticles.Play();
 
-            //Chama efeito sonoro
-
+            audioController.PlayPlayerLandSFX();
         }
 
         public void ApplyFastRunEffects(Transform playerTransform, SpriteRenderer playerSprite)
@@ -93,6 +96,16 @@ namespace Effects.Complex.Player
             //fastRunParticles.Stop();
             //Desativa afterimgaes
             afterImagesManager.StopAfterImages(playerTransform);
+        }
+
+        public void ApplyDashEffects()
+        {
+            audioController.PlayPlayerDashSFX();
+        }
+
+        public void ApplyRunSFX()
+        {
+            audioController.PlayPlayerWalkSFX();
         }
     }
 }

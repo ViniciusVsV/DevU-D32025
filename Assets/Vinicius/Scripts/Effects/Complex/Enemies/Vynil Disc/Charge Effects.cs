@@ -27,6 +27,8 @@ namespace Effects.Complex.Enemies.VynilDisc
 
         public void ApplyEffects(Transform spriteTransform, SpriteRenderer spriteRenderer)
         {
+            AudioController.Instance.PlayDiscDashSFX();
+
             afterImagesManager.StartAfterImages(spriteTransform, spriteRenderer);
         }
 
