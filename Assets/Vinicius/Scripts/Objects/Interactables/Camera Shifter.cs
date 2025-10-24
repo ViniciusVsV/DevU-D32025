@@ -7,12 +7,15 @@ namespace Objects.Interactables
     {
         [Header("||==== Objects ====||")]
         [SerializeField] private CinemachineCamera cam; //Serializable para caso queira ver o gizmos da câmera no editor
-        private CinemachineFollow cinemachineFollow;
         [SerializeField] private Transform focusPoint;
+
+        private CinemachineFollow cinemachineFollow;
         private Rigidbody2D playerRb;
 
         [Header("||==== Parameters ====||")]
+        [SerializeField] private float newCameraSize;
         [SerializeField] private float timeToActivate;
+        private float baseCameraSize;
         private float timer;
 
         public bool showGizmos; //Habilta mostrar o gizmos
@@ -21,6 +24,7 @@ namespace Objects.Interactables
         {
             cam = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineCamera>();
             cinemachineFollow = cam.gameObject.GetComponent<CinemachineFollow>();
+            baseCameraSize = cam.Lens.OrthographicSize;
         }
 
         private void Update()
@@ -33,11 +37,15 @@ namespace Objects.Interactables
                 else
                 {
                     timer = 0;
+                    cam.Lens.OrthographicSize = baseCameraSize;
                     cam.Follow = playerRb.transform;
                 }
 
                 if (timer >= timeToActivate)
+                {
+                    cam.Lens.OrthographicSize = newCameraSize;
                     cam.Follow = focusPoint;
+                }
             }
         }
 
@@ -77,7 +85,7 @@ namespace Objects.Interactables
             var lens = cam.Lens;
             if (lens.Orthographic)
             {
-                float height = lens.OrthographicSize * 2f;
+                float height = newCameraSize * 2f;
                 float width = height * lens.Aspect;
 
                 Vector3 camPos = focusPoint.position;

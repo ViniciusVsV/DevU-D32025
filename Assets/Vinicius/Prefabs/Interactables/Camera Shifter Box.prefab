@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   focusPoint: {fileID: 5183530763438526287}
+  newCameraSize: 10
   timeToActivate: 0.5
   showGizmos: 1
 --- !u!61 &943694995459654493
