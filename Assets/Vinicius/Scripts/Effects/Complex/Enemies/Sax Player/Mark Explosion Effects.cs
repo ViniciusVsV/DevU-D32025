@@ -56,7 +56,7 @@ namespace Effects.Complex.Enemies.SaxPlayer
             localizedShockwave.ApplyEffect(shockwaveDuration, position, shockwaveSize * Vector3.one);
 
             //Faz o controle tremer um pouco
-            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration);
+            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration, position);
 
             finishedPlaying = true;
         }

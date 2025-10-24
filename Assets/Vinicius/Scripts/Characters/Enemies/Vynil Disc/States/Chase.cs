@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Effects.Complex.Enemies.VynilDisc;
 using StateMachine;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,11 +15,14 @@ namespace Characters.Enemies.VynilDisc.States
         [Header("||===== Objects =====||")]
         [SerializeField] private Transform spriteTransform;
         [SerializeField] private NavMeshAgent navMeshAgent;
-        private Vector2 targetPosition;
-        private Vector2 targetVector;
+
         [SerializeField] private LayerMask terrainLayers;
-        [SerializeField] private CircleCollider2D houndCollider;
+        [SerializeField] private CircleCollider2D discCollider;
         private float colliderRadius;
+
+        [SerializeField] private Transform exclamationPoint;
+
+        private AggroEffects aggroEffects;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private int chargeBeatsCooldown;
@@ -33,19 +37,23 @@ namespace Characters.Enemies.VynilDisc.States
         [SerializeField] private int numberOfPoints;
         private List<Vector2> points = new List<Vector2>();
 
+        private Vector2 targetPosition;
+        private Vector2 targetVector;
+
         private float closestPoint;
         private Vector2 bestPoint;
         private Vector2 relativePointPosition;
         private Vector2 relativePointVector;
 
         private bool seesPlayer;
+
         public bool showGizmos;
 
         private void Awake()
         {
             navMeshAgent.updateRotation = false;
             navMeshAgent.updateUpAxis = false;
-            colliderRadius = houndCollider.radius;
+            colliderRadius = discCollider.radius;
 
             //Calcula um círculo de pontos
             points.Clear();
@@ -67,12 +75,16 @@ namespace Characters.Enemies.VynilDisc.States
         private void Start()
         {
             beatLength = BeatController.Instance.GetBeatLength();
+
+            aggroEffects = AggroEffects.Instance;
         }
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.red;
+            if (vynilDiscController.firstTimeAggroed)
+                aggroEffects.ApplyEffects(exclamationPoint);
+
+            vynilDiscController.firstTimeAggroed = false;
         }
 
         public override void StateUpdate()
@@ -104,6 +116,8 @@ namespace Characters.Enemies.VynilDisc.States
                     vynilDiscController.SetWindUp();
                     return;
                 }
+
+                animator.Play(animationClip.name, 0, 0);
 
                 beatLenghtTimer = beatLength * beatLengthPercentage;
                 chargeBeatCounter--;

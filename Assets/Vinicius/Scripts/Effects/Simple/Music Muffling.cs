@@ -31,8 +31,10 @@ namespace Effects.Simple
                 x => lowPassFilter.cutoffFrequency = x,
                 muffledFrequency,
                 duration
-            ).SetEase(applyEase)
-             .OnComplete(() => isPlaying = false);
+            )
+            .SetEase(applyEase)
+            .SetUpdate(true)
+            .OnComplete(() => isPlaying = false);
         }
 
         public void RemoveEffect(float duration)
@@ -44,8 +46,10 @@ namespace Effects.Simple
                 x => lowPassFilter.cutoffFrequency = x,
                 normalFrequency,
                 duration
-            ).SetEase(removeEase)
-             .OnComplete(() => isPlaying = false);
+            )
+            .SetEase(removeEase)
+            .SetUpdate(true)
+            .OnComplete(() => isPlaying = false);
         }
     }
 }

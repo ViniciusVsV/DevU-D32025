@@ -13,7 +13,6 @@ namespace Effects.Complex.Player
         public static AttackEffects Instance;
 
         [Header("Objects")]
-        [SerializeField] private ParticleSystem particles;
         [SerializeField] private CinemachineImpulseSource impulseSource;
 
         private CameraShake cameraShake;
@@ -94,7 +93,7 @@ namespace Effects.Complex.Player
             cameraShake.ApplyEffect(impulseSource, cameraShakeForce, Vector2.zero);
 
             // Controle treme um pouco 
-            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration);
+            controllerRumble.ApplyEffect(lowFrequency, highFrequency, rumbleDuration, Vector2.zero);
         }
     }
 }

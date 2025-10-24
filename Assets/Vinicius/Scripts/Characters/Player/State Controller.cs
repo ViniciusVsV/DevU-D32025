@@ -1,7 +1,6 @@
 using UnityEngine;
 using Characters.Player.States;
 using StateMachine;
-using Objects.Interactables;
 
 namespace Characters.Player
 {

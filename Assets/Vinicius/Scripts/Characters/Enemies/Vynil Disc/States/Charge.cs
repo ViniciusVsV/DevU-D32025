@@ -42,8 +42,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.magenta;
+            animator.Play(animationClip.name, 0, 0);
 
             beatTimer = 0;
 
@@ -57,6 +56,12 @@ namespace Characters.Enemies.VynilDisc.States
                 newScale.x *= -1;
                 spriteTransform.localScale = newScale;
             }
+
+            float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+            if (spriteTransform.localScale.x < 0)
+                angle += 180f;
+
+            spriteTransform.rotation = Quaternion.Euler(0f, 0f, angle);
 
             targetPosition = rb.position + targetDirection * chargeDistance;
 
@@ -103,6 +108,8 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateExit()
         {
+            spriteTransform.rotation = Quaternion.Euler(Vector3.zero);
+
             chargeEffects.RemoveEffects(spriteTransform);
 
             rb.linearVelocity = Vector2.zero;

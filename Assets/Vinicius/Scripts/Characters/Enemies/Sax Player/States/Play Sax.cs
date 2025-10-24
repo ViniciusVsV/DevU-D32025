@@ -10,6 +10,8 @@ namespace Characters.Enemies.SaxPlayer.States
     {
         private StateController saxPlayerController => (StateController)controller;
 
+        [SerializeField] private AnimationClip animationClip;
+
         [Header("||===== Objects =====||")]
         [SerializeField] private GameObject markObject;
         [SerializeField] private CircleCollider2D damageTrigger;
@@ -38,7 +40,7 @@ namespace Characters.Enemies.SaxPlayer.States
 
         public override void StateEnter()
         {
-            spriteRenderer.color = Color.magenta;
+            animator.Play(animationClip.name, 0, 0);
 
             // Posiciona a marca em cima do jogador
             markTransform.position = playerTransform.position;
@@ -54,7 +56,11 @@ namespace Characters.Enemies.SaxPlayer.States
             if (saxPlayerController.beatHappened)
             {
                 if (beatCounter != 0)
+                {
+                    animator.Play(animationClip.name, 0, 0);
+
                     markObject.transform.DOScale(markTransform.localScale * sizeMultiplier, sizeIncreaseDuration).SetEase(Ease.OutElastic);
+                }
 
                 // Transição para Idle
                 else

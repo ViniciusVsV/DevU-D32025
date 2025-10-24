@@ -8,25 +8,36 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;
 
     [Header("||===== Music =====||")]
-    [SerializeField] private AudioClip mainMenuMusic;
+    [SerializeField] private AudioClip mainMenuStartMusic;
+    [SerializeField] private AudioClip mainMenuReturnMusic;
     [SerializeField] private AudioClip gameMusic;
 
     [Header("||===== SFX =====||")]
-    [SerializeField] private AudioClip clickSFX;
+    [SerializeField] private AudioClip discAggroedSFX;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    public void PlayMainMenuMusic()
+    public void PlayMainMenuStartMusic()
     {
-        if (musicSource.clip != mainMenuMusic)
+        if (musicSource.clip != mainMenuStartMusic)
         {
-            musicSource.clip = mainMenuMusic;
+            musicSource.clip = mainMenuStartMusic;
             musicSource.Play();
         }
     }
+
+    public void PlayMainMenuReturnMusic()
+    {
+        if (musicSource.clip != mainMenuReturnMusic)
+        {
+            musicSource.clip = mainMenuReturnMusic;
+            musicSource.Play();
+        }
+    }
+
     public void PlayGameMusic()
     {
         if (musicSource.clip != gameMusic)
@@ -36,7 +47,7 @@ public class AudioController : MonoBehaviour
         }
     }
 
-    public void PlayClickSFX() => PlaySFX(clickSFX);
+    public void PlayDiscAggroedSFX() => PlaySFX(discAggroedSFX);
     public void PlaySFX(AudioClip audioClip)
     {
         sfxSource.PlayOneShot(audioClip);

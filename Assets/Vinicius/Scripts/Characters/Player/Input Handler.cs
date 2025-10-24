@@ -1,4 +1,5 @@
 using Characters.Player.States;
+using Effects.Complex.Scenes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,8 +48,6 @@ namespace Characters.Player
         private void Awake()
         {
             playerTransform = transform.parent;
-
-            isEnabled = true;
         }
 
         private void Update()
@@ -97,9 +96,6 @@ namespace Characters.Player
 
         public void Move(InputAction.CallbackContext context)
         {
-            if (!isEnabled)
-                return;
-
             playerController.moveDirection = context.ReadValue<Vector2>();
         }
 
@@ -198,6 +194,14 @@ namespace Characters.Player
                 guitarController.PlayNote(MusicalNote.Amarelo);
         }
 
+        public void Quit(InputAction.CallbackContext context)
+        {
+            if (!isEnabled)
+                return;
+
+            GameExitEffects.Instance.ApplyEffects();
+        }
+
         public void CheckForController(InputAction.CallbackContext context)
         {
             if (!isEnabled)
@@ -219,15 +223,6 @@ namespace Characters.Player
                 localScale.x *= -1;
                 playerTransform.localScale = localScale;
             }
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(groundCheckPoint.position, groundCheckSize);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawCube(wallCheckPoint.position, wallCheckSize);
         }
     }
 }

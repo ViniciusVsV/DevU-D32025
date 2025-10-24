@@ -1,4 +1,6 @@
 using DG.Tweening;
+using Effects.Complex.Objects;
+using Effects.Simple;
 using UnityEngine;
 
 namespace Objects.Obstacles.DestructibleSpike
@@ -10,10 +12,17 @@ namespace Objects.Obstacles.DestructibleSpike
         private SpriteRenderer spriteRenderer;
         private Collider2D col;
 
+        [SerializeField] private Material shockwaveMaterial;
+
         [Header("||=====Rythm Parameters =====||")]
         [SerializeField] private Vector3 pulseSize;
         [SerializeField] private float pulseDuration;
         [SerializeField] private Ease pulseEase;
+
+        private SpikeDestroyedEffects spikeDestroyedEffects;
+        private SpriteShockwave spriteShockwave;
+
+        private bool isActive;
 
         private void Awake()
         {
@@ -21,28 +30,40 @@ namespace Objects.Obstacles.DestructibleSpike
             col = GetComponent<Collider2D>();
         }
 
-        public void RespondToBeat()
+        private void Start()
         {
-            transform.localScale = pulseSize;
-
-            transform.DOScale(Vector3.one, pulseDuration).SetEase(pulseEase);
+            spriteShockwave = FindFirstObjectByType<SpriteShockwave>();
+            spikeDestroyedEffects = SpikeDestroyedEffects.Instance;
         }
 
         public void Activate()
         {
             BeatInterval.OnOneBeatHappened += RespondToBeat;
 
-            spriteRenderer.enabled = true;
+            spriteRenderer.material = shockwaveMaterial;
             col.enabled = true;
+
+            isActive = true;
         }
 
         public void Deactivate()
         {
             BeatInterval.OnOneBeatHappened -= RespondToBeat;
 
-            spriteRenderer.enabled = false;
+            spriteShockwave.RemoveEffect(spriteRenderer);
+
+            spikeDestroyedEffects.ApplyEffects(spriteRenderer);
             col.enabled = false;
+
+            isActive = false;
         }
         private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
+        private void OnDestroy() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
+
+        public void RespondToBeat()
+        {
+            if (isActive)
+                spriteShockwave.ApplyEffect(spriteRenderer, 0.4f);
+        }
     }
 }

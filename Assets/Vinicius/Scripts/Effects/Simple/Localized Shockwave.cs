@@ -6,7 +6,6 @@ namespace Effects.Simple
     public class LocalizedShockwave : MonoBehaviour
     {
         [Header("||===== Objects =====||")]
-        [SerializeField] private Material shaderMaterial;
         [SerializeField] private GameObject shockwaveObjectPrefab;
         private Renderer shockwaveRenderer;
         private MaterialPropertyBlock propertyBlock;

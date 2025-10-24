@@ -28,8 +28,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.white;
+            animator.Play(animationClip.name, 0, 0);
 
             vynilDiscController.isStunned = true;
 
@@ -45,7 +44,7 @@ namespace Characters.Enemies.VynilDisc.States
                 if (beatCounter == 0)
                     rb.linearVelocity = initialSpeed * direction;
 
-                tr.DORotate(new Vector3(0, 0, 360), beatLength, RotateMode.FastBeyond360)
+                spriteRenderer.transform.DORotate(new Vector3(0, 0, 360), beatLength, RotateMode.FastBeyond360)
                     .SetRelative(true);
 
                 beatCounter++;

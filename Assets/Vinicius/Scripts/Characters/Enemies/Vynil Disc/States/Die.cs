@@ -1,5 +1,7 @@
+using Effects.Complex.Enemies;
 using StateMachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Characters.Enemies.VynilDisc.States
 {
@@ -9,6 +11,13 @@ namespace Characters.Enemies.VynilDisc.States
 
         [Header("||===== Objects ====||")]
         [SerializeField] private NoteSequence noteSequence;
+        [SerializeField] private NavMeshAgent navMeshAgent;
+        private DeathEffects deathEffects;
+
+        private void Start()
+        {
+            deathEffects = DeathEffects.Instance;
+        }
 
         public override void StateEnter()
         {
@@ -16,7 +25,9 @@ namespace Characters.Enemies.VynilDisc.States
 
             vynilDiscController.isAggroed = false;
 
-            spriteRenderer.enabled = false;
+            navMeshAgent.enabled = false;
+
+            deathEffects.ApplyEffects(tr.position, spriteRenderer);
 
             noteSequence.Deactivate();
         }

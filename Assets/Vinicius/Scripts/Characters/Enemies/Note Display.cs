@@ -27,8 +27,6 @@ namespace Characters.Enemies
 
         public void Activate(Sprite sprite)
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-
             spriteRenderer.sprite = sprite;
             spriteRenderer.color = Color.white;
 

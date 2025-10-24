@@ -61,6 +61,9 @@ namespace Effects.Simple.AfterImage
                 newScale.x = Mathf.Abs(newScale.x) * Mathf.Sign(entity.localScale.x);
                 afterImage.transform.localScale = newScale;
 
+                //Aplica a rotação
+                afterImage.transform.rotation = entity.rotation;
+
                 afterImage.ApplyEffect(entity.transform.position, spriteRenderer.sprite);
 
                 yield return new WaitForSeconds(delayBetweenImages);

@@ -15,8 +15,6 @@ namespace Characters.Enemies.VynilDisc.States
         {
             vynilDiscController.isAggroed = false;
 
-            spriteRenderer.color = Color.black;
-
             noteSequence.Deactivate();
         }
 

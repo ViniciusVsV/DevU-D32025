@@ -1,5 +1,7 @@
+using Effects.Complex.Enemies;
 using StateMachine;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Characters.Enemies.VynilDisc.States
 {
@@ -7,8 +9,10 @@ namespace Characters.Enemies.VynilDisc.States
     {
         private StateController vynilDiscController => (StateController)controller;
 
-        [SerializeField] private GameObject notesObject;
+        [Header("||===== Objects =====||")]
+        [SerializeField] private NavMeshAgent navMeshAgent;
 
+        private RespawnEffects respawnEffects;
         private Vector2 spawnPoint;
 
         private void Awake()
@@ -16,18 +20,25 @@ namespace Characters.Enemies.VynilDisc.States
             spawnPoint = transform.position;
         }
 
+        private void Start()
+        {
+            respawnEffects = RespawnEffects.Instance;
+        }
+
         public override void StateEnter()
         {
             vynilDiscController.isAggroed = false;
-            
+            vynilDiscController.firstTimeAggroed = true;
+
+            navMeshAgent.enabled = true;
+
             // Restaura a posição
             tr.position = spawnPoint;
 
             // Restaura o sprite
             spriteRenderer.enabled = true;
 
-            // Restaura as notas
-            notesObject.SetActive(true);
+            respawnEffects.ApplyEffects(spriteRenderer);
 
             // Transição para Idle
             vynilDiscController.SetIdle();

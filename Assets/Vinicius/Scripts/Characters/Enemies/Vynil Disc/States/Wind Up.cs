@@ -21,10 +21,9 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.blue;
+            animator.Play(animationClip.name, 0, 0);
 
-            tr.DORotate(new Vector3(0, 0, 360), beatLength * beatLengthPercentage, RotateMode.FastBeyond360)
+            spriteRenderer.transform.DORotate(new Vector3(0, 0, 360), beatLength * beatLengthPercentage, RotateMode.FastBeyond360)
                 .SetRelative(true)
                 .SetEase(Ease.OutExpo);
         }

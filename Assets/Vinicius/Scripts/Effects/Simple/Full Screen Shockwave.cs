@@ -6,7 +6,6 @@ namespace Effects.Simple
     public class FullScreenShockwave : MonoBehaviour
     {
         [Header("||===== Objects =====||")]
-        [SerializeField] private Material shaderMaterial;
         [SerializeField] private GameObject shockwaveObject;
         private Renderer shockwaveRenderer;
         private MaterialPropertyBlock propertyBlock;
