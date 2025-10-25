@@ -619,17 +619,6 @@
                 },
                 {
                     "name": "",
-                    "id": "450f80df-33f6-4969-b5ad-37e81e8ed521",
-                    "path": "<DualShockGamepad>/touchpadButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4f4649ac-64a8-4a73-af11-b3faef356a4d",
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",

@@ -41,8 +41,6 @@ namespace Characters.Enemies.VynilDisc.States
         {
             if (vynilDiscController.beatHappened)
             {
-                animator.Play(animationClip.name, 0, 0);
-
                 if (beatCounter == 0)
                     rb.linearVelocity = initialSpeed * direction;
 

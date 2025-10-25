@@ -604,7 +604,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 60
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -870,7 +870,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 8
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1487,10 +1487,12 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: b9d9620637836a04a831d6608527c669, type: 3}
-    - sprite: {fileID: 21300000, guid: 46bb306d2b3f33744880ca088ed0c5de, type: 3}
-    - sprite: {fileID: 21300000, guid: c4292e5e52564dc4588e9471965049ed, type: 3}
-    - sprite: {fileID: 21300000, guid: bedeb94902755cd4486ba511782cbd75, type: 3}
+    - sprite: {fileID: 21300000, guid: 6599c654fed436e4f984f83d93e41ad3, type: 3}
+    - sprite: {fileID: 21300000, guid: 391af0e57e9c5904c92e1efae73cc537, type: 3}
+    - sprite: {fileID: 21300000, guid: 151d4cb898acc2141841a9a6ac1478dc, type: 3}
+    - sprite: {fileID: 21300000, guid: 335e4b418089061459566b42b2e0e574, type: 3}
+    - sprite: {fileID: 21300000, guid: a02e052a75a9eb54eb8c50c8044dd3c5, type: 3}
+    - sprite: {fileID: 21300000, guid: ec9f3a947af887e488c50b0df373ded9, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

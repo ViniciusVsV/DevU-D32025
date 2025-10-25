@@ -28,8 +28,8 @@ public class MainMenuController : MonoBehaviour
             eventSystem.firstSelectedGameObject = newGameButton.gameObject;
         }
 
-        // Cursor.lockState = CursorLockMode.Locked;
-        // Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         menuEnterEffects = MenuEnterEffects.Instance;
         menuExitEffects = MenuExitEffects.Instance;
@@ -48,8 +48,6 @@ public class MainMenuController : MonoBehaviour
         if (PlayerPrefs.GetInt("checkpointId") == 0 || !menuEnterEffects.finishedPlaying)
             return;
 
-        AudioController.Instance.PlayButtonPressedSFX();
-
         continueButton.interactable = false;
         newGameButton.interactable = false;
         exitButton.interactable = false;
@@ -61,8 +59,6 @@ public class MainMenuController : MonoBehaviour
     {
         if (!menuEnterEffects.finishedPlaying)
             return;
-
-        AudioController.Instance.PlayButtonPressedSFX();
 
         continueButton.interactable = false;
         newGameButton.interactable = false;
@@ -77,8 +73,6 @@ public class MainMenuController : MonoBehaviour
     {
         if (!menuEnterEffects.finishedPlaying)
             return;
-
-        AudioController.Instance.PlayButtonPressedSFX();
 
         continueButton.interactable = false;
         newGameButton.interactable = false;

@@ -491,7 +491,7 @@ MonoBehaviour:
   animationClip: {fileID: 7400000, guid: 9f9b75be006f0ef4c827aa305758a10e, type: 2}
   runState: {fileID: 1608626281881388064}
   particlePoint: {fileID: 399688596820521933}
-  jumpForce: 12
+  jumpForce: 10
   jumpCutMultiplier: 0.5
   minJumpDuration: 0.1
 --- !u!1 &3758048966210462933
@@ -1004,8 +1004,8 @@ MonoBehaviour:
   groundCheckSize: {x: 0.36, y: 0.1}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 576
-  coyoteDuration: 0.15
+    m_Bits: 64
+  coyoteDuration: 0.1
   jumpBuffer: 0.15
   dashUses: 1
   dashBuffer: 0.2
