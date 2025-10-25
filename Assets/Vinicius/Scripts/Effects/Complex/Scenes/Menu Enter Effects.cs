@@ -283,7 +283,7 @@ namespace Effects.Complex.Scenes
         {
             beatCounter++;
 
-            if (beatCounter < 5)
+            if (beatCounter < 6)
             {
                 devULogoTr.DOKill();
 
