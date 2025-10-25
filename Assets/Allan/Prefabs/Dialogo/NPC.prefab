@@ -78,8 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 0.3207488, b: 1, a: 1}
+  m_Sprite: {fileID: -6734243358095413696, guid: be42b3b955d0f8f4abfaeac4ae4272c2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -138,15 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4f09c83e6e27f4c92d0a0fbb2ec13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialoguePanel: {fileID: 0}
-  continueButton: {fileID: 0}
-  wordSpeed: 0.06
-  dialogueText: {fileID: 0}
-  dialogue:
-  - TUNG TUNG TUNG SAHUR
-  - TUNG TUNG TUNG SAHUR
-  - TUNG TUNG TUNG SAHUR
-  NPCNameText: {fileID: 0}
-  NPCName: 
+  npcName: 123456789
+  dialogueLines:
+  - asdasdadadas
   interactMenu: {fileID: 0}
-  playerInRange: 0

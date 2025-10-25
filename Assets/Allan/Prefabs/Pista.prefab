@@ -26,11 +26,11 @@ Transform:
   m_GameObject: {fileID: 1750368756841478356}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5353458, y: -3.6142383, z: 0.054660678}
-  m_LocalScale: {x: 17.117403, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5417062613910972271}
+  m_Father: {fileID: 6039264997164306317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &237478425226237243
 BoxCollider2D:
@@ -109,7 +109,8 @@ Transform:
   m_LocalPosition: {x: 0.5353458, y: -3.6142383, z: 0.054660678}
   m_LocalScale: {x: 17.117403, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7418449462679692747}
   m_Father: {fileID: 5417062613910972271}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3917974010642989750
@@ -250,7 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5417062613910972271}
   m_Layer: 0
-  m_Name: Pisat
+  m_Name: Pista
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,7 +271,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6039264997164306317}
-  - {fileID: 7418449462679692747}
   - {fileID: 6666018369892890309}
   - {fileID: 6469477863227240884}
   m_Father: {fileID: 0}

@@ -28,7 +28,7 @@ public class DrumSolo : MonoBehaviour , IRythmSyncable
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField] private CinemachineImpulseSource rumblingSource;
     [SerializeField] private float rumblingDuration;
-    [SerializeField] public float downDuration = 0.5f; // descida suave
+    [SerializeField] public float downDuration = 0.3f; // descida suave
     private bool isMoving;
 
     private int beatCounter;
@@ -93,17 +93,12 @@ public class DrumSolo : MonoBehaviour , IRythmSyncable
             /*groundTransform.position = Vector3.Lerp(originalPosition.position, bouncePosition.position, beatLength);
             groundTransform.position = Vector3.Lerp(bouncePosition.position, originalPosition.position, beatLength / 4);*/
         }
-        if (beatCounter == 3)
-        {
-            StartCoroutine(MoveGround());
-        }
         
     }
     private IEnumerator MoveGround()
     {
         isMoving = true;
 
-        // Subida brusca
         Vector3 startPos = groundTransform.position;
         Vector3 targetUp = bouncePosition.position;
         float t = 0f;
@@ -115,17 +110,14 @@ public class DrumSolo : MonoBehaviour , IRythmSyncable
             yield return null;
         }
 
-        // Ativa hitbox durante o impacto
         StartCoroutine(ActivateHitbox());
 
-        // Descida suave
         t = 0f;
         Vector3 targetDown = originalPosition.position;
 
         while (t < 1f)
         {
             t += Time.deltaTime / downDuration;
-            // movimento com suavização (ease-out)
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
             groundTransform.position = Vector3.Lerp(targetUp, targetDown, smoothT);
             yield return null;
