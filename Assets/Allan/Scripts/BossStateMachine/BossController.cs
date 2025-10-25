@@ -1,8 +1,9 @@
+using Characters.Enemies;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BossController : MonoBehaviour
+public class BossController : MonoBehaviour, IActivatable, IDeactivatable, IRestorable
 {
     [Header("-----States-----")]
     [SerializeField] public BossIdleState idleState;
@@ -10,6 +11,7 @@ public class BossController : MonoBehaviour
     [SerializeField] public BassSolo bassSolo;
     [SerializeField] public KeyboardSolo keyboardSolo;
     [SerializeField] public DrumSolo drumSolo;
+    [SerializeField] public NoteSequence noteSequence;
     private BossStateMachine bossStateMachine;
 
     [Header("-----Health------")]
@@ -32,9 +34,28 @@ public class BossController : MonoBehaviour
     {
         bossStateMachine.ChangeState(idleState);
     }
+    public void Die()
+    {
+        gameObject.SetActive(false);
+    }
 
     void Update()
     {
         bossStateMachine.Update();
+    }
+
+    public void Activate()
+    {
+        noteSequence.Activate();
+    }
+
+    public void Deactivate()
+    {
+        noteSequence.Deactivate();
+    }
+
+    public void Restore()
+    {
+        noteSequence.Activate();
     }
 }

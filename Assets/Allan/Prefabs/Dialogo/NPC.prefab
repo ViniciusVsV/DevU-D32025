@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 9008569973903019771}
   - component: {fileID: 3201828241699027086}
   - component: {fileID: 4135100471044905145}
+  - component: {fileID: 2803041783581224194}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -255,8 +256,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 0.3207488, b: 1, a: 1}
+  m_Sprite: {fileID: -6734243358095413696, guid: be42b3b955d0f8f4abfaeac4ae4272c2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -318,3 +319,25 @@ MonoBehaviour:
   npcName: 
   dialogueLines: []
   interactMenu: {fileID: 522054160370577953}
+--- !u!95 &2803041783581224194
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555689367064153941}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4333a59b616984446a625f33c4bceb07, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

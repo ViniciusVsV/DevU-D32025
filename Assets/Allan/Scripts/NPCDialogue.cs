@@ -6,11 +6,11 @@ public class NPCDialogue : MonoBehaviour
     [TextArea(2, 5)] public string[] dialogueLines;
     private bool playerInRange;
 
-    //public GameObject interactMenu;
+    public GameObject interactMenu;
 
     void Update()
     {
-        //interactMenu.SetActive(playerInRange);
+        interactMenu.SetActive(playerInRange);
 
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
