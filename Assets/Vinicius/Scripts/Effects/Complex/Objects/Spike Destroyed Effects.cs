@@ -37,5 +37,10 @@ namespace Effects.Complex.Objects
 
             finishedPlaying = true;
         }
+
+        public void RemoveEffects(Renderer renderer)
+        {
+            spriteDissolve.RemoveEffect(renderer, 0);
+        }
     }
 }

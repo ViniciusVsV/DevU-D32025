@@ -7,7 +7,7 @@ namespace Objects.Obstacles.DestructibleSpike
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(Collider2D))]
-    public class DestructibleSpike : MonoBehaviour, IRythmSyncable
+    public class DestructibleSpike : MonoBehaviour
     {
         private SpriteRenderer spriteRenderer;
         private Collider2D col;
@@ -20,7 +20,6 @@ namespace Objects.Obstacles.DestructibleSpike
         [SerializeField] private Ease pulseEase;
 
         private SpikeDestroyedEffects spikeDestroyedEffects;
-        private SpriteShockwave spriteShockwave;
 
         private bool isActive;
 
@@ -32,38 +31,23 @@ namespace Objects.Obstacles.DestructibleSpike
 
         private void Start()
         {
-            spriteShockwave = FindFirstObjectByType<SpriteShockwave>();
             spikeDestroyedEffects = SpikeDestroyedEffects.Instance;
         }
 
         public void Activate()
         {
-            BeatInterval.OnOneBeatHappened += RespondToBeat;
-
-            spriteRenderer.material = shockwaveMaterial;
             col.enabled = true;
+            spikeDestroyedEffects.RemoveEffects(spriteRenderer);
 
             isActive = true;
         }
 
         public void Deactivate()
         {
-            BeatInterval.OnOneBeatHappened -= RespondToBeat;
-
-            spriteShockwave.RemoveEffect(spriteRenderer);
-
             spikeDestroyedEffects.ApplyEffects(spriteRenderer);
             col.enabled = false;
 
             isActive = false;
-        }
-        private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
-        private void OnDestroy() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
-
-        public void RespondToBeat()
-        {
-            if (isActive)
-                spriteShockwave.ApplyEffect(spriteRenderer, 0.4f);
         }
     }
 }
