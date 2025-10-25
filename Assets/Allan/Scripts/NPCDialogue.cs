@@ -10,23 +10,24 @@ public class NPCDialogue : MonoBehaviour
 
     void Update()
     {
-        interactMenu.SetActive(playerInRange);
-
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
-        {
-            DialogueManager.Instance.StartDialogue(dialogueLines, npcName);
-        }
+        //interactMenu.SetActive(playerInRange);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
             playerInRange = true;
+            DialogueManager.Instance.StartDialogue(dialogueLines, npcName);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
+            DialogueManager.Instance.EndDialogue();
             playerInRange = false;
+        }
     }
 }

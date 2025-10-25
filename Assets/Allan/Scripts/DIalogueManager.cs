@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class DialogueManager : MonoBehaviour
 
         isTyping = false;
         continueButton.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(continueButton);
     }
 
     public void NextLine()
