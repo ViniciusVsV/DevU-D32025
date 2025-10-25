@@ -1,5 +1,6 @@
 using UnityEngine;
 using StateMachine;
+using Effects.Complex.Player;
 
 namespace Characters.Player.States
 {
@@ -9,6 +10,7 @@ namespace Characters.Player.States
 
         [SerializeField] private Run runState;
         [SerializeField] private AnimationClip animationClip;
+        private MovementEffects movementEffects;
 
         [Header("----- Parameters -----")]
         [SerializeField] private float mainSpeed;
@@ -30,6 +32,11 @@ namespace Characters.Player.States
             totalDuration = mainDuration + secondaryDuration;
         }
 
+        private void Start()
+        {
+            movementEffects = MovementEffects.Instance;
+        }
+
         public override void StateEnter()
         {
             animator.Play(animationClip.name);
@@ -43,6 +50,8 @@ namespace Characters.Player.States
             dashTimer = 0f;
 
             isOnMainSection = true;
+
+            movementEffects.ApplyDashEffects();
 
             rb.AddForce(-rb.linearVelocity, ForceMode2D.Impulse);
 

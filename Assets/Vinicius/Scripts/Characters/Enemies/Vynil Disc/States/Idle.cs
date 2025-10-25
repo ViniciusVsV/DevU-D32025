@@ -35,8 +35,7 @@ namespace Characters.Enemies.VynilDisc.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.blue;
+            animator.Play(animationClip.name, 0, 0);
 
             attemptCounter = 0;
 

@@ -8,7 +8,6 @@ namespace Effects.Complex.Objects
         public static SpikeDestroyedEffects Instance;
 
         [Header("Objects")]
-        [SerializeField] private ParticleSystem particlesPrefab;
         [SerializeField] private Material dissolveMaterial;
         private SpriteDissolve spriteDissolve;
 
@@ -28,17 +27,13 @@ namespace Effects.Complex.Objects
             spriteDissolve = FindFirstObjectByType<SpriteDissolve>();
         }
 
-        public void ApplyEffects(Vector2 position, Renderer renderer)
+        public void ApplyEffects(Renderer renderer)
         {
             finishedPlaying = false;
 
             renderer.material = dissolveMaterial;
 
             spriteDissolve.ApplyEffect(renderer, dissolveDuration);
-
-            ParticleSystem particles = Instantiate(particlesPrefab, transform);
-            particles.transform.position = position;
-            particles.Play();
 
             finishedPlaying = true;
         }

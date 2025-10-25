@@ -7,12 +7,14 @@ namespace Effects.Simple
     {
         [Header("||===== Objects =====||")]
         [SerializeField] private RectTransform transitionImage;
-        [SerializeField] private RectTransform loadingLogo;
+        [SerializeField] private Transform loadingLogo;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private Ease applyEase;
         [SerializeField] private Ease removeEase;
         [SerializeField] private float logoSizePulse;
+
+        private Vector3 originalLogoSize;
 
         private float screenWidth;
         private float beatLength;
@@ -33,6 +35,8 @@ namespace Effects.Simple
             offScreenRight = new Vector2(screenWidth, 0);
 
             transitionImage.anchoredPosition = offScreenLeft;
+
+            originalLogoSize = loadingLogo.localScale;
         }
 
         private void Start()
@@ -49,7 +53,7 @@ namespace Effects.Simple
 
             if (showLoadingLogo)
             {
-                loadingLogo.localScale = Vector3.one;
+                loadingLogo.localScale = originalLogoSize;
                 logoActive = true;
             }
             else
@@ -85,13 +89,13 @@ namespace Effects.Simple
             if (!logoActive)
                 return;
 
-            loadingLogo.localScale = Vector3.one;
+            loadingLogo.localScale = originalLogoSize;
 
-            loadingLogo.DOScale(Vector3.one * logoSizePulse, 0)
+            loadingLogo.DOScale(originalLogoSize * logoSizePulse, 0)
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                loadingLogo.DOScale(Vector3.one, beatLength);
+                loadingLogo.DOScale(originalLogoSize, beatLength);
             });
         }
     }

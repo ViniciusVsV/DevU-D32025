@@ -13,8 +13,7 @@ namespace Characters.Enemies.SaxPlayer.States
 
         public override void StateEnter()
         {
-            //animator.Play(animationClip.name);
-            spriteRenderer.color = Color.blue;
+            animator.Play(animationClip.name, 0, 0);
 
             saxPlayerController.moveDirection = Random.Range(0, 2) > 0 ? 1 : -1;
         }

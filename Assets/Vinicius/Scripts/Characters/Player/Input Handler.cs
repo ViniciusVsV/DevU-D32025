@@ -164,7 +164,10 @@ namespace Characters.Player
                 return;
 
             if (context.performed)
+            {
                 guitarController.PlayNote(MusicalNote.Verde);
+                AudioController.Instance?.PlayNote(MusicalNote.Verde);
+            }
         }
 
         public void Blue(InputAction.CallbackContext context)
@@ -173,7 +176,10 @@ namespace Characters.Player
                 return;
 
             if (context.performed)
+            {
                 guitarController.PlayNote(MusicalNote.Azul);
+                AudioController.Instance?.PlayNote(MusicalNote.Azul);
+            }
         }
 
         public void Red(InputAction.CallbackContext context)
@@ -182,7 +188,10 @@ namespace Characters.Player
                 return;
 
             if (context.performed)
+            {
                 guitarController.PlayNote(MusicalNote.Vermelho);
+                AudioController.Instance?.PlayNote(MusicalNote.Vermelho);
+            }
         }
 
         public void Yellow(InputAction.CallbackContext context)
@@ -191,7 +200,10 @@ namespace Characters.Player
                 return;
 
             if (context.performed)
+            {
                 guitarController.PlayNote(MusicalNote.Amarelo);
+                AudioController.Instance?.PlayNote(MusicalNote.Amarelo);
+            }
         }
 
         public void Quit(InputAction.CallbackContext context)

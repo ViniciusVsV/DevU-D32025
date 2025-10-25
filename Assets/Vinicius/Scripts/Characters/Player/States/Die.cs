@@ -24,6 +24,8 @@ namespace Characters.Player.States
         public override void StateEnter()
         {
             //Desativa tudo
+            animator.Play("Idle", 0, 0);
+
             inputHandler.isEnabled = false;
 
             rb.simulated = false;

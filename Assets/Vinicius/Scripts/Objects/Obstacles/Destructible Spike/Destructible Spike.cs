@@ -36,12 +36,6 @@ namespace Objects.Obstacles.DestructibleSpike
             spikeDestroyedEffects = SpikeDestroyedEffects.Instance;
         }
 
-        public void RespondToBeat()
-        {
-            if (isActive)
-                spriteShockwave.ApplyEffect(spriteRenderer, 0.4f);
-        }
-
         public void Activate()
         {
             BeatInterval.OnOneBeatHappened += RespondToBeat;
@@ -56,12 +50,20 @@ namespace Objects.Obstacles.DestructibleSpike
         {
             BeatInterval.OnOneBeatHappened -= RespondToBeat;
 
-            spikeDestroyedEffects.ApplyEffects(transform.position, spriteRenderer);
+            spriteShockwave.RemoveEffect(spriteRenderer);
+
+            spikeDestroyedEffects.ApplyEffects(spriteRenderer);
             col.enabled = false;
 
             isActive = false;
         }
         private void OnDisable() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
         private void OnDestroy() { BeatInterval.OnOneBeatHappened -= RespondToBeat; }
+
+        public void RespondToBeat()
+        {
+            if (isActive)
+                spriteShockwave.ApplyEffect(spriteRenderer, 0.4f);
+        }
     }
 }

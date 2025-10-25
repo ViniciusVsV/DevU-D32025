@@ -86,6 +86,7 @@ namespace Effects.Complex.Player
                 lightningBoltManager.SummonBolt(playerTransform.position, tr.position);
 
             // Chama um efeito sonoro
+            AudioController.Instance.PlayPlayerAttackSFX();
 
             // Invoca efeito de partículas
 
