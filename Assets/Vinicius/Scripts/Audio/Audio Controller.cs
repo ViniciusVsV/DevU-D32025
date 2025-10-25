@@ -18,8 +18,14 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioClip[] playerDashSFXs;
     [SerializeField] private AudioClip[] playerWalkSFXs;
     [SerializeField] private AudioClip playerAttackSFX;
+    [SerializeField] private AudioClip noteVerde;
+    [SerializeField] private AudioClip noteAzul;
+    [SerializeField] private AudioClip noteVermelho;
+    [SerializeField] private AudioClip noteAmarelo;
+
     [SerializeField] private AudioClip playerDeathSFX;
     [SerializeField] private AudioClip playerLandSFX;
+
 
     [Header("Sax Player")]
     [SerializeField] private AudioClip saxPlayerDeathSFX;
@@ -83,5 +89,20 @@ public class AudioController : MonoBehaviour
     public void PlaySFX(AudioClip audioClip)
     {
         sfxSource.PlayOneShot(audioClip);
+    }
+
+    public void PlayNote(MusicalNote note)
+    {
+        AudioClip clip = note switch
+        {
+            MusicalNote.Verde => noteVerde,
+            MusicalNote.Azul => noteAzul,
+            MusicalNote.Vermelho => noteVermelho,
+            MusicalNote.Amarelo => noteAmarelo,
+            _ => null
+        };
+
+        if (clip != null)
+            PlaySFX(clip);
     }
 }

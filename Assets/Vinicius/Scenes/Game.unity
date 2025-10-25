@@ -17028,7 +17028,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 997105068160540, guid: 75468ffe490dde04eae2dd2def525738, type: 3}
       propertyPath: beatDelay
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 958412103445542534, guid: 75468ffe490dde04eae2dd2def525738, type: 3}
       propertyPath: m_Name
@@ -19523,11 +19523,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 52b0f703d9135f5489e8675befbca9fe, type: 2}
---- !u!1 &2128844284 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4444608898358654599, guid: 77ff35a8fa710724fb33ff87ca9f51f1, type: 3}
-  m_PrefabInstance: {fileID: 244700718}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2128844285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6405034288545533752, guid: 77ff35a8fa710724fb33ff87ca9f51f1, type: 3}
@@ -20417,7 +20412,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 8218337252452150752}
   dynamicObjects:
   - {fileID: 736528021}
-  - {fileID: 2128844284}
 --- !u!4 &1548390666715775904
 Transform:
   m_ObjectHideFlags: 0
