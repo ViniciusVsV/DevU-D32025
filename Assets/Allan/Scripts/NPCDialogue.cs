@@ -24,7 +24,7 @@ public class NPCDialogue : MonoBehaviour
             interactMenu.SetActive(true);
         else
             interactMenu.SetActive(false);
-        if ((Input.GetButtonDown("Interact") || Input.GetButtonDown("Interact1")) && playerInRange)
+        if (Input.GetKeyDown(KeyCode.E) && playerInRange)
         {
             if (dialoguePanel.activeInHierarchy)
             {

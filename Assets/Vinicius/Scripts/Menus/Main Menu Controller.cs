@@ -28,8 +28,8 @@ public class MainMenuController : MonoBehaviour
             eventSystem.firstSelectedGameObject = newGameButton.gameObject;
         }
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
 
         menuEnterEffects = MenuEnterEffects.Instance;
         menuExitEffects = MenuExitEffects.Instance;

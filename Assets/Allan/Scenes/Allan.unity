@@ -879,13 +879,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7842734058825406217, guid: 7affe1fd1deb1f944b59bf4acb9b950a, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5183902940584261928, guid: 7affe1fd1deb1f944b59bf4acb9b950a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 365222198}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 522054160370577953, guid: 7affe1fd1deb1f944b59bf4acb9b950a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 7affe1fd1deb1f944b59bf4acb9b950a, type: 3}
 --- !u!223 &932141181354518870
 Canvas:
