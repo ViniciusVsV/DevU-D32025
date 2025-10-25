@@ -59,7 +59,8 @@ namespace Effects.Complex.Scenes
         [SerializeField] private Ease transitionEase;
 
         [Header("Music Muffling")]
-        [SerializeField] private float musicDemufflingDuration;
+        [SerializeField] private float mainDemuffilgDuration;
+        [SerializeField] private float returnDemufflingDuration;
 
         [Header("Camera Shake")]
         [SerializeField] private CinemachineImpulseSource cinemachineImpulseSource;
@@ -84,7 +85,6 @@ namespace Effects.Complex.Scenes
         [SerializeField] private float shockwaveDuration;
 
         [Header("||===== Return Parameters =====||")]
-        [SerializeField] private float returnDemufflingDuration;
         [SerializeField] private float returnFadeInDuration;
         [SerializeField] private float returnTransitionDuration;
 
@@ -181,10 +181,11 @@ namespace Effects.Complex.Scenes
 
         private IEnumerator MainRoutine()
         {
+            musicMuffling.RemoveEffect(mainDemuffilgDuration);
+
             yield return new WaitForSeconds(mainDelay);
 
             musicSource.Play();
-            musicMuffling.RemoveEffect(totalLength);
 
             while (beatCounter == -1)
                 yield return null;
@@ -266,7 +267,7 @@ namespace Effects.Complex.Scenes
         {
             yield return new WaitForSeconds(returnDelay);
 
-            musicMuffling.RemoveEffect(musicDemufflingDuration);
+            musicMuffling.RemoveEffect(returnDemufflingDuration);
             musicFade.FadeIn(returnFadeInDuration);
 
             cameraTransition.RemoveEffect(returnTransitionDuration);
