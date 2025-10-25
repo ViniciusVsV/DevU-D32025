@@ -7,7 +7,8 @@ namespace Effects.Simple
     {
         [Header("||===== Objects =====||")]
         [SerializeField] private AudioSource musicSource;
-        [SerializeField] private AudioLowPassFilter lowPassFilter;
+        [SerializeField] private AudioLowPassFilter musicLowPassFilter;
+        [SerializeField] private AudioLowPassFilter sfxLowPassFilter;
 
         [Header("||===== Parameters =====||")]
         [SerializeField] private float muffledFrequency = 800f;
@@ -19,37 +20,56 @@ namespace Effects.Simple
 
         private void Awake()
         {
-            lowPassFilter.cutoffFrequency = normalFrequency;
+            musicLowPassFilter.cutoffFrequency = normalFrequency;
+            sfxLowPassFilter.cutoffFrequency = normalFrequency;
         }
 
         public void ApplyEffect(float duration)
         {
             isPlaying = true;
 
+            // Música
             DOTween.To(
-                () => lowPassFilter.cutoffFrequency,
-                x => lowPassFilter.cutoffFrequency = x,
+                () => musicLowPassFilter.cutoffFrequency,
+                x => musicLowPassFilter.cutoffFrequency = x,
                 muffledFrequency,
                 duration
-            )
-            .SetEase(applyEase)
-            .SetUpdate(true)
-            .OnComplete(() => isPlaying = false);
+            ).SetEase(applyEase)
+             .SetUpdate(true);
+
+            // SFX
+            DOTween.To(
+                () => sfxLowPassFilter.cutoffFrequency,
+                x => sfxLowPassFilter.cutoffFrequency = x,
+                muffledFrequency,
+                duration
+            ).SetEase(applyEase)
+             .SetUpdate(true)
+             .OnComplete(() => isPlaying = false);
         }
 
         public void RemoveEffect(float duration)
         {
             isPlaying = true;
 
+            // Música
             DOTween.To(
-                () => lowPassFilter.cutoffFrequency,
-                x => lowPassFilter.cutoffFrequency = x,
+                () => musicLowPassFilter.cutoffFrequency,
+                x => musicLowPassFilter.cutoffFrequency = x,
                 normalFrequency,
                 duration
-            )
-            .SetEase(removeEase)
-            .SetUpdate(true)
-            .OnComplete(() => isPlaying = false);
+            ).SetEase(removeEase)
+             .SetUpdate(true);
+
+            // SFX
+            DOTween.To(
+                () => sfxLowPassFilter.cutoffFrequency,
+                x => sfxLowPassFilter.cutoffFrequency = x,
+                normalFrequency,
+                duration
+            ).SetEase(removeEase)
+             .SetUpdate(true)
+             .OnComplete(() => isPlaying = false);
         }
     }
 }

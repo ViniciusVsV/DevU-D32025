@@ -38,6 +38,8 @@ public class AudioController : MonoBehaviour
 
     [SerializeField] private AudioClip blockSmashSFX;
 
+    [SerializeField] private AudioClip buttonPressedSFX;
+
     private void Awake()
     {
         Instance = this;
@@ -85,6 +87,8 @@ public class AudioController : MonoBehaviour
     public void PlayDiscWindUpSFX() => PlaySFX(discWindUpSFX);
 
     public void PlayBlockSmashSFX() => PlaySFX(blockSmashSFX);
+
+    public void PlayButtonPressedSFX() => PlaySFX(buttonPressedSFX);
 
     public void PlaySFX(AudioClip audioClip)
     {
