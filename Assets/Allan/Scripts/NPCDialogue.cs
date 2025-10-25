@@ -12,15 +12,19 @@ public class NPCDialogue : MonoBehaviour
     public Text dialogueText;
     public string[] dialogue;
     public Text NPCNameText;
-    
+    public string NPCName;
+    public GameObject interactMenu;
     private int index;
     public bool playerInRange;
-    public string NPCName;
     private Coroutine isTyping;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerInRange)
+        if (playerInRange)
+            interactMenu.SetActive(true);
+        else
+            interactMenu.SetActive(false);
+        if ((Input.GetButtonDown("Interact") || Input.GetButtonDown("Interact1")) && playerInRange)
         {
             if (dialoguePanel.activeInHierarchy)
             {

@@ -23,8 +23,7 @@ public class DrumSolo : MonoBehaviour , IRythmSyncable
     [SerializeField] public BoxCollider2D boxCollider;
     [SerializeField] public float hitboxActiveTime;
     [Range(0, 1)][SerializeField] private float beatPercentage;
-    public ParticleSystem ceilingFX;
-
+    public List<ParticleSystem> ceilingFX;
     private CinemachineImpulseSource impulseSource;
 
     private int beatCounter;
@@ -61,7 +60,10 @@ public class DrumSolo : MonoBehaviour , IRythmSyncable
             StartCoroutine(EndDrumSolo());
             groundTransform.DOKill();
             impulseSource.GenerateImpulse();
-            ceilingFX.Play();
+            foreach(ParticleSystem particles in ceilingFX)
+            {
+                particles.Play();
+            }
 
             var sequence = DOTween.Sequence();
             sequence.Append(groundTransform.DOMove(bouncePosition.position, beatLength * beatPercentage).SetEase(easeUp)

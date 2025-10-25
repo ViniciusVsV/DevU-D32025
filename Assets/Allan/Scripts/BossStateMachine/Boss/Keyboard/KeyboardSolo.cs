@@ -8,6 +8,8 @@ public class KeyboardSolo : MonoBehaviour
 
     [Header("-----Note Spawner-----")]
     [SerializeField] public NoteSpawner noteSpawner;
+    [Header("-----FX-----")]
+    [SerializeField] public ParticleSystem onFX;
 
     public bool isSoloing;
 
@@ -21,6 +23,7 @@ public class KeyboardSolo : MonoBehaviour
         Debug.Log("teclado");
         isSoloing = true;
         noteSpawner.enabled = true;
+        onFX.Play();
 
         yield return new WaitForSeconds(soloDuration);
 

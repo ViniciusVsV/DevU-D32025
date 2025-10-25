@@ -93,7 +93,7 @@ public class NoteSpawner : MonoBehaviour
 
         GameObject newNote = Instantiate(prefabSorteado, posicaoSpawn, rotation);
 
-        NoteMovement scriptDoInimigo = newNote.GetComponent<NoteMovement>();
+        NoteSpawnMovement scriptDoInimigo = newNote.GetComponent<NoteSpawnMovement>();
 
         if (scriptDoInimigo != null)
         {

@@ -1,4 +1,3 @@
-using Characters.Enemies.Beamer.States;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;

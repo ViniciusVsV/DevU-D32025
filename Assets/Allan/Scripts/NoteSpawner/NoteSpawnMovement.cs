@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NoteMovement : MonoBehaviour
+public class NoteSpawnMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     private Rigidbody2D rb;

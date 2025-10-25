@@ -8,6 +8,8 @@ public class BassSolo : MonoBehaviour
 
     [Header("-----Note Spawner-----")]
     [SerializeField] public NoteSpawner noteSpawner;
+    [Header("-----FX-----")]
+    [SerializeField] public ParticleSystem onFX;
 
     public bool isSoloing;
 
@@ -21,6 +23,7 @@ public class BassSolo : MonoBehaviour
         Debug.Log("baixo");
         isSoloing = true;
         noteSpawner.enabled = true;
+        onFX.Play();
 
         yield return new WaitForSeconds(soloDuration);
 
