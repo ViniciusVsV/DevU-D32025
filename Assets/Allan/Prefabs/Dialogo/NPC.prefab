@@ -102,7 +102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pressione E para interagir
+  m_text: Pressione E / Direcional Direito para interagir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -315,15 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4f09c83e6e27f4c92d0a0fbb2ec13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialoguePanel: {fileID: 0}
-  continueButton: {fileID: 0}
-  wordSpeed: 0.06
-  dialogueText: {fileID: 0}
-  dialogue:
-  - TUNG TUNG TUNG SAHUR
-  - TUNG TUNG TUNG SAHUR
-  - TUNG TUNG TUNG SAHUR
-  NPCNameText: {fileID: 0}
-  NPCName: 
+  npcName: 
+  dialogueLines: []
   interactMenu: {fileID: 522054160370577953}
-  playerInRange: 0
